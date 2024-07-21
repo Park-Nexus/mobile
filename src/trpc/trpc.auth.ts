@@ -1,10 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {tempHost} from './trpc.types';
 import {TRPCLink} from '@trpc/react-query';
 import {TrpcRouter} from '@parknexus/api';
 import {observable} from '@trpc/server/observable';
-import {AuthTypes} from '../types';
+import {ApiTypes, AuthTypes} from '../types';
 
 export const headers = async () => {
   const accessToken = await AsyncStorage.getItem(
@@ -21,9 +20,12 @@ export const getAccessToken = async (): Promise<string | null> => {
     AuthTypes.REFRESH_TOKEN_STORAGE_KEY,
   );
   if (!refreshToken) return null;
-  const response = await axios.post(`${tempHost}/auth.getAccessToken`, {
-    refreshToken,
-  });
+  const response = await axios.post(
+    `${ApiTypes.API_HOST}/auth.getAccessToken`,
+    {
+      refreshToken,
+    },
+  );
   const accessToken = response?.data?.result?.data?.accessToken || null;
 
   return accessToken;

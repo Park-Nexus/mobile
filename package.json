@@ -19,9 +19,11 @@
     "@trpc/react-query": "next",
     "@trpc/server": "next",
     "axios": "^1.7.2",
+    "constate": "^3.3.2",
     "react": "18.2.0",
     "react-native": "0.74.3",
-    "react-native-gesture-handler": "^2.17.1"
+    "react-native-gesture-handler": "^2.17.1",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
