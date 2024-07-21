@@ -4,6 +4,7 @@ import {tempHost} from './trpc.types';
 import {trpc} from './trpc';
 import {httpBatchLink} from '@trpc/react-query';
 import {authLinkInterceptor, headers} from './trpc.auth';
+import {ApiTypes} from '../types';
 
 type TrpcProviderProps = {
   children: React.ReactNode;
@@ -20,7 +21,7 @@ export const TrpcProvider = ({children}: TrpcProviderProps) => {
       links: [
         authLinkInterceptor,
         httpBatchLink({
-          url: tempHost,
+          url: ApiTypes.API_HOST,
           headers,
         }),
       ],

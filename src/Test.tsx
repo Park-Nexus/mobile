@@ -1,21 +1,20 @@
 import React, {useState} from 'react';
 
-import {Button, SafeAreaView, Text, TextInput, View} from 'react-native';
+import {Button, Text, TextInput, View} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {trpc, TrpcProvider} from './trpc';
+import {trpc} from './trpc';
+import {AuthTypes} from './types';
 
-export const App = () => {
+export const Test = () => {
   return (
-    <TrpcProvider>
-      <SafeAreaView>
-        <PrivateCall />
-        <Register />
-        <Login />
-        <Logout />
-      </SafeAreaView>
-    </TrpcProvider>
+    <>
+      <PrivateCall />
+      <Register />
+      <Login />
+      <Logout />
+    </>
   );
 };
 
@@ -69,8 +68,14 @@ function Login() {
 
   const loginMutation = trpc.auth.login.useMutation({
     async onSuccess(data) {
-      await AsyncStorage.setItem('at', data.accessToken);
-      await AsyncStorage.setItem('rt', data.refreshToken);
+      await AsyncStorage.setItem(
+        AuthTypes.ACCESS_TOKEN_STORAGE_KEY,
+        data.accessToken,
+      );
+      await AsyncStorage.setItem(
+        AuthTypes.REFRESH_TOKEN_STORAGE_KEY,
+        data.refreshToken,
+      );
       trpcUtils.home.private.invalidate();
     },
     onError(err) {
@@ -104,5 +109,3 @@ export function Logout() {
     </View>
   );
 }
-
-export default App;
