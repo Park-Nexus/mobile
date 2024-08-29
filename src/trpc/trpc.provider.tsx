@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
-import {tempHost} from './trpc.types';
 import {trpc} from './trpc';
 import {httpBatchLink} from '@trpc/react-query';
 import {authLinkInterceptor, headers} from './trpc.auth';
