@@ -19,28 +19,28 @@ export const Test = () => {
 };
 
 function PrivateCall() {
-  const {data} = trpc.home.private.useQuery();
+  const {data} = trpc.user.profile.get.single.useQuery();
 
   const trpcUtils = trpc.useUtils();
 
   return (
     <View>
-      <Text>{data ? data : 'Not logged in'}</Text>
+      <Text>{data ? data.accountId : 'Not logged in'}</Text>
       <Button
         title="Refetch"
-        onPress={() => trpcUtils.home.private.invalidate()}
+        onPress={() => trpcUtils.user.profile.invalidate()}
       />
     </View>
   );
 }
 
 function Register() {
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const regMutation = trpc.auth.register.useMutation({
-    onSuccess(data) {
-      console.log(`User id ${data.id} registered!`);
+    onSuccess() {
+      console.log(`User registered!`);
     },
     onError(err) {
       console.error(err.message);
@@ -50,18 +50,18 @@ function Register() {
   return (
     <View>
       <Text>Register</Text>
-      <TextInput value={phone} onChangeText={setPhone} />
+      <TextInput value={email} onChangeText={setEmail} />
       <TextInput value={password} onChangeText={setPassword} />
       <Button
         title="Reg"
-        onPress={() => regMutation.mutate({phone, password})}
+        onPress={() => regMutation.mutate({email, password, role: 'USER'})}
       />
     </View>
   );
 }
 
 function Login() {
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const trpcUtils = trpc.useUtils();
@@ -76,7 +76,7 @@ function Login() {
         AuthTypes.REFRESH_TOKEN_STORAGE_KEY,
         data.refreshToken,
       );
-      trpcUtils.home.private.invalidate();
+      trpcUtils.user.profile.invalidate();
     },
     onError(err) {
       console.error(err.message);
@@ -86,11 +86,11 @@ function Login() {
   return (
     <View>
       <Text>Login</Text>
-      <TextInput value={phone} onChangeText={setPhone} />
+      <TextInput value={email} onChangeText={setEmail} />
       <TextInput value={password} onChangeText={setPassword} />
       <Button
         title="Login"
-        onPress={() => loginMutation.mutate({phone, password})}
+        onPress={() => loginMutation.mutate({email, password})}
       />
     </View>
   );
@@ -100,7 +100,7 @@ export function Logout() {
   const trpcUtils = trpc.useUtils();
   const logout = async () => {
     await AsyncStorage.clear();
-    trpcUtils.home.private.reset();
+    trpcUtils.user.profile.get.single.reset();
   };
 
   return (
