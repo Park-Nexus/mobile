@@ -1,7 +1,8 @@
-import {Image, ImageBackground, View} from 'react-native';
+import {Image, ImageBackground} from 'react-native';
 
-import Background from '../../../static/images/Splash__Background.png';
-import Logo from '../../../static/icons/Logo_Vertical.png';
+import Background from '@src/static/images/Splash__Background.png';
+import Logo from '@src/static/icons/Logo_Vertical.png';
+
 import {styles} from './index.styles';
 
 export function SplashScreen() {
