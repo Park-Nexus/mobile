@@ -3,19 +3,18 @@ import React from 'react';
 import {ActionSheetProvider} from '@expo/react-native-action-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {TrpcProvider} from '@src/trpc';
-import {KeyboardAvoidingView, StyleSheet} from 'react-native';
-import {Test} from '../Test';
-import {SplashScreen} from '@src/nav/screens/Root';
+import {StyleSheet} from 'react-native';
 import {RootNavigator} from '@src/nav';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export function Root() {
   return (
     <GestureHandlerRootView style={styles.gestureHandlerRootView}>
       <ActionSheetProvider>
         <TrpcProvider>
-          <KeyboardAvoidingView>
+          <SafeAreaProvider>
             <RootNavigator />
-          </KeyboardAvoidingView>
+          </SafeAreaProvider>
         </TrpcProvider>
       </ActionSheetProvider>
     </GestureHandlerRootView>

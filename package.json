@@ -17,6 +17,7 @@
     "@react-native-firebase/app": "^20.3.0",
     "@react-native-firebase/auth": "^20.3.0",
     "@react-navigation/native": "^6.1.18",
+    "@react-navigation/native-stack": "^6.11.0",
     "@tanstack/react-query": "latest",
     "@trpc/client": "next",
     "@trpc/react-query": "next",

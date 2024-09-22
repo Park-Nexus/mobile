@@ -1,12 +1,13 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {GlobalGuard} from '@src/components/GlobalGuard';
-import {SplashScreen} from '@src/nav/screens/Root';
+import {RootScreens} from './index.screens';
+import {StatusBar} from 'react-native';
 
 export function RootNavigator() {
   return (
     <NavigationContainer>
       <GlobalGuard>
-        <SplashScreen />
+        <RootScreens />
       </GlobalGuard>
     </NavigationContainer>
   );
