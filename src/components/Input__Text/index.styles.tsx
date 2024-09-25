@@ -15,6 +15,8 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(240, 240, 240, 1)',
   },
   textInput: {
+    flex: 1,
+
     fontSize: 14,
     fontWeight: '400',
   },

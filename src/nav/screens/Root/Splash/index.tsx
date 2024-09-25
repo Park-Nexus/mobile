@@ -1,7 +1,7 @@
 import {Image, ImageBackground} from 'react-native';
 
 import Background from '@src/static/images/Splash__Background.png';
-import Logo from '@src/static/icons/Logo_Vertical.png';
+import Logo from '@src/static/images/Logo_Vertical.png';
 
 import {styles} from './index.styles';
 
