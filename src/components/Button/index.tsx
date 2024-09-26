@@ -47,11 +47,13 @@ export function Button(props: IButtonProps) {
       ]}
       {...buttonRest}>
       {preIcon}
-      <Text
-        style={[textStyle, {color: textColor(variant)}, styles.text]}
-        {...textPropsRest}>
-        {text}
-      </Text>
+      {text && (
+        <Text
+          style={[textStyle, {color: textColor(variant)}, styles.text]}
+          {...textPropsRest}>
+          {text}
+        </Text>
+      )}
       {postIcon}
     </TouchableOpacity>
   );
