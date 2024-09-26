@@ -10,8 +10,6 @@ export const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: '700',
     color: '#128085',
-
-    marginBottom: 42,
   },
 
   forgotPasswordText: {
