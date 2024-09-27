@@ -1,4 +1,4 @@
-import {createStackNavigator} from '@src/libs/StackNavigator';
+import {createStackNavigator} from '@src/libs/stackNavigator';
 import {Login} from '@src/nav/screens/Root.Main.Auth/Login';
 
 const {Navigator, Screen} = createStackNavigator();
