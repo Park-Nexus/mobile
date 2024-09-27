@@ -1,13 +1,11 @@
 import {create} from 'zustand';
 
 interface IAuthState {
-  isInitialized: boolean;
   isAuthenticated: boolean;
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
 }
 
-const initialState: IAuthState = {
-  isInitialized: false,
+export const useAuthStore = create<IAuthState>(set => ({
   isAuthenticated: false,
-};
-
-export const useAuthStore = create<IAuthState>(() => initialState);
+  setIsAuthenticated: isAuthenticated => set({isAuthenticated}),
+}));

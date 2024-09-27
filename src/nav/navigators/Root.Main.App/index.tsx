@@ -6,7 +6,7 @@ const {Navigator, Screen} = createStackNavigator();
 export function AppNavigator() {
   return (
     <Navigator>
-      <Screen name="onboarding" component={Onboarding} />
+      <Screen name="Onboarding" component={Onboarding} />
     </Navigator>
   );
 }

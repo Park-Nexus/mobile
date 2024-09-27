@@ -1,14 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {TRPCLink} from '@trpc/react-query';
 import {TrpcRouter} from '@parknexus/api';
 import {observable} from '@trpc/server/observable';
-import {ApiTypes, AuthTypes} from '../types';
+import {AuthStorage} from '@src/auth/auth.utils';
+import {ApiTypes} from '@src/types/types.api';
 
 export const headers = async () => {
-  const accessToken = await AsyncStorage.getItem(
-    AuthTypes.ACCESS_TOKEN_STORAGE_KEY,
-  );
+  const accessToken = await AuthStorage.getAccessToken();
   if (!accessToken) return {};
   return {
     Authorization: `Bearer ${accessToken}`,
@@ -16,9 +14,7 @@ export const headers = async () => {
 };
 
 export const getAccessToken = async (): Promise<string | null> => {
-  const refreshToken = await AsyncStorage.getItem(
-    AuthTypes.REFRESH_TOKEN_STORAGE_KEY,
-  );
+  const refreshToken = await AuthStorage.getRefreshToken();
   if (!refreshToken) return null;
   const response = await axios.post(
     `${ApiTypes.API_HOST}/auth.getAccessToken`,
@@ -45,10 +41,7 @@ export const authLinkInterceptor: TRPCLink<TrpcRouter> = () => {
             if (!newAccessToken) return observer.error(err);
 
             // Store new access token ------------------------
-            await AsyncStorage.setItem(
-              AuthTypes.ACCESS_TOKEN_STORAGE_KEY,
-              newAccessToken,
-            );
+            await AuthStorage.setAccessToken(newAccessToken);
 
             next(op).subscribe({
               next: observer.next,

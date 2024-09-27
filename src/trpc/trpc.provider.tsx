@@ -3,7 +3,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {trpc} from './trpc';
 import {httpBatchLink} from '@trpc/react-query';
 import {authLinkInterceptor, headers} from './trpc.auth';
-import {ApiTypes} from '../types';
+import {ApiTypes} from '@src/types/types.api';
 
 type TrpcProviderProps = {
   children: React.ReactNode;

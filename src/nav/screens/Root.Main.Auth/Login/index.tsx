@@ -13,15 +13,22 @@ import GoogleSvg from '@src/static/svgs/Google.svg';
 import EyeSvg from '@src/static/svgs/Eye.svg';
 import {useState} from 'react';
 import {TLoginPayload, useSubmit} from './index.submit';
+import {useNavigation} from '@react-navigation/native';
 
 export function Login() {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-  const {control, handleSubmit} = useForm<TLoginPayload>();
+  const {control, handleSubmit} = useForm<TLoginPayload>({
+    values: {
+      email: 'vclong2003@gmail.com',
+      password: '12345678',
+    },
+  });
   const {submit, isPending} = useSubmit();
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView>
-      <Header backButtonVisible />
+      <Header onBackButtonPress={navigation.goBack} backButtonVisible />
       <View style={{height: 52}} />
       <View style={styles.wrapper}>
         <Text style={styles.title}>Log in your Account</Text>
@@ -37,6 +44,7 @@ export function Login() {
               value={value}
               preIcon={<EmailSvg width={24} height={24} />}
               placeholder="Email"
+              defaultValue="vclong2003@gmail.com"
             />
           )}
         />
@@ -58,6 +66,7 @@ export function Login() {
                 </TouchableOpacity>
               }
               placeholder="Password"
+              defaultValue="12345678"
             />
           )}
         />
