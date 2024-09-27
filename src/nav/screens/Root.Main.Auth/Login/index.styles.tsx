@@ -26,8 +26,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 4,
 
-    marginBottom: 16,
-    marginTop: 42,
+    marginBottom: 32,
+    marginTop: 32,
   },
   dividerText: {
     fontSize: 14,

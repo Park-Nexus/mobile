@@ -7,7 +7,7 @@ const {Navigator, Screen} = createStackNavigator();
 
 export function AuthNavigator() {
   return (
-    <Navigator>
+    <Navigator initialRouteName="Intro">
       <Screen name="Login" component={Login} />
       <Screen name="Intro" component={Intro} />
     </Navigator>
