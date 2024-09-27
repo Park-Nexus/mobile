@@ -1,3 +1,0 @@
-export * from './Terms__Privacy';
-export * from './Terms__Usage';
-export * from './Splash';

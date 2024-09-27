@@ -10,4 +10,4 @@ const initialState: IAuthState = {
   isAuthenticated: false,
 };
 
-const useAuthStore = create<IAuthState>(() => initialState);
+export const useAuthStore = create<IAuthState>(() => initialState);
