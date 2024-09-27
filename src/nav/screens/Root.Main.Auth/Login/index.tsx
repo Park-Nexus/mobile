@@ -2,7 +2,7 @@ import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {styles} from './index.styles';
 
 import {TextInput} from '@src/components/Input__Text';
-import {Text, TouchableWithoutFeedback, View} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 import {Button} from '@src/components/Button';
 import {Header} from '@src/components/Header';
 import {Controller, useForm} from 'react-hook-form';
@@ -12,7 +12,6 @@ import PasswordSvg from '@src/static/svgs/Lock.svg';
 import GoogleSvg from '@src/static/svgs/Google.svg';
 import EyeSvg from '@src/static/svgs/Eye.svg';
 import {useState} from 'react';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {TLoginPayload, useSubmit} from './index.submit';
 
 export function Login() {
