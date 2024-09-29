@@ -3,7 +3,7 @@ import {
   createBottomTabNavigator as rnCreateBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import {ParamListBase} from '@react-navigation/native';
-import {View} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 
 export function createBottomTabNavigator<T extends ParamListBase>() {
   const {Navigator: BaseNavigator, Screen} = rnCreateBottomTabNavigator<T>();
@@ -24,7 +24,7 @@ export function createBottomTabNavigator<T extends ParamListBase>() {
     },
 
     tabBarButton(props) {
-      return <View {...props} style={{flex: 1, padding: 8}} />;
+      return <TouchableOpacity {...props} style={{flex: 1, padding: 8}} />;
     },
     tabBarLabelStyle: {
       fontSize: 12,

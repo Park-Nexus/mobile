@@ -15,7 +15,7 @@ export function TabNavigator() {
       <Screen
         name="Home"
         component={Home}
-        options={{tabBarIcon: ({}) => <HomeSvg stroke="#FFF" />}}
+        options={{tabBarIcon: ({}) => <HomeSvg />}}
       />
       <Screen name="Search" component={Search} />
       <Screen name="Ticket" component={Ticket} />

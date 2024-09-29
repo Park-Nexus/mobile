@@ -13,10 +13,10 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A0F2741F69484220B0674F10 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B76394F5AA64E219B231D81 /* BootSplash.storyboard */; };
 		A2420D4A2C4CF6E0003D0215 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A2420D492C4CF6E0003D0215 /* GoogleService-Info.plist */; };
 		BADA06D4B7C8E7912CDB43B7 /* Pods_ParkNexus_ParkNexusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAE16EDFED0EDFA9EA436F7 /* Pods_ParkNexus_ParkNexusTests.framework */; };
 		C6BD2E14865D10EF1ADB4388 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = FAF1E3250915134A04970AB7 /* PrivacyInfo.xcprivacy */; };
-		A0F2741F69484220B0674F10 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B76394F5AA64E219B231D81 /* BootSplash.storyboard */; };
 		D57C1CA3B4624174A2E4BADB /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F86FFC575B404446834944D1 /* Colors.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +41,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ParkNexus/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ParkNexus/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = ParkNexus/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		1B76394F5AA64E219B231D81 /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = ParkNexus/BootSplash.storyboard; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-ParkNexus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParkNexus.debug.xcconfig"; path = "Target Support Files/Pods-ParkNexus/Pods-ParkNexus.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-ParkNexus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParkNexus.release.xcconfig"; path = "Target Support Files/Pods-ParkNexus/Pods-ParkNexus.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-ParkNexus-ParkNexusTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParkNexus-ParkNexusTests.debug.xcconfig"; path = "Target Support Files/Pods-ParkNexus-ParkNexusTests/Pods-ParkNexus-ParkNexusTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -50,9 +51,8 @@
 		A2420D492C4CF6E0003D0215 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFAE16EDFED0EDFA9EA436F7 /* Pods_ParkNexus_ParkNexusTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ParkNexus_ParkNexusTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F86FFC575B404446834944D1 /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = ParkNexus/Colors.xcassets; sourceTree = "<group>"; };
 		FAF1E3250915134A04970AB7 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = ParkNexus/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		1B76394F5AA64E219B231D81 /* BootSplash.storyboard */ = {isa = PBXFileReference; name = "BootSplash.storyboard"; path = "ParkNexus/BootSplash.storyboard"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F86FFC575B404446834944D1 /* Colors.xcassets */ = {isa = PBXFileReference; name = "Colors.xcassets"; path = "ParkNexus/Colors.xcassets"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = folder.assetcatalog; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
