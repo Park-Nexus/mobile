@@ -44,7 +44,7 @@ export function Home() {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: '#58b5bb'}}>
+    <View style={{flex: 1}}>
       <Mapbox.MapView
         style={{flex: 1}}
         logoEnabled={false}
@@ -56,6 +56,7 @@ export function Home() {
           centerCoordinate={userLocation}
           animationDuration={3500}
         />
+
         <Mapbox.LocationPuck
           pulsing={{
             color: '#128085',
@@ -68,14 +69,18 @@ export function Home() {
             <Text style={{color: '#fff'}}>Hello World!</Text>
           </View>
         </Mapbox.PointAnnotation>
+
         <Mapbox.PointAnnotation
           id="new-point-2"
-          style={{backgroundColor: '#128085', padding: 5, borderRadius: 5}}
           coordinate={[105.794, 21.04]}
           onSelected={() => console.log('Hello World 2 selected')}>
-          <Text style={{color: '#fff'}}>Hello World 2</Text>
+          <View
+            style={{backgroundColor: '#128085', padding: 5, borderRadius: 5}}>
+            <Text style={{color: '#fff'}}>Hello World 2</Text>
+          </View>
         </Mapbox.PointAnnotation>
       </Mapbox.MapView>
+
       <Button
         variant="green"
         text="Test"
