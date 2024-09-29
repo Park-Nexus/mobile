@@ -24,6 +24,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MBXAccessToken</key>
+	<string>pk.eyJ1IjoidmNsb25nMjAwMyIsImEiOiJjbTFuOG8yOXAwc2N5MmxxNW56dzhydDdhIn0.BMKtHstSWoyPu-rJpQ9tOQ</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Show current location on map.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

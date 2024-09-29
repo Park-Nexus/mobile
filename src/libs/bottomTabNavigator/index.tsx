@@ -20,7 +20,7 @@ export function createBottomTabNavigator<T extends ParamListBase>() {
       overflow: 'hidden',
       paddingBottom: 10,
 
-      backgroundColor: 'rgba(255, 255, 255, 0.353)',
+      backgroundColor: 'rgba(255, 255, 255, 0.59)',
     },
 
     tabBarButton(props) {
