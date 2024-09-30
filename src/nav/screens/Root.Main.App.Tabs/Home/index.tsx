@@ -10,7 +10,7 @@ Mapbox.setAccessToken(
 );
 
 export function Home() {
-  const userLocation: Position = [105.790228, 21.030232];
+  const userLocation: Position = [105.79085, 21.028408];
   const cameraRef = useRef<CameraRef>(null);
 
   const zoomToCurrentLocation = () => {
@@ -48,8 +48,7 @@ export function Home() {
       <Mapbox.MapView
         style={{flex: 1}}
         logoEnabled={false}
-        scaleBarEnabled={false}
-        tintColor={'#128085'}>
+        scaleBarEnabled={false}>
         <Mapbox.Camera
           ref={cameraRef}
           zoomLevel={14}
