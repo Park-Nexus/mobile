@@ -4,10 +4,9 @@ import {useRef} from 'react';
 import {CameraRef} from '@rnmapbox/maps/lib/typescript/src/components/Camera';
 import {Button} from '@src/components/Button';
 import {Position} from '@rnmapbox/maps/lib/typescript/src/types/Position';
+import {MapTypes} from '@src/types/types.map';
 
-Mapbox.setAccessToken(
-  'sk.eyJ1IjoidmNsb25nMjAwMyIsImEiOiJjbTFuOHU0MW8wb2QzMmtxdGt4NGE0NDJ4In0.R6WnMSJimChYG0A6PAA5_Q',
-);
+Mapbox.setAccessToken(MapTypes.MAPBOX_ACCESS_TOKEN);
 
 export function Home() {
   const userLocation: Position = [105.79085, 21.028408];
