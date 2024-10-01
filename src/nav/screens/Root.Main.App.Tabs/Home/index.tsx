@@ -6,6 +6,8 @@ import {Button} from '@src/components/Button';
 import {Position} from '@rnmapbox/maps/lib/typescript/src/types/Position';
 import {MapTypes} from '@src/types/types.map';
 
+import PaperPlaneSvg from '@src/static/svgs/PaperPlaneCircle.svg';
+
 Mapbox.setAccessToken(MapTypes.MAPBOX_ACCESS_TOKEN);
 
 export function Home() {
@@ -53,9 +55,24 @@ export function Home() {
           zoomLevel={14}
           centerCoordinate={userLocation}
           animationDuration={3500}
+          followUserMode={Mapbox.UserTrackingMode.Follow}
         />
 
+        <Mapbox.Images>
+          <Mapbox.Image name="userLocationImage">
+            <View
+              style={{
+                backgroundColor: '#128085',
+                width: 16,
+                height: 16,
+                borderRadius: 16,
+              }}
+            />
+          </Mapbox.Image>
+        </Mapbox.Images>
+
         <Mapbox.LocationPuck
+          topImage="userLocationImage"
           pulsing={{
             color: '#128085',
           }}
