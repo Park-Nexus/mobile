@@ -5,7 +5,7 @@ import {Button, Text, TextInput, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {trpc} from './trpc';
-import {AuthTypes} from './types';
+import {AuthTypes} from './auth/index.types';
 
 export const Test = () => {
   return (
