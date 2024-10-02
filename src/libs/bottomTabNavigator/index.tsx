@@ -3,7 +3,8 @@ import {
   createBottomTabNavigator as rnCreateBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import {ParamListBase} from '@react-navigation/native';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
+import {BlurView} from '@react-native-community/blur';
 
 export function createBottomTabNavigator<T extends ParamListBase>() {
   const {Navigator: BaseNavigator, Screen} = rnCreateBottomTabNavigator<T>();
@@ -20,16 +21,19 @@ export function createBottomTabNavigator<T extends ParamListBase>() {
       overflow: 'hidden',
       paddingBottom: 10,
 
-      backgroundColor: 'rgba(255, 255, 255, 0.59)',
+      backgroundColor: 'rgba(11, 10, 10, 0.205)',
     },
 
     tabBarButton(props) {
       return <TouchableOpacity {...props} style={{flex: 1, padding: 8}} />;
     },
+
     tabBarLabelStyle: {
       fontSize: 12,
       fontWeight: '700',
     },
+
+    tabBarInactiveTintColor: '#fff',
     tabBarActiveTintColor: '#128085',
   };
 

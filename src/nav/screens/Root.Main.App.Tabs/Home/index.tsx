@@ -6,8 +6,6 @@ import {Button} from '@src/components/Button';
 import {Position} from '@rnmapbox/maps/lib/typescript/src/types/Position';
 import {MapTypes} from '@src/types/types.map';
 
-import PaperPlaneSvg from '@src/static/svgs/PaperPlaneCircle.svg';
-
 Mapbox.setAccessToken(MapTypes.MAPBOX_ACCESS_TOKEN);
 
 export function Home() {
