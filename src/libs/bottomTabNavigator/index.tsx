@@ -1,7 +1,4 @@
-import {
-  BottomTabNavigationOptions,
-  createBottomTabNavigator as rnCreateBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
+import {BottomTabNavigationOptions, createBottomTabNavigator as rnCreateBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {ParamListBase} from '@react-navigation/native';
 import {TouchableOpacity, View} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
@@ -11,7 +8,7 @@ export function createBottomTabNavigator<T extends ParamListBase>() {
 
   const screenOptions: BottomTabNavigationOptions = {
     headerShown: false,
-
+    tabBarBackground: () => <BlurView style={{flex: 1, backgroundColor: 'rgba(11, 10, 10, 0.25)'}} blurType="light" blurAmount={10} />,
     tabBarStyle: {
       marginHorizontal: 20,
       position: 'absolute',
@@ -20,8 +17,6 @@ export function createBottomTabNavigator<T extends ParamListBase>() {
 
       overflow: 'hidden',
       paddingBottom: 10,
-
-      backgroundColor: 'rgba(11, 10, 10, 0.205)',
     },
 
     tabBarButton(props) {
@@ -37,10 +32,7 @@ export function createBottomTabNavigator<T extends ParamListBase>() {
     tabBarActiveTintColor: '#128085',
   };
 
-  const Navigator = (props: {
-    children: React.ReactNode;
-    initialRouteName?: Extract<keyof T, string>;
-  }) => {
+  const Navigator = (props: {children: React.ReactNode; initialRouteName?: Extract<keyof T, string>}) => {
     return <BaseNavigator screenOptions={screenOptions} {...props} />;
   };
 
