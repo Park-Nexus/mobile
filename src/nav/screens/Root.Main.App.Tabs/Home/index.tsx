@@ -5,12 +5,16 @@ import {CameraRef} from '@rnmapbox/maps/lib/typescript/src/components/Camera';
 import {Button} from '@src/components/Button';
 import {Position} from '@rnmapbox/maps/lib/typescript/src/types/Position';
 import {MapTypes} from '@src/types/types.map';
+import {SearchBar} from './Home.SearchBar';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 Mapbox.setAccessToken(MapTypes.MAPBOX_ACCESS_TOKEN);
 
 export function Home() {
   const userLocation: Position = [105.79085, 21.028408];
   const cameraRef = useRef<CameraRef>(null);
+
+  const {bottom} = useSafeAreaInsets();
 
   const zoomToCurrentLocation = () => {
     if (cameraRef.current) {
@@ -32,11 +36,7 @@ export function Home() {
     const deltaLon = toRad(coord2[0] - coord1[0]);
 
     const a =
-      Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
-      Math.cos(lat1) *
-        Math.cos(lat2) *
-        Math.sin(deltaLon / 2) *
-        Math.sin(deltaLon / 2);
+      Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     return R * c; // distance in meters
@@ -44,10 +44,14 @@ export function Home() {
 
   return (
     <View style={{flex: 1}}>
+      <SearchBar />
       <Mapbox.MapView
         style={{flex: 1}}
         logoEnabled={false}
-        scaleBarEnabled={false}>
+        scaleBarEnabled={false}
+        compassEnabled
+        compassFadeWhenNorth
+        compassPosition={{bottom: bottom + 50, left: 20}}>
         <Mapbox.Camera
           ref={cameraRef}
           zoomLevel={14}
@@ -77,29 +81,19 @@ export function Home() {
         />
 
         <Mapbox.PointAnnotation id="new-point" coordinate={[105.794, 21.035]}>
-          <View
-            style={{backgroundColor: '#128085', padding: 5, borderRadius: 5}}>
+          <View style={{backgroundColor: '#128085', padding: 5, borderRadius: 5}}>
             <Text style={{color: '#fff'}}>Hello World!</Text>
           </View>
         </Mapbox.PointAnnotation>
 
-        <Mapbox.PointAnnotation
-          id="new-point-2"
-          coordinate={[105.794, 21.04]}
-          onSelected={() => console.log('Hello World 2 selected')}>
-          <View
-            style={{backgroundColor: '#128085', padding: 5, borderRadius: 5}}>
+        <Mapbox.PointAnnotation id="new-point-2" coordinate={[105.794, 21.04]} onSelected={() => console.log('Hello World 2 selected')}>
+          <View style={{backgroundColor: '#128085', padding: 5, borderRadius: 5}}>
             <Text style={{color: '#fff'}}>Hello World 2</Text>
           </View>
         </Mapbox.PointAnnotation>
       </Mapbox.MapView>
 
-      <Button
-        variant="green"
-        text="Test"
-        onPress={zoomToCurrentLocation}
-        style={{position: 'absolute', top: 50, right: 20}}
-      />
+      <Button variant="green" text="Test" onPress={zoomToCurrentLocation} style={{position: 'absolute', bottom: 120, right: 20}} />
     </View>
   );
 }
