@@ -58,7 +58,7 @@ export function Home() {
           if (event.gestures.isGestureActive) stopWatchingUserLocation();
         }}
         compassPosition={{bottom: bottom + 50, left: 20}}>
-        <Mapbox.Camera centerCoordinate={userLocation} ref={cameraRef} zoomLevel={14} animationDuration={3500} />
+        <Mapbox.Camera centerCoordinate={userLocation} ref={cameraRef} zoomLevel={14} animationDuration={3000} />
 
         <Mapbox.Images>
           <Mapbox.Image name="userLocationImage">
