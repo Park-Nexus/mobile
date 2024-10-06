@@ -1,7 +1,6 @@
 import {createBottomTabNavigator} from '@src/libs/bottomTabNavigator';
 
 import {Home} from '@src/nav/screens/Root.Main.App.Tabs/Home';
-import {Search} from '@src/nav/screens/Root.Main.App.Tabs/Search';
 import {Settings} from '@src/nav/screens/Root.Main.App.Tabs/Settings';
 import {Ticket} from '@src/nav/screens/Root.Main.App.Tabs/Ticket';
 
@@ -22,13 +21,21 @@ const {Navigator, Screen} = createBottomTabNavigator();
 export function TabNavigator() {
   return (
     <Navigator>
-      <Screen name="Home" component={Home} options={{tabBarIcon: ({focused}) => (focused ? <HomeTealSvg /> : <HomeSvg />)}} />
+      <Screen
+        name="Home"
+        component={Home}
+        options={{tabBarIcon: ({focused}) => (focused ? <HomeTealSvg /> : <HomeSvg />)}}
+      />
       {/* <Screen
         name="Search"
         component={Search}
         options={{tabBarIcon: ({focused}) => (focused ? <MagnifyingGlassTeal /> : <MagnifyingGlass />)}}
       /> */}
-      <Screen name="Ticket" component={Ticket} options={{tabBarIcon: ({focused}) => (focused ? <ReceiptTeal /> : <Receipt />)}} />
+      <Screen
+        name="Ticket"
+        component={Ticket}
+        options={{tabBarIcon: ({focused}) => (focused ? <ReceiptTeal /> : <Receipt />)}}
+      />
       <Screen
         name="Settings"
         component={Settings}
