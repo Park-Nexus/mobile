@@ -10,7 +10,7 @@ export function useUserLocation() {
     if (locationWatchId) return;
     const id = Geolocation.watchPosition(
       ({coords: {longitude, latitude}}) => setUserLocation([longitude, latitude]),
-      () => setLocationWatchId(undefined),
+      error => console.error(error),
       {
         enableHighAccuracy: true,
         timeout: 20000,
