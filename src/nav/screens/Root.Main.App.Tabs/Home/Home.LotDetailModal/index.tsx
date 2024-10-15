@@ -22,8 +22,9 @@ export function LotDetailModal() {
       style={{justifyContent: 'flex-end', paddingBottom: bottom + 70}}
       isVisible={!!selectedLotId}
       hasBackdrop={false}
-      coverScreen={false}
-      propagateSwipe>
+      swipeDirection="down"
+      onSwipeComplete={() => setSelectedLotId(undefined)}
+      coverScreen={false}>
       <View style={styles.wrapper}>
         {isFetching ? (
           <Text>Loading...</Text>
