@@ -23,8 +23,9 @@ export function SearchBar({userLocation: {lat, lon}}: TSearchBarProps) {
       </BlurView>
       {suggestions.length > 0 && (
         <BlurView blurType="light" blurAmount={8} style={[styles.suggestions, {top: top + 62}]}>
-          {suggestions.map(suggestion => (
+          {suggestions.map((suggestion, index) => (
             <Text
+              key={index}
               style={{marginBottom: 10}}
               onPress={() => console.log('selected cord', suggestion.lat, suggestion.lon)}>
               {suggestion.address}

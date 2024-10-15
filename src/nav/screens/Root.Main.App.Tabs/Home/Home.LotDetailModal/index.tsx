@@ -39,22 +39,16 @@ export function LotDetailModal() {
       coverScreen={false}>
       <View style={styles.wrapper}>
         <View style={styles.pill} />
-        {isFetching ? (
-          <Text>Loading...</Text>
-        ) : (
-          <>
-            <View style={styles.titleWrapper}>
-              <View style={styles.titleItemWrapper}>
-                <Text style={styles.titleText}>{lot?.name}</Text>
-                <Text style={styles.subTitleText}>{address}</Text>
-              </View>
-              <View style={styles.titleItemWrapper}>
-                <Text style={styles.titleText}>${minPrice}</Text>
-                <Text style={styles.subTitleText}>per hour</Text>
-              </View>
-            </View>
-          </>
-        )}
+        <View style={styles.titleWrapper}>
+          <View style={styles.titleItemWrapper}>
+            <Text style={styles.titleText}>{lot?.name}</Text>
+            <Text style={styles.subTitleText}>{address}</Text>
+          </View>
+          <View style={styles.titleItemWrapper}>
+            <Text style={styles.titleText}>${minPrice}</Text>
+            <Text style={styles.subTitleText}>per hour</Text>
+          </View>
+        </View>
       </View>
     </Modal>
   );
