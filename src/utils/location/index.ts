@@ -6,6 +6,7 @@ import axios from 'axios';
 import {MapTypes} from '@src/types/types.map';
 import {useDebounce} from '../debounce';
 
+// User Location ----------------------------------------------------------------------------
 export function useUserLocation() {
   const [userLocation, setUserLocation] = useState<Position | undefined>();
   const [locationWatchId, setLocationWatchId] = useState<number | undefined>();
@@ -41,6 +42,7 @@ export function useUserLocation() {
   return {userLocation, watchUserLocation, stopWatchingUserLocation};
 }
 
+// Location search suggestion  ------------------------------------------------------------------
 export function useSearchLocation({userLocation}: {userLocation: {lat?: number; lon?: number}}) {
   const {lat, lon} = userLocation;
   const [query, setQuery] = useState('');
@@ -70,4 +72,14 @@ export function useSearchLocation({userLocation}: {userLocation: {lat?: number; 
   }, [debouncedQuery]);
 
   return {query, setQuery, suggestions};
+}
+
+// Reverse Geocoding ----------------------------------------------------------------------------
+export async function reverseGeocode({lat, lon}: {lat?: number; lon?: number}): Promise<string> {
+  const endpoint = `${MapTypes.MAPBOX_GEOCODE_API}/reverse?longitude=${lon || 0}&latitude=${lat || 0}&access_token=${
+    MapTypes.MAPBOX_PUBLIC_ACCESS_TOKEN
+  }`;
+  const response = await axios.get(endpoint);
+  const featureCollection = response.data as TFeatureCollection;
+  return featureCollection.features?.[0]?.properties?.full_address || '';
 }

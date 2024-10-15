@@ -15,8 +15,6 @@ export function SearchBar({userLocation: {lat, lon}}: TSearchBarProps) {
   });
   const {top} = useSafeAreaInsets();
 
-  console.log('suggestions', suggestions);
-
   return (
     <>
       <BlurView blurType="light" blurAmount={8} style={[styles.wrapper, {top}]}>

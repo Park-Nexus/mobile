@@ -5,15 +5,25 @@ import {styles} from './index.parts';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Button} from '@src/components/Button';
 import {useParkingLot} from './index.$data';
+import {reverseGeocode} from '@src/utils/location';
+import {useEffect, useState} from 'react';
 
 export function LotDetailModal() {
   const {selectedLotId, setSelectedLotId} = useHomeContext();
   const {bottom} = useSafeAreaInsets();
   const {data: lot, isFetching} = useParkingLot();
 
+  const [address, setAddress] = useState<string>('');
   const prices = lot?.parkingLotPrices || [];
   const maxPrice = prices.reduce((acc, price) => Math.max(acc, price.price), 0);
   const minPrice = prices.reduce((acc, price) => Math.min(acc, price.price), maxPrice);
+
+  useEffect(() => {
+    reverseGeocode({
+      lat: lot?.latitude,
+      lon: lot?.longitude,
+    }).then(setAddress);
+  }, [lot]);
 
   return (
     <Modal
@@ -33,7 +43,16 @@ export function LotDetailModal() {
           <Text>Loading...</Text>
         ) : (
           <>
-            <Button variant="green" text={lot?.name} onPress={() => setSelectedLotId(undefined)} />
+            <View style={styles.titleWrapper}>
+              <View style={styles.titleItemWrapper}>
+                <Text style={styles.titleText}>{lot?.name}</Text>
+                <Text style={styles.subTitleText}>{address}</Text>
+              </View>
+              <View style={styles.titleItemWrapper}>
+                <Text style={styles.titleText}>${minPrice}</Text>
+                <Text style={styles.subTitleText}>per hour</Text>
+              </View>
+            </View>
           </>
         )}
       </View>
