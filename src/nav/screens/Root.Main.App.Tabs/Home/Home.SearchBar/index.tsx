@@ -1,4 +1,4 @@
-import {styles} from './index.parts';
+import {styles} from './index.styles';
 import {BlurView} from '@react-native-community/blur';
 
 import MagnifyingGlass from '@src/static/svgs/MagnifyingGlass.svg';

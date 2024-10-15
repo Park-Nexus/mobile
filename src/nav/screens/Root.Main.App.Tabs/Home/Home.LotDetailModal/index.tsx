@@ -1,7 +1,7 @@
 import Modal from 'react-native-modal';
 import {useHomeContext} from '../index.$context';
 import {Text, View} from 'react-native';
-import {styles} from './index.parts';
+import {styles} from './index.styles';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Button} from '@src/components/Button';
 import {useParkingLot} from './index.$data';
