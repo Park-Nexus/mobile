@@ -1,13 +1,17 @@
 import Modal from 'react-native-modal';
 import {useHomeContext} from '../index.$context';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {styles} from './index.parts';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Button} from '@src/components/Button';
+import {useParkingLot} from './index.$data';
 
 export function LotDetailModal() {
   const {selectedLotId, setSelectedLotId} = useHomeContext();
   const {bottom} = useSafeAreaInsets();
+  const {data: lot, isFetching} = useParkingLot();
+
+  console.log(lot);
 
   return (
     <Modal
@@ -21,7 +25,13 @@ export function LotDetailModal() {
       coverScreen={false}
       propagateSwipe>
       <View style={styles.wrapper}>
-        <Button variant="green" text="Close Me!" onPress={() => setSelectedLotId(undefined)} />
+        {isFetching ? (
+          <Text>Loading...</Text>
+        ) : (
+          <>
+            <Button variant="green" text={lot?.name} onPress={() => setSelectedLotId(undefined)} />
+          </>
+        )}
       </View>
     </Modal>
   );
