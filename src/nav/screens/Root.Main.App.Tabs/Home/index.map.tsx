@@ -16,7 +16,7 @@ export function Map() {
 
   const cameraRef = useRef<CameraRef>(null);
   const {parkingLots} = useParkingLots();
-  const {setSelectedLotId} = useHomeContext();
+  const {setSelectedLotId, selectedLocation, setSelectedLocation} = useHomeContext();
 
   const {bottom} = useSafeAreaInsets();
 
