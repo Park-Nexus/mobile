@@ -26,6 +26,7 @@ export function LotDetailModal() {
       onSwipeComplete={() => setSelectedLotId(undefined)}
       coverScreen={false}>
       <View style={styles.wrapper}>
+        <View style={styles.pill} />
         {isFetching ? (
           <Text>Loading...</Text>
         ) : (
