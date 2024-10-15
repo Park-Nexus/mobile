@@ -1,19 +1,19 @@
 import {Text, View} from 'react-native';
 import Mapbox from '@rnmapbox/maps';
-import {useCallback, useRef} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 import {CameraRef} from '@rnmapbox/maps/lib/typescript/src/components/Camera';
 import {Button} from '@src/components/Button';
 import {MapTypes} from '@src/types/types.map';
 import {SearchBar} from './Home.SearchBar';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useUserLocation} from './index.$helpers';
 import {useParkingLots} from './index.$data';
 import {useHomeContext} from './index.$context';
+import {useUserLocation} from '@src/utils/location';
 
 Mapbox.setAccessToken(MapTypes.MAPBOX_ACCESS_TOKEN);
-
 export function Map() {
   const {userLocation, watchUserLocation, stopWatchingUserLocation} = useUserLocation();
+
   const cameraRef = useRef<CameraRef>(null);
   const {parkingLots} = useParkingLots();
   const {setSelectedLotId} = useHomeContext();
@@ -34,7 +34,7 @@ export function Map() {
 
   return (
     <View style={{flex: 1}}>
-      <SearchBar />
+      <SearchBar userLocation={{lat: userLocation?.[1], lon: userLocation?.[0]}} />
       <Mapbox.MapView
         style={{flex: 1}}
         logoEnabled={false}

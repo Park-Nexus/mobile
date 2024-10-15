@@ -11,7 +11,9 @@ export function LotDetailModal() {
   const {bottom} = useSafeAreaInsets();
   const {data: lot, isFetching} = useParkingLot();
 
-  console.log(lot);
+  const prices = lot?.parkingLotPrices || [];
+  const maxPrice = prices.reduce((acc, price) => Math.max(acc, price.price), 0);
+  const minPrice = prices.reduce((acc, price) => Math.min(acc, price.price), maxPrice);
 
   return (
     <Modal

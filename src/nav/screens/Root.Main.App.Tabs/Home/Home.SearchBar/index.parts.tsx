@@ -25,4 +25,17 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     height: 20,
   },
+
+  suggestions: {
+    position: 'absolute',
+    zIndex: 2,
+
+    left: 20,
+    right: 20,
+
+    backgroundColor: 'rgba(11, 10, 10, 0.25)',
+
+    padding: 16,
+    borderRadius: 12,
+  },
 });
