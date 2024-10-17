@@ -4,11 +4,11 @@ import {GlobalGuard} from '@src/components/GlobalGuard';
 import {RootScreens} from './index.screens';
 
 export function RootNavigator() {
-  return (
-    <NavigationContainer>
-      <GlobalGuard>
-        <RootScreens />
-      </GlobalGuard>
-    </NavigationContainer>
-  );
+    return (
+        <NavigationContainer>
+            <GlobalGuard>
+                <RootScreens />
+            </GlobalGuard>
+        </NavigationContainer>
+    );
 }

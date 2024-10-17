@@ -5,24 +5,24 @@ import {trpc, TrpcInput} from '@src/trpc';
 export type TLoginPayload = TrpcInput['auth']['login'];
 
 export function useSubmit() {
-  const {setIsAuthenticated} = useAuthStore();
-  const submitMutation = trpc.auth.login.useMutation();
+    const {setIsAuthenticated} = useAuthStore();
+    const submitMutation = trpc.auth.login.useMutation();
 
-  const trpcUtils = trpc.useUtils();
+    const trpcUtils = trpc.useUtils();
 
-  const submit = (payload: TLoginPayload) => {
-    submitMutation.mutate(payload, {
-      async onSuccess(data) {
-        await AuthStorage.setAccessToken(data.accessToken);
-        await AuthStorage.setRefreshToken(data.refreshToken);
-        trpcUtils.user.profile.invalidate();
-        setIsAuthenticated(true);
-      },
-      onError(err) {
-        console.error(err.message);
-      },
-    });
-  };
+    const submit = (payload: TLoginPayload) => {
+        submitMutation.mutate(payload, {
+            async onSuccess(data) {
+                await AuthStorage.setAccessToken(data.accessToken);
+                await AuthStorage.setRefreshToken(data.refreshToken);
+                trpcUtils.user.profile.invalidate();
+                setIsAuthenticated(true);
+            },
+            onError(err) {
+                console.error(err.message);
+            },
+        });
+    };
 
-  return Object.assign(submitMutation, {submit});
+    return Object.assign(submitMutation, {submit});
 }

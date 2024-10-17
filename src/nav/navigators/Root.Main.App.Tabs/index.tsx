@@ -19,28 +19,28 @@ import SettingsSvgTeal from '@src/static/svgs/SettingsTeal.svg';
 const {Navigator, Screen} = createBottomTabNavigator();
 
 export function TabNavigator() {
-  return (
-    <Navigator>
-      <Screen
-        name="Home"
-        component={Home}
-        options={{tabBarIcon: ({focused}) => (focused ? <HomeTealSvg /> : <HomeSvg />)}}
-      />
-      {/* <Screen
+    return (
+        <Navigator>
+            <Screen
+                name="Home"
+                component={Home}
+                options={{tabBarIcon: ({focused}) => (focused ? <HomeTealSvg /> : <HomeSvg />)}}
+            />
+            {/* <Screen
         name="Search"
         component={Search}
         options={{tabBarIcon: ({focused}) => (focused ? <MagnifyingGlassTeal /> : <MagnifyingGlass />)}}
       /> */}
-      <Screen
-        name="Ticket"
-        component={Ticket}
-        options={{tabBarIcon: ({focused}) => (focused ? <ReceiptTeal /> : <Receipt />)}}
-      />
-      <Screen
-        name="Settings"
-        component={Settings}
-        options={{tabBarIcon: ({focused}) => (focused ? <SettingsSvgTeal /> : <SettingsSvg />)}}
-      />
-    </Navigator>
-  );
+            <Screen
+                name="Ticket"
+                component={Ticket}
+                options={{tabBarIcon: ({focused}) => (focused ? <ReceiptTeal /> : <Receipt />)}}
+            />
+            <Screen
+                name="Settings"
+                component={Settings}
+                options={{tabBarIcon: ({focused}) => (focused ? <SettingsSvgTeal /> : <SettingsSvg />)}}
+            />
+        </Navigator>
+    );
 }

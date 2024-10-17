@@ -14,7 +14,8 @@ export const styles = StyleSheet.create({
         height: 4,
         borderRadius: 8,
         alignSelf: 'center',
-        marginVertical: 8,
+        marginTop: 8,
+        marginBottom: 16,
     },
     titleWrapper: {
         flexDirection: 'row',
@@ -55,14 +56,17 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 16,
+        marginBottom: 8,
     },
     servicesWrapper: {
         flexDirection: 'row',
         gap: 8,
     },
     detailButton: {
-        paddingHorizontal: 0,
-        marginHorizontal: 0,
+        paddingRight: 0,
+    },
+    detailButtonText: {
+        fontSize: 14,
+        fontWeight: '700',
     },
 });

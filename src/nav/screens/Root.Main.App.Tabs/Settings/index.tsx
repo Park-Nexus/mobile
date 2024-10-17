@@ -1,9 +1,9 @@
 import {Text, View} from 'react-native';
 
 export function Settings() {
-  return (
-    <View>
-      <Text>Settings</Text>
-    </View>
-  );
+    return (
+        <View>
+            <Text>Settings</Text>
+        </View>
+    );
 }

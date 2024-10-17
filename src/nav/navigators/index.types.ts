@@ -1,4 +1,4 @@
 enum ENavigator {
-  Root = 'Root',
-  App = 'App',
+    Root = 'Root',
+    App = 'App',
 }

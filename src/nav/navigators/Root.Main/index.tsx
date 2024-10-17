@@ -3,11 +3,11 @@ import {AppNavigator} from '../Root.Main.App';
 import {AuthNavigator} from '../Root.Main.Auth';
 
 export function MainSwitch() {
-  const {isAuthenticated} = useAuthStore();
+    const {isAuthenticated} = useAuthStore();
 
-  if (isAuthenticated) {
-    return <AppNavigator />;
-  }
+    if (isAuthenticated) {
+        return <AppNavigator />;
+    }
 
-  return <AuthNavigator />;
+    return <AuthNavigator />;
 }
