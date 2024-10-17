@@ -10,6 +10,8 @@ import {useParkingLots} from './index.$data';
 import {useHomeContext} from './index.$context';
 import {useUserLocation} from '@src/utils/location';
 
+import CurrentLocationSvg from '@src/static/svgs/CurrentLocation.svg';
+
 Mapbox.setAccessToken(MapTypes.MAPBOX_ACCESS_TOKEN);
 export function Map() {
     const {userLocation, watchUserLocation, stopWatchingUserLocation} = useUserLocation();
@@ -21,6 +23,7 @@ export function Map() {
     const {bottom} = useSafeAreaInsets();
 
     const zoomToCurrentLocation = useCallback(() => {
+        setSelectedLocation(undefined);
         watchUserLocation();
         if (cameraRef.current && userLocation) {
             cameraRef.current.setCamera({
@@ -32,9 +35,27 @@ export function Map() {
         }
     }, [cameraRef, userLocation, watchUserLocation]);
 
+    const zoomToSelectedLocation = useCallback(() => {
+        if (!selectedLocation) return;
+        stopWatchingUserLocation();
+        if (cameraRef.current) {
+            cameraRef.current.setCamera({
+                centerCoordinate: [selectedLocation.lon, selectedLocation.lat],
+                zoomLevel: 15,
+                animationDuration: 2000,
+                animationMode: 'flyTo',
+            });
+        }
+    }, [cameraRef, selectedLocation]);
+
     useEffect(() => {
         setUserLocation({lat: userLocation?.[1], lon: userLocation?.[0]});
     }, [userLocation]);
+
+    useEffect(() => {
+        if (!selectedLocation) return;
+        zoomToSelectedLocation();
+    }, [selectedLocation]);
 
     return (
         <View style={{flex: 1}}>
@@ -91,9 +112,9 @@ export function Map() {
 
             <Button
                 variant="green"
-                text="Test"
+                preIcon={<CurrentLocationSvg width={24} height={24} />}
                 onPress={zoomToCurrentLocation}
-                style={{position: 'absolute', bottom: 120, right: 20}}
+                style={{position: 'absolute', bottom: 120, right: 20, width: 48, height: 48}}
             />
         </View>
     );
