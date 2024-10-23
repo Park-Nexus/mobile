@@ -3386,9 +3386,9 @@ __metadata:
 
 "@parknexus/api@https://github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=7a72c64754c725aafd5e1cb128c80328a5c901e5"
+  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=acfb22b2d0fc8449ebd6be21118a0f98f77b6fcd"
   dependencies:
-    "@prisma/client": 5.19.0
+    "@prisma/client": 5.21.1
     "@trpc/server": ^11.0.0-rc.459
     bcrypt: ^5.1.1
     cors: ^2.8.5
@@ -3397,7 +3397,7 @@ __metadata:
     jsonwebtoken: ^9.0.2
     morgan: ^1.10.0
     zod: ^3.23.8
-  checksum: 0ee0d88829ab83e9ed7bdaca566acf0bd019344a10e50f70be56e79764a834f1623c017e0dd0673c05e0418f093dbae68fabf8f44aa18aea6f0e2bd6475b91d7
+  checksum: 5cd5a8bea7dec2f541d34b30de3d89f315eba2a8e0c16d037e410e38dfbe70b5943bd9c0c7d8a9f47c1dc22020358cd1084f9b561910cddaeac44a1ad30cf01f
   languageName: node
   linkType: hard
 
@@ -3408,15 +3408,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@prisma/client@npm:5.19.0":
-  version: 5.19.0
-  resolution: "@prisma/client@npm:5.19.0"
+"@prisma/client@npm:5.21.1":
+  version: 5.21.1
+  resolution: "@prisma/client@npm:5.21.1"
   peerDependencies:
     prisma: "*"
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: a6bcc79e84a174c5a679713f6a85dea43e6f3a0e80864887a0fb0e3c3ce5ff89c9b9ebd78069b152a8c3c327fc9649b27f64b26226e43cac8b8aceb6f9eeb1be
+  checksum: 4514e8805073c31ac91196870b732f191a911e64983857a7bd41638d30d6a75ac1dd79173a6d2ddf2cdf62546e4229936d27ba803a8bc82aad3c2c51f54288ec
   languageName: node
   linkType: hard
 
