@@ -8,10 +8,10 @@ export const styles = StyleSheet.create({
         gap: 32,
     },
 
-    image: {
-        width: '100%',
-        height: 200,
+    imageWrapper: {
+        marginHorizontal: 20,
         borderRadius: 16,
+        overflow: 'hidden',
     },
 
     infoWrapper: {

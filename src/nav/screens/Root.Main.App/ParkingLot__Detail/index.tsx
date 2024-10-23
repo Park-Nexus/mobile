@@ -3,12 +3,16 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {RootStackParamList} from '@src/nav/navigators/Root.Main.App';
-import {Image, Text, View} from 'react-native';
+import {Image, Text, View, Dimensions, ActivityIndicator} from 'react-native';
 import {styles} from './index.styles';
 import {useParkingLot} from './index.data';
 import FastImage from 'react-native-fast-image';
 import {useEffect, useState} from 'react';
 import {reverseGeocode} from '@src/utils/location';
+import Carousel from 'react-native-reanimated-carousel';
+
+const deviceWidth = Dimensions.get('window').width;
+const imageHeight = deviceWidth * (9 / 16);
 
 type ParkingLotDetailProps = {
     navigation: NativeStackNavigationProp<RootStackParamList, 'ParkingLot__Detail'>;
@@ -20,6 +24,9 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
     const {data: lot} = useParkingLot(lotId);
 
     const [address, setAddress] = useState<string>('');
+    const [isFetchingImages, setIsFetchingImages] = useState<boolean>(false);
+    const isMediaExists = lot?.mediaUrls && lot?.mediaUrls.length > 0;
+    console.log(isFetchingImages);
 
     useEffect(() => {
         if (lot) {
@@ -33,19 +40,38 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
     return (
         <SafeAreaView>
             <Header backButtonVisible title="Parking Lot Details" onBackButtonPress={() => navigation.goBack()} />
+
+            {isMediaExists && (
+                <View style={{height: imageHeight}}>
+                    {isFetchingImages ? <ActivityIndicator style={{marginTop: imageHeight / 2}} /> : null}
+                    <Carousel
+                        width={deviceWidth}
+                        data={lot?.mediaUrls || []}
+                        renderItem={({item, index}) => (
+                            <View key={index} style={styles.imageWrapper}>
+                                <FastImage
+                                    source={{uri: `${item}`}}
+                                    style={{width: '100%', height: imageHeight}}
+                                    resizeMode="cover"
+                                    fallback
+                                    onLoadStart={() => setIsFetchingImages(true)}
+                                    onLoadEnd={() => setIsFetchingImages(false)}
+                                />
+                            </View>
+                        )}
+                        snapEnabled
+                        autoPlay
+                        autoPlayInterval={3000}
+                    />
+                </View>
+            )}
             <View style={styles.wrapper}>
-                {lot?.mediaUrls?.length && lot?.mediaUrls?.length > 0 && (
-                    <FastImage source={{uri: lot?.mediaUrls[0]}} style={styles.image} resizeMode="cover" />
-                )}
                 <View style={styles.infoWrapper}>
                     <View style={styles.textWrapper}>
                         <Text style={styles.nameText}>{lot?.name}</Text>
                         <Text style={styles.addressText}>{address}</Text>
                     </View>
                 </View>
-                <Text>
-                    {lot?.name} {lot?.mediaUrls}
-                </Text>
             </View>
         </SafeAreaView>
     );
