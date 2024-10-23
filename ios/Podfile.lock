@@ -49,6 +49,18 @@ PODS:
   - hermes-engine (0.74.3):
     - hermes-engine/Pre-built (= 0.74.3)
   - hermes-engine/Pre-built (0.74.3)
+  - libwebp (1.3.2):
+    - libwebp/demux (= 1.3.2)
+    - libwebp/mux (= 1.3.2)
+    - libwebp/sharpyuv (= 1.3.2)
+    - libwebp/webp (= 1.3.2)
+  - libwebp/demux (1.3.2):
+    - libwebp/webp
+  - libwebp/mux (1.3.2):
+    - libwebp/demux
+  - libwebp/sharpyuv (1.3.2)
+  - libwebp/webp (1.3.2):
+    - libwebp/sharpyuv
   - MapboxCommon (23.10.1)
   - MapboxCoreMaps (10.18.0):
     - MapboxCommon (~> 23.10)
@@ -1267,6 +1279,10 @@ PODS:
     - React-Core
   - RNCAsyncStorage (1.24.0):
     - React-Core
+  - RNFastImage (8.6.3):
+    - React-Core
+    - SDWebImage (~> 5.11.1)
+    - SDWebImageWebPCoder (~> 0.8.4)
   - RNFBApp (20.3.0):
     - Firebase/CoreOnly (= 10.29.0)
     - React-Core
@@ -1395,6 +1411,12 @@ PODS:
     - Yoga
   - RNSVG (15.7.1):
     - React-Core
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
+  - SDWebImageWebPCoder (0.8.5):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.10)
   - SocketRocket (0.7.0)
   - Turf (2.8.0)
   - Yoga (0.0.0)
@@ -1461,6 +1483,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - RNFastImage (from `../node_modules/react-native-fast-image`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -1479,12 +1502,15 @@ SPEC REPOS:
     - FirebaseCoreInternal
     - GoogleUtilities
     - GTMSessionFetcher
+    - libwebp
     - MapboxCommon
     - MapboxCoreMaps
     - MapboxMaps
     - MapboxMobileEvents
     - PromisesObjC
     - RecaptchaInterop
+    - SDWebImage
+    - SDWebImageWebPCoder
     - SocketRocket
     - Turf
 
@@ -1608,6 +1634,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNFastImage:
+    :path: "../node_modules/react-native-fast-image"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBAuth:
@@ -1639,6 +1667,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
   GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
   hermes-engine: 1f547997900dd0752dc0cc0ae6dd16173c49e09b
+  libwebp: 1786c9f4ff8a279e4dac1e8f385004d5fc253009
   MapboxCommon: 0ff437e44988da6856e280d00ffb266564ed0487
   MapboxCoreMaps: f1bd9405f5b9d3e343f2fe4138775299699a22fb
   MapboxMaps: e76b14f52c54c40b76ddecd04f40448e6f35a864
@@ -1698,6 +1727,7 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   RNBootSplash: 0177d81b7c094bbb9d7af80e77f8694922dae46d
   RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
+  RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNFBApp: 793adb33298db7e67dc365dc1ec0dc8a55a7a044
   RNFBAuth: e923d3f87088009ac8505140599ec1e784d77bd0
   RNGestureHandler: 83fd202dbc0b8971414c5c7c56ddd9f5cde05911
@@ -1705,6 +1735,8 @@ SPEC CHECKSUMS:
   RNReanimated: 4e3738c07d997c502b5fa407524700dfa8712777
   RNScreens: db442e7b8c7bc8befec2ce057927305ff8598cc8
   RNSVG: 4590aa95758149fa27c5c83e54a6a466349a1688
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Turf: aa2ede4298009639d10db36aba1a7ebaad072a5e
   Yoga: bd92064a0d558be92786820514d74fc4dddd1233

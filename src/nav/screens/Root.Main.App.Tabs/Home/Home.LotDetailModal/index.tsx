@@ -12,8 +12,13 @@ import MapPinSvg from '@src/static/svgs/MapPinArea.svg';
 import LetterPSvg from '@src/static/svgs/LetterCircleP.svg';
 import CaretRightSvg from '@src/static/svgs/CaretRight.svg';
 import {LOT_SERVICE_ICONS} from './index.types';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '@src/nav/navigators/Root.Main.App';
 
 export function LotDetailModal() {
+    const {navigate} = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
     const {selectedLotId, setSelectedLotId, userLocation} = useHomeContext();
     const {bottom} = useSafeAreaInsets();
     const {data: lot} = useParkingLot();
@@ -97,6 +102,7 @@ export function LotDetailModal() {
                         ))}
                     </View>
                     <Button
+                        onPress={() => navigate('ParkingLot__Detail', {lotId: lot?.id || 0})}
                         variant="white"
                         text="Details"
                         postIcon={<CaretRightSvg width={24} height={24} />}

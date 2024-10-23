@@ -12,6 +12,7 @@ import {useUserLocation} from '@src/utils/location';
 
 import CurrentLocationSvg from '@src/static/svgs/CurrentLocation.svg';
 import MapPinSvg from '@src/static/svgs/MapPin.svg';
+import {styles} from './index.styles';
 
 Mapbox.setAccessToken(MapTypes.MAPBOX_ACCESS_TOKEN);
 export function Map() {
@@ -59,7 +60,7 @@ export function Map() {
     }, [selectedLocation]);
 
     return (
-        <View style={{flex: 1}}>
+        <View style={styles.wrapper}>
             <SearchBar userLocation={{lat: userLocation?.[1], lon: userLocation?.[0]}} />
             <Mapbox.MapView
                 style={{flex: 1}}
@@ -78,25 +79,13 @@ export function Map() {
                     animationDuration={3000}
                 />
 
+                {/* User location ------------------------------------------------ */}
                 <Mapbox.Images>
                     <Mapbox.Image name="userLocationImage">
-                        <View
-                            style={{
-                                backgroundColor: '#128085',
-                                width: 16,
-                                height: 16,
-                                borderRadius: 16,
-                            }}
-                        />
+                        <View style={styles.userLocation} />
                     </Mapbox.Image>
                 </Mapbox.Images>
-
-                <Mapbox.LocationPuck
-                    topImage="userLocationImage"
-                    pulsing={{
-                        color: '#128085',
-                    }}
-                />
+                <Mapbox.LocationPuck topImage="userLocationImage" pulsing={{color: '#128085'}} />
 
                 {parkingLots.map(({id, latitude, longitude, name}) => (
                     <Mapbox.PointAnnotation
@@ -104,18 +93,17 @@ export function Map() {
                         id={id.toString()}
                         coordinate={[longitude, latitude]}
                         onSelected={() => setSelectedLotId(id)}>
-                        <View style={{backgroundColor: '#128085', padding: 5, borderRadius: 5}}>
-                            <Text style={{color: '#fff'}}>{name}</Text>
-                        </View>
+                        <MapPinSvg width={35} height={35} />
                     </Mapbox.PointAnnotation>
                 ))}
             </Mapbox.MapView>
 
+            {/* Zoom to current ------------------------------------------------ */}
             <Button
                 variant="green"
                 preIcon={<CurrentLocationSvg width={24} height={24} />}
                 onPress={zoomToCurrentLocation}
-                style={{position: 'absolute', bottom: 120, right: 20, width: 48, height: 48}}
+                style={styles.zoomBtn}
             />
         </View>
     );
