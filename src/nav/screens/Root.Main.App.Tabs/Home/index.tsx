@@ -1,6 +1,6 @@
 import {LotDetailModal} from './Home.LotDetailModal';
 import {HomeContext} from './index.$context';
-import {Map} from './index.map';
+import {Map} from './Home.Map';
 
 export function Home() {
     return (

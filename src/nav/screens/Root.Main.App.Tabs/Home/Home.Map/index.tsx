@@ -4,13 +4,14 @@ import {useCallback, useEffect, useRef} from 'react';
 import {CameraRef} from '@rnmapbox/maps/lib/typescript/src/components/Camera';
 import {Button} from '@src/components/Button';
 import {MapTypes} from '@src/types/types.map';
-import {SearchBar} from './Home.SearchBar';
+import {SearchBar} from '../Home.SearchBar';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useParkingLots} from './index.$data';
-import {useHomeContext} from './index.$context';
+import {useParkingLots} from '../index.$data';
+import {useHomeContext} from '../index.$context';
 import {useUserLocation} from '@src/utils/location';
 
 import CurrentLocationSvg from '@src/static/svgs/CurrentLocation.svg';
+import MapPinSvg from '@src/static/svgs/MapPin.svg';
 
 Mapbox.setAccessToken(MapTypes.MAPBOX_ACCESS_TOKEN);
 export function Map() {
