@@ -30,4 +30,29 @@ export const styles = StyleSheet.create({
         fontWeight: '400',
         color: '#5A5555',
     },
+    pillsWrapper: {
+        flexDirection: 'row',
+        gap: 8,
+    },
+    pill: {
+        flexDirection: 'row',
+        gap: 8,
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderColor: '#128085',
+        borderRadius: 99,
+        borderWidth: 1,
+    },
+    pillText: {
+        fontSize: 16,
+        fontWeight: '400',
+        color: '#662400',
+    },
+    infoButtonsWrapper: {
+        flexDirection: 'row',
+        gap: 8,
+    },
+    infoButtonText: {
+        color: '#128085',
+    },
 });
