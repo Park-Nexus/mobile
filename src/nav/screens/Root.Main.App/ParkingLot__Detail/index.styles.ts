@@ -55,4 +55,27 @@ export const styles = StyleSheet.create({
     infoButtonText: {
         color: '#128085',
     },
+
+    servicesWrapper: {
+        gap: 16,
+    },
+    serviceTitleText: {
+        fontSize: 20,
+        fontWeight: '700',
+        color: '#000',
+    },
+    serviceItemsWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    serviceItem: {
+        flexDirection: 'column',
+        width: 50,
+        gap: 8,
+    },
+    serviceItemText: {
+        fontSize: 14,
+        fontWeight: '400',
+        color: '#5A5555',
+    },
 });

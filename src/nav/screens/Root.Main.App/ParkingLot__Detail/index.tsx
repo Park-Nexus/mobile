@@ -9,7 +9,7 @@ import {useParkingLot} from './index.data';
 import FastImage from 'react-native-fast-image';
 import {useEffect, useState} from 'react';
 import {reverseGeocode} from '@src/utils/location';
-import Carousel from 'react-native-reanimated-carousel';
+import Carousel, {TCarouselProps} from 'react-native-reanimated-carousel';
 import {Button} from '@src/components/Button';
 
 import StarFilledSvg from '@src/static/svgs/StarFilled.svg';
@@ -35,6 +35,26 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
     const [isFetchingImages, setIsFetchingImages] = useState<boolean>(false);
     const isMediaExists = lot?.mediaUrls && lot?.mediaUrls.length > 0;
 
+    const carouselProps: TCarouselProps = {
+        width: deviceWidth,
+        data: lot?.mediaUrls || [],
+        renderItem: ({item, index}) => (
+            <View key={index} style={styles.imageWrapper}>
+                <FastImage
+                    source={{uri: `${item}`}}
+                    style={{width: '100%', height: imageHeight}}
+                    resizeMode="cover"
+                    fallback
+                    onLoadStart={() => setIsFetchingImages(true)}
+                    onLoadEnd={() => setIsFetchingImages(false)}
+                />
+            </View>
+        ),
+        snapEnabled: true,
+        autoPlay: true,
+        autoPlayInterval: 3000,
+    };
+
     useEffect(() => {
         if (lot) {
             reverseGeocode({
@@ -52,37 +72,21 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
                 <>
                     <View style={{height: imageHeight}}>
                         {isFetchingImages ? <ActivityIndicator style={{marginTop: imageHeight / 2}} /> : null}
-                        <Carousel
-                            width={deviceWidth}
-                            data={lot?.mediaUrls || []}
-                            renderItem={({item, index}) => (
-                                <View key={index} style={styles.imageWrapper}>
-                                    <FastImage
-                                        source={{uri: `${item}`}}
-                                        style={{width: '100%', height: imageHeight}}
-                                        resizeMode="cover"
-                                        fallback
-                                        onLoadStart={() => setIsFetchingImages(true)}
-                                        onLoadEnd={() => setIsFetchingImages(false)}
-                                    />
-                                </View>
-                            )}
-                            snapEnabled
-                            autoPlay
-                            autoPlayInterval={3000}
-                        />
+                        <Carousel {...carouselProps} />
                     </View>
-                    <View style={{height: 16}} />
+                    <View style={{height: 8}} />
                 </>
             )}
 
             <View style={styles.wrapper}>
+                {/* Info --------------------------------------------------------------------------------------- */}
                 <View style={styles.infoWrapper}>
+                    {/* Name and address ---------------------------------- */}
                     <View style={styles.textWrapper}>
                         <Text style={styles.nameText}>{lot?.name}</Text>
                         <Text style={styles.addressText}>{address}</Text>
                     </View>
-
+                    {/* Pills --------------------------------------------- */}
                     <View style={styles.pillsWrapper}>
                         <View style={styles.pill}>
                             <StarFilledSvg width={20} height={20} />
@@ -97,7 +101,7 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
                             <Text style={styles.pillText}>4.2</Text>
                         </View>
                     </View>
-
+                    {/* Info buttons --------------------------------------- */}
                     <View style={styles.infoButtonsWrapper}>
                         <Button variant="gray" preIcon={<PhoneCallSvg width={16} height={16} />} text="Call" />
                         <Button
@@ -108,6 +112,8 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
                         <Button variant="green" preIcon={<ShareSvg width={16} height={16} />} text="Share" />
                     </View>
                 </View>
+                {/* Services ---------------------------------------------------------------------------------- */}
+                <View style={styles.servicesWrapper}></View>
             </View>
         </SafeAreaView>
     );
