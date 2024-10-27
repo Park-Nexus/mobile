@@ -3,7 +3,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {RootStackParamList} from '@src/nav/navigators/Root.Main.App';
-import {Image, Text, View, Dimensions, ActivityIndicator, ScrollView} from 'react-native';
+import {Text, View, Dimensions, ActivityIndicator, ScrollView} from 'react-native';
 import {styles} from './index.styles';
 import {useParkingLot} from './index.data';
 import FastImage from 'react-native-fast-image';
@@ -20,6 +20,7 @@ import ArrowBendDoubleUpRight from '@src/static/svgs/ArrowBendDoubleUpRight.svg'
 import ShareSvg from '@src/static/svgs/Share.svg';
 import GasPumpSvg from '@src/static/svgs/GasPump.svg';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Geolocation from '@react-native-community/geolocation';
 
 const deviceWidth = Dimensions.get('window').width;
 const imageHeight = deviceWidth * (9 / 16);
@@ -67,6 +68,21 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
             }).then(setAddress);
         }
     }, [lot]);
+    useEffect(() => {
+        if (!lot) return setDistance(0);
+        Geolocation.getCurrentPosition(position => {
+            getDirection({
+                source: {
+                    lat: position.coords.latitude,
+                    lon: position.coords.longitude,
+                },
+                destination: {
+                    lat: lot.latitude,
+                    lon: lot.longitude,
+                },
+            }).then(direction => setDistance(direction.distance));
+        });
+    }, [lot]);
 
     return (
         <SafeAreaView>
@@ -98,7 +114,9 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
                         </View>
                         <View style={styles.pill}>
                             <MapPinAreaSvg width={20} height={20} />
-                            <Text style={styles.pillText}>4.2</Text>
+                            <Text style={styles.pillText}>
+                                {distance < 1000 ? `${Math.round(distance)}m` : `${Math.round(distance / 1000)}km`}
+                            </Text>
                         </View>
                         <View style={styles.pill}>
                             <ClockSvg width={20} height={20} />
