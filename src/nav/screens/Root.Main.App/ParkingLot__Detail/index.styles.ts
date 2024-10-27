@@ -1,21 +1,22 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+const {width} = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingTop: 16,
-        gap: 32,
-    },
-
     imageWrapper: {
         marginHorizontal: 20,
         borderRadius: 16,
         overflow: 'hidden',
     },
 
+    wrapper: {
+        flex: 1,
+        paddingHorizontal: 20,
+        paddingTop: 16,
+    },
+
     infoWrapper: {
         gap: 16,
+        marginBottom: 32,
     },
     textWrapper: {
         gap: 4,
@@ -32,7 +33,6 @@ export const styles = StyleSheet.create({
     },
     pillsWrapper: {
         flexDirection: 'row',
-        gap: 8,
     },
     pill: {
         flexDirection: 'row',
@@ -42,6 +42,7 @@ export const styles = StyleSheet.create({
         borderColor: '#128085',
         borderRadius: 99,
         borderWidth: 1,
+        marginRight: 8,
     },
     pillText: {
         fontSize: 16,
@@ -58,6 +59,7 @@ export const styles = StyleSheet.create({
 
     servicesWrapper: {
         gap: 16,
+        marginBottom: 32,
     },
     serviceTitleText: {
         fontSize: 20,
@@ -66,16 +68,45 @@ export const styles = StyleSheet.create({
     },
     serviceItemsWrapper: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        gap: 4,
     },
     serviceItem: {
         flexDirection: 'column',
-        width: 50,
+        width: '25%',
+        height: (width / 4) * 0.6,
         gap: 8,
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     serviceItemText: {
         fontSize: 14,
         fontWeight: '400',
         color: '#5A5555',
+    },
+
+    descriptionWrapper: {
+        gap: 16,
+        marginBottom: 64,
+    },
+    descriptionTitleText: {
+        fontSize: 20,
+        fontWeight: '700',
+        color: '#000',
+    },
+    descriptionText: {
+        fontSize: 14,
+        fontWeight: '400',
+        color: '#5A5555',
+    },
+
+    bookButton: {
+        position: 'absolute',
+        left: 20,
+        right: 20,
+    },
+    bookButtonText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: '600',
     },
 });

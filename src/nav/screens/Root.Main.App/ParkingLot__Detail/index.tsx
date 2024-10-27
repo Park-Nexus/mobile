@@ -3,12 +3,12 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {RootStackParamList} from '@src/nav/navigators/Root.Main.App';
-import {Image, Text, View, Dimensions, ActivityIndicator} from 'react-native';
+import {Image, Text, View, Dimensions, ActivityIndicator, ScrollView} from 'react-native';
 import {styles} from './index.styles';
 import {useParkingLot} from './index.data';
 import FastImage from 'react-native-fast-image';
 import {useEffect, useState} from 'react';
-import {reverseGeocode} from '@src/utils/location';
+import {getDirection, reverseGeocode} from '@src/utils/location';
 import Carousel, {TCarouselProps} from 'react-native-reanimated-carousel';
 import {Button} from '@src/components/Button';
 
@@ -18,6 +18,8 @@ import ClockSvg from '@src/static/svgs/Clock.svg';
 import PhoneCallSvg from '@src/static/svgs/PhoneCall.svg';
 import ArrowBendDoubleUpRight from '@src/static/svgs/ArrowBendDoubleUpRight.svg';
 import ShareSvg from '@src/static/svgs/Share.svg';
+import GasPumpSvg from '@src/static/svgs/GasPump.svg';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const deviceWidth = Dimensions.get('window').width;
 const imageHeight = deviceWidth * (9 / 16);
@@ -30,8 +32,10 @@ type ParkingLotDetailProps = {
 export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
     const {lotId} = route.params;
     const {data: lot} = useParkingLot(lotId);
+    const {bottom} = useSafeAreaInsets();
 
     const [address, setAddress] = useState<string>('');
+    const [distance, setDistance] = useState<number>(0);
     const [isFetchingImages, setIsFetchingImages] = useState<boolean>(false);
     const isMediaExists = lot?.mediaUrls && lot?.mediaUrls.length > 0;
 
@@ -78,7 +82,7 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
                 </>
             )}
 
-            <View style={styles.wrapper}>
+            <ScrollView style={styles.wrapper}>
                 {/* Info --------------------------------------------------------------------------------------- */}
                 <View style={styles.infoWrapper}>
                     {/* Name and address ---------------------------------- */}
@@ -87,7 +91,7 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
                         <Text style={styles.addressText}>{address}</Text>
                     </View>
                     {/* Pills --------------------------------------------- */}
-                    <View style={styles.pillsWrapper}>
+                    <ScrollView horizontal style={styles.pillsWrapper}>
                         <View style={styles.pill}>
                             <StarFilledSvg width={20} height={20} />
                             <Text style={styles.pillText}>4.2</Text>
@@ -98,9 +102,11 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
                         </View>
                         <View style={styles.pill}>
                             <ClockSvg width={20} height={20} />
-                            <Text style={styles.pillText}>4.2</Text>
+                            <Text style={styles.pillText}>
+                                {lot?.openAt} - {lot?.closeAt}
+                            </Text>
                         </View>
-                    </View>
+                    </ScrollView>
                     {/* Info buttons --------------------------------------- */}
                     <View style={styles.infoButtonsWrapper}>
                         <Button variant="gray" preIcon={<PhoneCallSvg width={16} height={16} />} text="Call" />
@@ -113,8 +119,30 @@ export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
                     </View>
                 </View>
                 {/* Services ---------------------------------------------------------------------------------- */}
-                <View style={styles.servicesWrapper}></View>
-            </View>
+                <View style={styles.servicesWrapper}>
+                    <Text style={styles.serviceTitleText}>Service Provided</Text>
+                    <View style={styles.serviceItemsWrapper}>
+                        {lot?.parkingLotServices?.map((service, index) => (
+                            <View key={index} style={styles.serviceItem}>
+                                <GasPumpSvg width={24} height={24} />
+                                <Text style={styles.serviceItemText}>{service.name}</Text>
+                            </View>
+                        ))}
+                    </View>
+                </View>
+                {/* Description -------------------------------------------------------------------------------- */}
+                <View style={styles.descriptionWrapper}>
+                    <Text style={styles.descriptionTitleText}>Description</Text>
+                    <Text style={styles.descriptionText}>{lot?.description}</Text>
+                </View>
+            </ScrollView>
+
+            <Button
+                variant="green"
+                style={[styles.bookButton, {bottom: bottom}]}
+                text="Book Parking"
+                textProps={{style: styles.bookButtonText}}
+            />
         </SafeAreaView>
     );
 }
