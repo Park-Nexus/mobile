@@ -100,7 +100,6 @@ export async function getDirection({source, destination}: TGetDirectionPayload) 
     const endpoint = `${MapTypes.MAPBOX_DIRECTIONS_API}/mapbox/driving/${source.lon || 0},${source.lat || 0};${
         destination.lon || 0
     },${destination.lat || 0}?access_token=${MapTypes.MAPBOX_PUBLIC_ACCESS_TOKEN}`;
-    console.log(endpoint);
     const response = await axios.get(endpoint);
     const routes = response.data as TRouteResponse;
     return routes?.routes?.[0] || null;
