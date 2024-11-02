@@ -1,8 +1,8 @@
-import {NavigatorScreenParams} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@src/libs/bottomTabNavigator';
 
 import {Home} from '@src/nav/screens/Root.Main.App.Tabs/Home';
 import {Settings} from '@src/nav/screens/Root.Main.App.Tabs/Settings';
+import {LotManagement} from '@src/nav/screens/Root.Main.App.Tabs/LotManagement';
 import {Ticket} from '@src/nav/screens/Root.Main.App.Tabs/Ticket';
 
 import HomeSvg from '@src/static/svgs/Home.svg';
@@ -11,10 +11,20 @@ import HomeTealSvg from '@src/static/svgs/HomeTeal.svg';
 import Receipt from '@src/static/svgs/Receipt.svg';
 import ReceiptTeal from '@src/static/svgs/ReceiptTeal.svg';
 
+import ParkingFeeSvg from '@src/static/svgs/ParkingFee.svg';
+import ParkingFeeTealSvg from '@src/static/svgs/ParkingFeeTeal.svg';
+
 import SettingsSvg from '@src/static/svgs/Settings.svg';
 import SettingsSvgTeal from '@src/static/svgs/SettingsTeal.svg';
 
-const {Navigator, Screen} = createBottomTabNavigator();
+export type TabParamList = {
+    Home: undefined;
+    Ticket: undefined;
+    'Your Lots': undefined;
+    Settings: undefined;
+};
+
+const {Navigator, Screen} = createBottomTabNavigator<TabParamList>();
 
 export function TabNavigator() {
     return (
@@ -28,6 +38,11 @@ export function TabNavigator() {
                 name="Ticket"
                 component={Ticket}
                 options={{tabBarIcon: ({focused}) => (focused ? <ReceiptTeal /> : <Receipt />)}}
+            />
+            <Screen
+                name="Your Lots"
+                component={LotManagement}
+                options={{tabBarIcon: ({focused}) => (focused ? <ParkingFeeTealSvg /> : <ParkingFeeSvg />)}}
             />
             <Screen
                 name="Settings"

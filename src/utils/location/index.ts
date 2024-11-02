@@ -13,7 +13,6 @@ export function useUserLocation() {
 
     const watchUserLocation = useCallback(() => {
         if (locationWatchId) return;
-        console.log('watching user location');
         const id = Geolocation.watchPosition(
             ({coords: {longitude, latitude}}) => setUserLocation([longitude, latitude]),
             error => console.error(error),
