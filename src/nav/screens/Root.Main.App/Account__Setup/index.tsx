@@ -9,8 +9,8 @@ import {Button} from '@src/components/Button';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export function AccountSetup() {
-    const {} = useSafeAreaInsets();
-    const {createProfile} = useSubmit();
+    const {bottom} = useSafeAreaInsets();
+    const {submit, isPending} = useSubmit();
     const {control, handleSubmit} = useForm<TCreateProfilePayload>({
         values: {
             firstName: '',
@@ -25,6 +25,7 @@ export function AccountSetup() {
         <SafeAreaView>
             <Header title="Fill Your Profile" />
             <ScrollView style={styles.wrapper}>
+                <View style={{height: 100}} />
                 <Controller
                     control={control}
                     name="firstName"
@@ -55,7 +56,13 @@ export function AccountSetup() {
                     )}
                 />
             </ScrollView>
-            <Button variant="green" text="Continue" style={styles.submitButton} />
+            <Button
+                onPress={handleSubmit(submit)}
+                disabled={isPending}
+                variant="green"
+                text="Continue"
+                style={[styles.submitButton, {bottom}]}
+            />
         </SafeAreaView>
     );
 }

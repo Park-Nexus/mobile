@@ -7,5 +7,7 @@ export const styles = StyleSheet.create({
     },
     submitButton: {
         position: 'absolute',
+        left: 16,
+        right: 16,
     },
 });
