@@ -9,9 +9,17 @@ import {Button} from '@src/components/Button';
 
 import CaretRightBlackSvg from '@src/static/svgs/CaretRightBlack.svg';
 import {useMe} from './index.data';
+import {useAuthStore} from '@src/states';
+import {AuthStorage} from '@src/auth/auth.utils';
 
 export function Settings() {
     const {me} = useMe();
+    const {setIsAuthenticated} = useAuthStore();
+
+    const logout = async () => {
+        await AuthStorage.clearAuthStorage();
+        setIsAuthenticated(false);
+    };
 
     return (
         <SafeAreaView>
@@ -59,6 +67,7 @@ export function Settings() {
                     </View>
                 </ScrollView>
             </View>
+            <Button variant="gray" text="Log out" style={styles.logoutButton} onPress={logout} />
         </SafeAreaView>
     );
 }

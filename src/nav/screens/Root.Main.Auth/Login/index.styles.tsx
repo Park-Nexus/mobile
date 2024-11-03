@@ -44,4 +44,13 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
     },
+
+    registerText: {
+        fontSize: 14,
+        fontWeight: '400',
+        color: '#0A0A0B',
+        position: 'absolute',
+        width: '100%',
+        textAlign: 'center',
+    },
 });

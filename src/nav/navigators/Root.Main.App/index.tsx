@@ -4,6 +4,7 @@ import {ParkingLotDetail} from '@src/nav/screens/Root.Main.App/ParkingLot__Detai
 import {ParkingLotAdd} from '@src/nav/screens/Root.Main.App/ParkingLot__Add';
 import {AccountSetup} from '@src/nav/screens/Root.Main.App/Account__Setup';
 import {useMe} from './index.data';
+import {ActivityIndicator} from 'react-native';
 
 export type RootStackParamList = {
     Tab: undefined;
@@ -15,10 +16,11 @@ export type RootStackParamList = {
 const {Navigator, Screen} = createStackNavigator<RootStackParamList>();
 
 export function AppNavigator() {
-    const {me} = useMe();
+    const {me, isFetching} = useMe();
 
     const isUserProfileExists = !!me;
 
+    if (isFetching) return <ActivityIndicator />;
     return (
         <Navigator initialRouteName="Tab">
             {!isUserProfileExists && <Screen name="Account__Setup" component={AccountSetup} />}

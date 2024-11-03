@@ -13,9 +13,12 @@ import GoogleSvg from '@src/static/svgs/Google.svg';
 import EyeSvg from '@src/static/svgs/Eye.svg';
 import {useState} from 'react';
 import {TLoginPayload, useSubmit} from './index.submit';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {AuthStackParamList} from '@src/nav/navigators/Root.Main.Auth';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export function Login() {
+    const {bottom} = useSafeAreaInsets();
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
     const {control, handleSubmit} = useForm<TLoginPayload>({
         values: {
@@ -24,7 +27,7 @@ export function Login() {
         },
     });
     const {submit, isPending} = useSubmit();
-    const navigation = useNavigation();
+    const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
 
     return (
         <SafeAreaView>
@@ -85,6 +88,9 @@ export function Login() {
                     <Button variant="gray" preIcon={<GoogleSvg width={24} height={24} />} />
                 </View>
             </View>
+            <Text style={[styles.registerText, {bottom: bottom}]} onPress={() => navigation.navigate('Register')}>
+                Don’t have an account? Sign up{' '}
+            </Text>
         </SafeAreaView>
     );
 }
