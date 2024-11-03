@@ -1,9 +1,64 @@
-import {Text, View} from 'react-native';
+import {Header} from '@src/components/Header';
+import {SafeAreaView} from '@src/components/SafeAreaWrapper';
+import {ScrollView, Text, View} from 'react-native';
+
+import ListBulletSvg from '@src/static/svgs/ListBullet.svg';
+import {styles} from './index.styles';
+import FastImage from 'react-native-fast-image';
+import {Button} from '@src/components/Button';
+
+import CaretRightBlackSvg from '@src/static/svgs/CaretRightBlack.svg';
+import {useMe} from './index.data';
 
 export function Settings() {
+    const {me} = useMe();
+
     return (
-        <View>
-            <Text>Settings</Text>
-        </View>
+        <SafeAreaView>
+            <Header title="Settings" rightButtonIcon={<ListBulletSvg width={24} height={24} />} />
+            <View style={styles.wrapper}>
+                <Text style={styles.sectionTitle}>Account</Text>
+                <View style={{height: 8}} />
+                <View style={styles.accountWrapper}>
+                    <FastImage
+                        source={{uri: 'https://picsum.photos/200/300'}}
+                        style={styles.avatar}
+                        resizeMode="cover"
+                    />
+                    <View style={styles.accountTextsWrapper}>
+                        <Text style={styles.userNameText}>
+                            {me?.firstName} {me?.lastName}
+                        </Text>
+                        <Text style={styles.userInfoText}>{me?.account?.email}</Text>
+                    </View>
+                    <Button
+                        variant="gray"
+                        preIcon={<CaretRightBlackSvg width={16} height={16} />}
+                        style={styles.button}
+                    />
+                </View>
+                <View style={{height: 32}} />
+                <Text style={styles.sectionTitle}>Settings</Text>
+                <View style={{height: 8}} />
+                <ScrollView style={styles.settingListWrapper}>
+                    <View style={styles.settingItem}>
+                        <Text style={styles.settingItemText}>My Vehicles</Text>
+                        <Button
+                            variant="gray"
+                            preIcon={<CaretRightBlackSvg width={16} height={16} />}
+                            style={styles.button}
+                        />
+                    </View>
+                    <View style={styles.settingItem}>
+                        <Text style={styles.settingItemText}>Notification</Text>
+                        <Button
+                            variant="gray"
+                            preIcon={<CaretRightBlackSvg width={16} height={16} />}
+                            style={styles.button}
+                        />
+                    </View>
+                </ScrollView>
+            </View>
+        </SafeAreaView>
     );
 }
