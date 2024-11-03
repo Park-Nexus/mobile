@@ -1,9 +1,9 @@
-import {ProfileGuard} from './ProfileGuard';
+import {AccountGuard} from './AccountGuard';
 
 interface IGlobalGuardProps {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }
 
 export function GlobalGuard({children}: IGlobalGuardProps) {
-  return <ProfileGuard>{children}</ProfileGuard>;
+    return <AccountGuard>{children}</AccountGuard>;
 }

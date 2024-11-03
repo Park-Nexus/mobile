@@ -1,7 +1,7 @@
 import {trpc} from '@src/trpc';
 
 export function useMe() {
-    const response = trpc.user.profile.get.single.useQuery(undefined, {queryKeyHashFn: () => 'settings_page'});
+    const response = trpc.user.profile.get.single.useQuery();
 
     const me = response.data;
 

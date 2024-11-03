@@ -89,7 +89,7 @@ export function Login() {
                 </View>
             </View>
             <Text style={[styles.registerText, {bottom: bottom}]} onPress={() => navigation.navigate('Register')}>
-                Don’t have an account? Sign up{' '}
+                Don’t have an account? <Text style={styles.registerTextColored}>Sign up</Text>
             </Text>
         </SafeAreaView>
     );

@@ -3386,7 +3386,7 @@ __metadata:
 
 "@parknexus/api@https://github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=4871ac45acf67f98630de211591ef37b6313a203"
+  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=5904b92d9d4c68666d786eaea6035177eabc094e"
   dependencies:
     "@prisma/client": 5.21.1
     "@trpc/server": ^11.0.0-rc.459
@@ -3397,7 +3397,7 @@ __metadata:
     jsonwebtoken: ^9.0.2
     morgan: ^1.10.0
     zod: ^3.23.8
-  checksum: d99c1da30502a7c055c825cfcef95cb229269c09605e1288feb02facbb5bea47cbb2f33f4dabf6e1885ef3f2d0ae440599a6d154b28261194cd351e898546280
+  checksum: 671fde8e9fe1745de59dec78c8349bdcbd965ea046fbe03df55df23c56b57f463dc48570708b883c1bf53157b5317693840f38cd2c4ac67775b1702781feb9bf
   languageName: node
   linkType: hard
 
