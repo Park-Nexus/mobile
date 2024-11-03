@@ -3,6 +3,7 @@ import {TabNavigator} from '../Root.Main.App.Tabs';
 import {ParkingLotDetail} from '@src/nav/screens/Root.Main.App/ParkingLot__Detail';
 import {ParkingLotAdd} from '@src/nav/screens/Root.Main.App/ParkingLot__Add';
 import {AccountSetup} from '@src/nav/screens/Root.Main.App/Account__Setup';
+import {useMe} from './index.data';
 
 export type RootStackParamList = {
     Tab: undefined;
@@ -14,12 +15,20 @@ export type RootStackParamList = {
 const {Navigator, Screen} = createStackNavigator<RootStackParamList>();
 
 export function AppNavigator() {
+    const {me} = useMe();
+
+    const isUserProfileExists = !!me;
+
     return (
         <Navigator initialRouteName="Tab">
-            <Screen name="Tab" component={TabNavigator} />
-            <Screen name="Account__Setup" component={AccountSetup} />
-            <Screen name="ParkingLot__Add" component={ParkingLotAdd} />
-            <Screen name="ParkingLot__Detail" component={ParkingLotDetail} />
+            {!isUserProfileExists && <Screen name="Account__Setup" component={AccountSetup} />}
+            {isUserProfileExists && (
+                <>
+                    <Screen name="Tab" component={TabNavigator} />
+                    <Screen name="ParkingLot__Add" component={ParkingLotAdd} />
+                    <Screen name="ParkingLot__Detail" component={ParkingLotDetail} />
+                </>
+            )}
         </Navigator>
     );
 }
