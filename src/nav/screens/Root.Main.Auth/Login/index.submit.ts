@@ -1,6 +1,7 @@
 import {AuthStorage} from '@src/auth/auth.utils';
 import {useAuthStore} from '@src/states';
 import {trpc, TrpcInput} from '@src/trpc';
+import {parseTrpcErrorMessage} from '@src/utils/trpcHelpers';
 import Toast from 'react-native-toast-message';
 
 export type TLoginPayload = TrpcInput['auth']['login'];
@@ -23,7 +24,7 @@ export function useSubmit() {
                 console.error(err.message);
                 Toast.show({
                     type: 'error',
-                    text1: err.message,
+                    text1: parseTrpcErrorMessage(err.message),
                 });
             },
         });
