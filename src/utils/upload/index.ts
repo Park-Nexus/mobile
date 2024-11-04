@@ -8,4 +8,8 @@ const uploadInstance = axios.create({
     },
 });
 
-export namespace UploadUtils {}
+export namespace UploadUtils {
+    export const uploadFile = async (payload: FormData) => {
+        await uploadInstance.post('', payload);
+    };
+}

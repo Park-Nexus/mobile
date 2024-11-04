@@ -5,8 +5,6 @@ import {ParkingLotAdd} from '@src/nav/screens/Root.Main.App/ParkingLot__Add';
 import {useMe} from './index.data';
 import {ActivityIndicator} from 'react-native';
 import {ProfileSetup} from '@src/nav/screens/Root.Main.App/Profile__Setup';
-import {launchImageLibrary} from 'react-native-image-picker';
-import {useEffect} from 'react';
 
 export type RootStackParamList = {
     Tab: undefined;
@@ -19,12 +17,6 @@ const {Navigator, Screen} = createStackNavigator<RootStackParamList>();
 
 export function AppNavigator() {
     const {me, isFetching} = useMe();
-
-    useEffect(() => {
-        launchImageLibrary({mediaType: 'photo', selectionLimit: 1}).then(({assets}) => {
-            console.log(assets);
-        });
-    }, []);
 
     const isUserProfileExists = !!me;
 
