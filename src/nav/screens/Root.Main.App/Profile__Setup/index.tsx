@@ -8,7 +8,7 @@ import {TextInput} from '@src/components/Input__Text';
 import {Button} from '@src/components/Button';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-export function AccountSetup() {
+export function ProfileSetup() {
     const {bottom} = useSafeAreaInsets();
     const {submit, isPending} = useSubmit();
     const {control, handleSubmit} = useForm<TCreateProfilePayload>({
