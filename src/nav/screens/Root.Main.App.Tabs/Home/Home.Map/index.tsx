@@ -71,7 +71,7 @@ export function Map() {
                 onCameraChanged={event => {
                     if (event.gestures.isGestureActive) stopWatchingUserLocation();
                 }}
-                compassPosition={{bottom: bottom + 50, left: 20}}>
+                compassPosition={{bottom: bottom + 100, left: 20}}>
                 <Mapbox.Camera
                     centerCoordinate={userLocation}
                     ref={cameraRef}

@@ -62,7 +62,7 @@ export function LotDetailModal() {
             animationInTiming={400}
             animationOut={'slideOutDown'}
             animationOutTiming={700}
-            style={{justifyContent: 'flex-end', paddingBottom: bottom + 65}}
+            style={{justifyContent: 'flex-end', paddingBottom: bottom + 80}}
             isVisible={!!selectedLotId}
             hasBackdrop={false}
             swipeDirection="down"

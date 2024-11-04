@@ -27,27 +27,39 @@ export type TabParamList = {
 const {Navigator, Screen} = createBottomTabNavigator<TabParamList>();
 
 export function TabNavigator() {
+    const iconProps = {width: 20, height: 20};
+
     return (
         <Navigator>
             <Screen
                 name="Home"
                 component={Home}
-                options={{tabBarIcon: ({focused}) => (focused ? <HomeTealSvg /> : <HomeSvg />)}}
+                options={{
+                    tabBarIcon: ({focused}) => (focused ? <HomeTealSvg {...iconProps} /> : <HomeSvg {...iconProps} />),
+                }}
             />
             <Screen
                 name="Ticket"
                 component={Ticket}
-                options={{tabBarIcon: ({focused}) => (focused ? <ReceiptTeal /> : <Receipt />)}}
+                options={{
+                    tabBarIcon: ({focused}) => (focused ? <ReceiptTeal {...iconProps} /> : <Receipt {...iconProps} />),
+                }}
             />
             <Screen
                 name="Your Lots"
                 component={LotManagement}
-                options={{tabBarIcon: ({focused}) => (focused ? <ParkingFeeTealSvg /> : <ParkingFeeSvg />)}}
+                options={{
+                    tabBarIcon: ({focused}) =>
+                        focused ? <ParkingFeeTealSvg {...iconProps} /> : <ParkingFeeSvg {...iconProps} />,
+                }}
             />
             <Screen
                 name="Settings"
                 component={Settings}
-                options={{tabBarIcon: ({focused}) => (focused ? <SettingsSvgTeal /> : <SettingsSvg />)}}
+                options={{
+                    tabBarIcon: ({focused}) =>
+                        focused ? <SettingsSvgTeal {...iconProps} /> : <SettingsSvg {...iconProps} />,
+                }}
             />
         </Navigator>
     );
