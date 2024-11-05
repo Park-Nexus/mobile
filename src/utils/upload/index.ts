@@ -15,7 +15,7 @@ export namespace UploadUtils {
 
     export const uploadAvatar = async (payload: FormData) => {
         const response = await uploadInstance.post('/avatar', payload);
-        const path = (response?.data?.path as String) || '';
+        const path = (response?.data?.path as string) || '';
 
         return path;
     };

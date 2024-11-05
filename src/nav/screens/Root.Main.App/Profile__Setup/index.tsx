@@ -9,14 +9,17 @@ import {styles} from './index.styles';
 import {TextInput} from '@src/components/Input__Text';
 import {Button} from '@src/components/Button';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary, Asset} from 'react-native-image-picker';
 import {UploadUtils} from '@src/utils/upload';
 import FastImage from 'react-native-fast-image';
 
 import AvatarPlaceHolder from '@src/static/images/Profile.png';
+import NotePencil from '@src/static/svgs/NotePencil.svg';
+import {useState} from 'react';
 
 export function ProfileSetup() {
     const {bottom} = useSafeAreaInsets();
+    const [selectedAvatar, setSelectedAvatar] = useState<Asset>();
     const {submit, isPending} = useSubmit();
     const {control, handleSubmit, setValue} = useForm<TCreateProfilePayload>({
         values: {
@@ -28,13 +31,11 @@ export function ProfileSetup() {
         },
     });
 
-    const test = () => {
+    const openImagePicker = () => {
         launchImageLibrary({mediaType: 'photo', selectionLimit: 1}).then(async ({assets}) => {
             const asset = assets?.[0];
             if (!asset?.uri) return;
-
-            setValue('avatarUrl', asset.uri);
-
+            setSelectedAvatar(asset);
             // const formData = new FormData();
             // formData.append('file', {
             //     uri: asset.uri,
@@ -47,6 +48,20 @@ export function ProfileSetup() {
         });
     };
 
+    const onSubmit = async (values: TCreateProfilePayload) => {
+        let avatarUrl = '';
+        if (selectedAvatar) {
+            const formData = new FormData();
+            formData.append('file', {
+                uri: selectedAvatar.uri,
+                type: selectedAvatar.type,
+                name: selectedAvatar.fileName,
+            });
+            avatarUrl = await UploadUtils.uploadAvatar(formData);
+        }
+        submit({...values, avatarUrl});
+    };
+
     return (
         <SafeAreaView>
             <Header title="Fill Your Profile" />
@@ -55,18 +70,33 @@ export function ProfileSetup() {
                 <Controller
                     control={control}
                     name="avatarUrl"
-                    render={({field: {onChange, value}}) => (
-                        <View style={{width: 100, height: 100, marginLeft: 'auto', marginRight: 'auto'}}>
+                    render={() => (
+                        <View
+                            style={{
+                                width: 100,
+                                height: 100,
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                marginTop: 32,
+                                marginBottom: 32,
+                            }}>
                             <FastImage
-                                source={value ? {uri: value} : AvatarPlaceHolder}
+                                source={selectedAvatar ? {uri: selectedAvatar.uri} : AvatarPlaceHolder}
                                 resizeMode="cover"
-                                style={{width: 100, height: 100, borderRadius: 50}}
+                                style={{width: '100%', height: '100%', borderRadius: 50}}
                             />
                             <Button
-                                style={{position: 'absolute', bottom: 0, right: 0}}
+                                style={{
+                                    position: 'absolute',
+                                    bottom: 0,
+                                    right: 0,
+                                    width: 28,
+                                    height: 28,
+                                    borderRadius: 14,
+                                }}
                                 variant="green"
-                                text="i"
-                                onPress={test}
+                                preIcon={<NotePencil width={16} height={16} />}
+                                onPress={openImagePicker}
                             />
                         </View>
                     )}
@@ -102,7 +132,7 @@ export function ProfileSetup() {
                 />
             </ScrollView>
             <Button
-                onPress={handleSubmit(submit)}
+                onPress={handleSubmit(onSubmit)}
                 disabled={isPending}
                 variant="green"
                 text="Continue"
