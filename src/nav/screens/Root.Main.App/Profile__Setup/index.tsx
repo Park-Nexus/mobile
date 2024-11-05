@@ -10,7 +10,7 @@ import {TextInput} from '@src/components/Input__Text';
 import {Button} from '@src/components/Button';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {launchImageLibrary, Asset} from 'react-native-image-picker';
-import {UploadUtils} from '@src/utils/upload';
+import {useUpload} from '@src/utils/upload';
 import FastImage from 'react-native-fast-image';
 
 import AvatarPlaceHolder from '@src/static/images/Profile.png';
@@ -21,6 +21,7 @@ export function ProfileSetup() {
     const {bottom} = useSafeAreaInsets();
     const [selectedAvatar, setSelectedAvatar] = useState<Asset>();
     const {submit, isPending} = useSubmit();
+    const {isUploading, uploadAvatar} = useUpload();
     const {control, handleSubmit, setValue} = useForm<TCreateProfilePayload>({
         values: {
             firstName: '',
@@ -36,29 +37,17 @@ export function ProfileSetup() {
             const asset = assets?.[0];
             if (!asset?.uri) return;
             setSelectedAvatar(asset);
-            // const formData = new FormData();
-            // formData.append('file', {
-            //     uri: asset.uri,
-            //     type: asset.type,
-            //     name: asset.fileName,
-            // });
-
-            // const path = await UploadUtils.uploadAvatar(formData);
-            // console.log(path);
         });
     };
 
     const onSubmit = async (values: TCreateProfilePayload) => {
         let avatarUrl = '';
-        if (selectedAvatar) {
-            const formData = new FormData();
-            formData.append('file', {
-                uri: selectedAvatar.uri,
-                type: selectedAvatar.type,
-                name: selectedAvatar.fileName,
+        if (selectedAvatar && selectedAvatar.uri && selectedAvatar.type && selectedAvatar.fileName) {
+            avatarUrl = await uploadAvatar({
+                file: {uri: selectedAvatar.uri, name: selectedAvatar.fileName, type: selectedAvatar.type},
             });
-            avatarUrl = await UploadUtils.uploadAvatar(formData);
         }
+        console.log(avatarUrl, values);
         submit({...values, avatarUrl});
     };
 
@@ -133,9 +122,9 @@ export function ProfileSetup() {
             </ScrollView>
             <Button
                 onPress={handleSubmit(onSubmit)}
-                disabled={isPending}
+                disabled={isPending || isUploading}
                 variant="green"
-                text="Continue"
+                text={isUploading || isPending ? 'Saving...' : 'Submit'}
                 style={[styles.submitButton, {bottom}]}
             />
         </SafeAreaView>
