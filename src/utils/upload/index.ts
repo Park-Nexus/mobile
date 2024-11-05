@@ -12,4 +12,11 @@ export namespace UploadUtils {
     export const uploadFile = async (payload: FormData) => {
         await uploadInstance.post('', payload);
     };
+
+    export const uploadAvatar = async (payload: FormData) => {
+        const response = await uploadInstance.post('/avatar', payload);
+        const path = (response?.data?.path as String) || '';
+
+        return path;
+    };
 }

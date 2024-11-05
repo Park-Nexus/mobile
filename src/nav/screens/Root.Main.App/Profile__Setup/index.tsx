@@ -1,52 +1,76 @@
+import RNFetchBlob from 'rn-fetch-blob';
+
 import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {TCreateProfilePayload, useSubmit} from './index.data';
 import {Controller, useForm} from 'react-hook-form';
-import {ScrollView, View} from 'react-native';
+import {Platform, ScrollView, View} from 'react-native';
 import {styles} from './index.styles';
 import {TextInput} from '@src/components/Input__Text';
 import {Button} from '@src/components/Button';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {UploadUtils} from '@src/utils/upload';
+import FastImage from 'react-native-fast-image';
+
+import AvatarPlaceHolder from '@src/static/images/Profile.png';
 
 export function ProfileSetup() {
     const {bottom} = useSafeAreaInsets();
     const {submit, isPending} = useSubmit();
-    const {control, handleSubmit} = useForm<TCreateProfilePayload>({
+    const {control, handleSubmit, setValue} = useForm<TCreateProfilePayload>({
         values: {
             firstName: '',
             lastName: '',
             phone: '',
             gender: 'MALE',
-            avatarUrl: 'https://picsum.photos/200',
+            avatarUrl: '',
         },
     });
 
     const test = () => {
         launchImageLibrary({mediaType: 'photo', selectionLimit: 1}).then(async ({assets}) => {
             const asset = assets?.[0];
-            if (!asset) return;
+            if (!asset?.uri) return;
 
-            const formData = new FormData();
-            formData.append('files', [
-                {
-                    uri: asset.uri,
-                    name: asset.fileName,
-                    type: asset.type,
-                },
-            ]);
+            setValue('avatarUrl', asset.uri);
 
-            await UploadUtils.uploadFile(formData);
+            // const formData = new FormData();
+            // formData.append('file', {
+            //     uri: asset.uri,
+            //     type: asset.type,
+            //     name: asset.fileName,
+            // });
+
+            // const path = await UploadUtils.uploadAvatar(formData);
+            // console.log(path);
         });
     };
 
     return (
         <SafeAreaView>
             <Header title="Fill Your Profile" />
-            <Button variant="green" text="Test" onPress={test} />
+
             <ScrollView style={styles.wrapper}>
-                <View style={{height: 100}} />
+                <Controller
+                    control={control}
+                    name="avatarUrl"
+                    render={({field: {onChange, value}}) => (
+                        <View style={{width: 100, height: 100, marginLeft: 'auto', marginRight: 'auto'}}>
+                            <FastImage
+                                source={value ? {uri: value} : AvatarPlaceHolder}
+                                resizeMode="cover"
+                                style={{width: 100, height: 100, borderRadius: 50}}
+                            />
+                            <Button
+                                style={{position: 'absolute', bottom: 0, right: 0}}
+                                variant="green"
+                                text="i"
+                                onPress={test}
+                            />
+                        </View>
+                    )}
+                />
                 <Controller
                     control={control}
                     name="firstName"
