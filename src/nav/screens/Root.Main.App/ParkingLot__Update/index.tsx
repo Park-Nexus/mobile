@@ -6,11 +6,15 @@ import {useMyParkingLot} from './index.data';
 import {Controller, useForm} from 'react-hook-form';
 import {TUpdateParkingLotPayload} from './index.submit';
 import {useEffect, useState} from 'react';
-import {Asset} from 'react-native-image-picker';
-import {ScrollView} from 'react-native';
+import {Asset, launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {TextInput} from '@src/components/Input__Text';
 import {Button} from '@src/components/Button';
 import FastImage from 'react-native-fast-image';
+import {useActionSheet} from '@expo/react-native-action-sheet';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
+const MAX_ALLOWED_MEDIA_COUNT = 5;
 
 type ScreenProps = {
     navigation: NavigationProp<AppStackParamList, 'ParkingLot__Update'>;
@@ -19,15 +23,56 @@ type ScreenProps = {
 export function ParkingLot__Update({navigation, route}: ScreenProps) {
     const {lotId} = route.params;
     const {data: lot} = useMyParkingLot(lotId);
+    const {showActionSheetWithOptions} = useActionSheet();
 
     const [images, setImages] = useState<string[]>([]);
+    const [removalImageIndexes, setRemovalImageIndexes] = useState<number[]>([]);
     const [additionalImages, setAdditionalImages] = useState<Asset[]>([]);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState<boolean>(false);
+    const [timeField, setTimeField] = useState<keyof TUpdateParkingLotPayload>();
 
     const {control, handleSubmit, setValue} = useForm<TUpdateParkingLotPayload>({
         values: {
             id: lotId,
         },
     });
+
+    const showDatePicker = (field: keyof TUpdateParkingLotPayload) => {
+        setTimeField(field);
+        setDatePickerVisibility(true);
+    };
+    const hideDatePicker = () => setDatePickerVisibility(false);
+    const handleConfirm = (date: Date) => {
+        const formattedTime = date.toTimeString().substring(0, 5);
+        if (timeField === 'openAt') {
+            setValue('openAt', formattedTime);
+        } else if (timeField === 'closeAt') {
+            setValue('closeAt', formattedTime);
+        }
+        hideDatePicker();
+    };
+
+    const selectOrTakeImage = () => {
+        showActionSheetWithOptions(
+            {
+                options: ['Select from library', 'Take photo', 'Cancel'],
+                cancelButtonIndex: 2,
+            },
+            buttonIndex => {
+                if (buttonIndex === 0) {
+                    launchImageLibrary({mediaType: 'photo', selectionLimit: MAX_ALLOWED_MEDIA_COUNT}).then(
+                        ({assets}) => {
+                            if (assets) setAdditionalImages(prev => [...prev, ...assets]);
+                        },
+                    );
+                } else if (buttonIndex === 1) {
+                    launchCamera({mediaType: 'photo'}).then(({assets}) => {
+                        if (assets) setAdditionalImages(prev => [...prev, ...assets]);
+                    });
+                }
+            },
+        );
+    };
 
     useEffect(() => {
         if (!lot) return;
@@ -40,6 +85,7 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
         setValue('openAt', lot.openAt);
         setValue('closeAt', lot.closeAt);
         setImages([...lot.mediaUrls]);
+        console.log(lot.mediaUrls);
     }, [lot, lotId]);
 
     return (
@@ -49,24 +95,36 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
             <ScrollView>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {images.map((image, index) => (
-                        <FastImage
+                        <TouchableOpacity
                             key={index}
-                            source={{uri: image}}
-                            style={{width: 100, height: 100}}
-                            resizeMode="cover"
-                            fallback
-                        />
+                            onPress={() =>
+                                setRemovalImageIndexes(prev =>
+                                    prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index],
+                                )
+                            }
+                            style={{width: 100, height: 100, opacity: removalImageIndexes.includes(index) ? 0.5 : 1}}>
+                            <FastImage
+                                source={{uri: image}}
+                                style={{width: 100, height: 100}}
+                                resizeMode="cover"
+                                fallback
+                            />
+                        </TouchableOpacity>
                     ))}
-                    {additionalImages.map((image, index) => (
-                        <FastImage
-                            key={index}
-                            source={{uri: image.uri}}
+                    {additionalImages.map(image => (
+                        <TouchableOpacity
+                            key={image.uri}
                             style={{width: 100, height: 100}}
-                            resizeMode="cover"
-                            fallback
-                        />
+                            onPress={() => setAdditionalImages(prev => prev.filter(i => i.uri !== image.uri))}>
+                            <FastImage
+                                source={{uri: image.uri}}
+                                style={{width: 100, height: 100}}
+                                resizeMode="cover"
+                                fallback
+                            />
+                        </TouchableOpacity>
                     ))}
-                    <Button variant="gray" text="Add" />
+                    <Button variant="gray" text="Add" onPress={selectOrTakeImage} />
                 </ScrollView>
 
                 <Controller
@@ -101,6 +159,35 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
 
                 <Controller
                     control={control}
+                    name="openAt"
+                    render={({field: {value}}) => (
+                        <View>
+                            <Button
+                                variant="green"
+                                text="Select Opening Time"
+                                onPress={() => showDatePicker('openAt')}
+                            />
+                            {value ? <Text>Opening Time: {value}</Text> : null}
+                        </View>
+                    )}
+                />
+                <Controller
+                    control={control}
+                    name="closeAt"
+                    render={({field: {value}}) => (
+                        <View>
+                            <Button
+                                variant="green"
+                                text="Select Closing Time"
+                                onPress={() => showDatePicker('closeAt')}
+                            />
+                            {value ? <Text>Closing Time: {value}</Text> : null}
+                        </View>
+                    )}
+                />
+
+                <Controller
+                    control={control}
                     name="latitude"
                     render={({field: {onChange, value, onBlur}}) => (
                         <TextInput
@@ -125,6 +212,12 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                     )}
                 />
             </ScrollView>
+            <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="time"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+            />
             <Button variant="green" text="Update" />
         </SafeAreaView>
     );

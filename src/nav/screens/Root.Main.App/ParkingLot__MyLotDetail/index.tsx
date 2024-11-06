@@ -20,7 +20,7 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
             <ScrollView>
                 <View>
                     {/* Info ---------------------------------------------------------------- */}
-                    <Text>Info</Text>
+                    <Text onPress={() => navigation.navigate('ParkingLot__Update', {lotId})}>Info (Click to edit)</Text>
                     <ScrollView horizontal>
                         {lot?.mediaUrls.map(url => (
                             <FastImage

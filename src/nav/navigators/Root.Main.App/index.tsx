@@ -6,6 +6,7 @@ import {useMe} from './index.data';
 import {ActivityIndicator} from 'react-native';
 import {Profile__Setup} from '@src/nav/screens/Root.Main.App/Profile__Setup';
 import {ParkingLot__MyLotDetail} from '@src/nav/screens/Root.Main.App/ParkingLot__MyLotDetail';
+import {ParkingLot__Update} from '@src/nav/screens/Root.Main.App/ParkingLot__Update';
 
 export type AppStackParamList = {
     Tab: undefined;
@@ -33,6 +34,7 @@ export function AppNavigator() {
                 <>
                     <Screen name="Tab" component={TabNavigator} />
                     <Screen name="ParkingLot__Add" component={ParkingLot__Add} />
+                    <Screen name="ParkingLot__Update" component={ParkingLot__Update} />
                     <Screen name="ParkingLot__MyLotDetail" component={ParkingLot__MyLotDetail} />
                     <Screen name="ParkingLot__Detail" component={ParkingLot__Detail} />
                 </>

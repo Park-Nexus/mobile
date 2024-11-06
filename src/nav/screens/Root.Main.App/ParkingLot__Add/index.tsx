@@ -68,13 +68,13 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
             },
             buttonIndex => {
                 if (buttonIndex === 0) {
-                    launchImageLibrary({mediaType: 'mixed', selectionLimit: MAX_ALLOWED_MEDIA_COUNT}).then(
+                    launchImageLibrary({mediaType: 'photo', selectionLimit: MAX_ALLOWED_MEDIA_COUNT}).then(
                         ({assets}) => {
                             if (assets) setSelectedImages(prev => [...prev, ...assets]);
                         },
                     );
                 } else if (buttonIndex === 1) {
-                    launchCamera({mediaType: 'mixed'}).then(({assets}) => {
+                    launchCamera({mediaType: 'photo'}).then(({assets}) => {
                         if (assets) setSelectedImages(prev => [...prev, ...assets]);
                     });
                 }
@@ -190,13 +190,6 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                         />
                     )}
                 />
-
-                <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    mode="time"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
-                />
             </ScrollView>
 
             <Button
@@ -204,6 +197,13 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                 text={isPending || isUploading ? 'Saving...' : 'Save'}
                 onPress={handleSubmit(onSubmit)}
                 disabled={isPending || isUploading}
+            />
+
+            <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="time"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
             />
         </SafeAreaView>
     );
