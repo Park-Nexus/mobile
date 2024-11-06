@@ -5023,6 +5023,7 @@ __metadata:
     react-hook-form: ^7.53.0
     react-native: 0.74.3
     react-native-bootsplash: ^6.1.3
+    react-native-date-picker: ^5.0.7
     react-native-fast-image: ^8.6.3
     react-native-gesture-handler: ^2.20.0
     react-native-image-picker: ^7.1.2
@@ -11733,6 +11734,16 @@ __metadata:
     react: ">=18.1.0"
     react-native: ">=0.70.0"
   checksum: 423115fb4807f9703992ec7bd403e32ceb61360c5a20c3b9494d95b7d4e4f4f031250faeb3e1ecd456de4983d624e700101b466033922e64779f94b1d86a1c3d
+  languageName: node
+  linkType: hard
+
+"react-native-date-picker@npm:^5.0.7":
+  version: 5.0.7
+  resolution: "react-native-date-picker@npm:5.0.7"
+  peerDependencies:
+    react: ">= 17.0.1"
+    react-native: ">= 0.64.3"
+  checksum: 94191bf3ce6e88a3acc4ca5e5514eaa6fc15c61666393d85ca258dba3a3efd9145c8fd31ed0f18676d7f083e17f08c760de8193ad24367a65761330084bcdc6b
   languageName: node
   linkType: hard
 

@@ -1,6 +1,6 @@
 import {trpc, TrpcInput} from '@src/trpc';
 
-type TCreateParkingLotPayload = TrpcInput['parking']['lot']['submit'];
+export type TCreateParkingLotPayload = TrpcInput['parking']['lot']['submit'];
 
 export function useSubmit() {
     const mutation = trpc.parking.lot.submit.useMutation();
