@@ -12,10 +12,7 @@ const uploadInstance = axios.create({
 export function useUpload() {
     const [isUploading, setIsUploading] = useState(false);
 
-    const uploadFile = async (payload: FormData) => {
-        await uploadInstance.post('', payload);
-    };
-
+    // Upload avatar -------------------------------------------------------
     type TUploadAvatarPayload = {
         file: {
             uri: string;

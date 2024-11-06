@@ -7,6 +7,7 @@ import {styles} from './index.styles';
 import FastImage from 'react-native-fast-image';
 import {Button} from '@src/components/Button';
 
+import AvatarPlaceHolder from '@src/static/images/Profile.png';
 import CaretRightBlackSvg from '@src/static/svgs/CaretRightBlack.svg';
 import {useMe} from './index.data';
 import {useAuthStore} from '@src/states';
@@ -29,7 +30,7 @@ export function Settings() {
                 <View style={{height: 8}} />
                 <View style={styles.accountWrapper}>
                     <FastImage
-                        source={{uri: 'https://picsum.photos/200/300'}}
+                        source={me?.avatarUrl ? {uri: me?.avatarUrl} : AvatarPlaceHolder}
                         style={styles.avatar}
                         resizeMode="cover"
                     />
