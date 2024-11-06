@@ -17,7 +17,7 @@ export function LotManagement() {
             <Header
                 title="Lot Management"
                 rightButtonIcon={<PlusTealSvg width={24} height={24} />}
-                onRightButtonPress={() => navigation.navigate('ParkingLot__AddOrUpdate', {})}
+                onRightButtonPress={() => navigation.navigate('ParkingLot__Add')}
             />
             <View style={styles.wrapper}>
                 <ScrollView style={styles.lotListWrapper}>
