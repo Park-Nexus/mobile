@@ -1,8 +1,7 @@
-import {RouteProp} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {RootStackParamList} from '@src/nav/navigators/Root.Main.App';
+import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
 import {Text, View, Dimensions, ActivityIndicator, ScrollView} from 'react-native';
 import {styles} from './index.styles';
 import {useParkingLot} from './index.data';
@@ -26,8 +25,8 @@ const deviceWidth = Dimensions.get('window').width;
 const imageHeight = deviceWidth * (9 / 16);
 
 type ParkingLotDetailProps = {
-    navigation: NativeStackNavigationProp<RootStackParamList, 'ParkingLot__Detail'>;
-    route: RouteProp<RootStackParamList, 'ParkingLot__Detail'>;
+    navigation: NavigationProp<AppStackParamList, 'ParkingLot__Detail'>;
+    route: RouteProp<AppStackParamList, 'ParkingLot__Detail'>;
 };
 
 export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {

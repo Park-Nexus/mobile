@@ -6,14 +6,14 @@ import {useMe} from './index.data';
 import {ActivityIndicator} from 'react-native';
 import {ProfileSetup} from '@src/nav/screens/Root.Main.App/Profile__Setup';
 
-export type RootStackParamList = {
+export type AppStackParamList = {
     Tab: undefined;
     Profile__Setup: undefined;
     ParkingLot__Add: undefined;
     ParkingLot__Detail: {lotId: number};
 };
 
-const {Navigator, Screen} = createStackNavigator<RootStackParamList>();
+const {Navigator, Screen} = createStackNavigator<AppStackParamList>();
 
 export function AppNavigator() {
     const {me, isFetching} = useMe();
