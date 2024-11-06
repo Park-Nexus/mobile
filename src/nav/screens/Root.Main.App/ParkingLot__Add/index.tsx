@@ -18,11 +18,11 @@ import {useUpload} from '@src/utils/upload';
 const MAX_ALLOWED_MEDIA_COUNT = 5;
 
 type ScreenProps = {
-    navigation: NavigationProp<AppStackParamList, 'ParkingLot__AddOrUpdate'>;
-    route: RouteProp<AppStackParamList, 'ParkingLot__AddOrUpdate'>;
+    navigation: NavigationProp<AppStackParamList, 'ParkingLot__Add'>;
+    route: RouteProp<AppStackParamList, 'ParkingLot__Add'>;
 };
 
-export function ParkingLot__AddOrUpdate({navigation}: ScreenProps) {
+export function ParkingLot__Add({navigation}: ScreenProps) {
     const {showActionSheetWithOptions} = useActionSheet();
 
     const [selectedImages, setSelectedImages] = useState<Asset[]>([]);

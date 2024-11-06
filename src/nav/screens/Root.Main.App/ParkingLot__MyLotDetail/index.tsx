@@ -19,6 +19,8 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
             <Header title="My Parking Lot" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
             <ScrollView>
                 <View>
+                    {/* Info ---------------------------------------------------------------- */}
+                    <Text>Info</Text>
                     <ScrollView horizontal>
                         {lot?.mediaUrls.map(url => (
                             <FastImage
@@ -46,7 +48,9 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
                     <Text>{lot?.approvedAt}</Text>
                 </View>
 
+                {/* Prices ---------------------------------------------------------------- */}
                 <View>
+                    <Text>Prices</Text>
                     {lot?.parkingLotPrices.map((item, index) => (
                         <View key={index}>
                             <Text>{item.price}</Text>
@@ -55,7 +59,9 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
                     ))}
                 </View>
 
+                {/* Services ---------------------------------------------------------------- */}
                 <View>
+                    <Text>Services</Text>
                     {lot?.parkingLotServices.map((item, index) => (
                         <View key={index}>
                             <Text>{item.name}</Text>
@@ -63,6 +69,18 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
                             <Text>{item.vehicleTypes}</Text>
                             <Text>{item.price}</Text>
                             <Text>{item.mediaUrls}</Text>
+                        </View>
+                    ))}
+                </View>
+
+                {/* Spots ---------------------------------------------------------------- */}
+                <View>
+                    <Text>Spots</Text>
+                    {lot?.parkingSpots.map((item, index) => (
+                        <View key={index}>
+                            <Text>{item.name}</Text>
+                            <Text>{item.vehicleType}</Text>
+                            <Text>{item.isAvailable}</Text>
                         </View>
                     ))}
                 </View>

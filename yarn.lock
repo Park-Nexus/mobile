@@ -3433,7 +3433,7 @@ __metadata:
 
 "@parknexus/api@https://github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=1be0c41e7dd8d9151dafa54483f85cadd36890bd"
+  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=cf10c452aa7ea45119e1613672bc6d44c16f4e26"
   dependencies:
     "@google-cloud/storage": ^7.14.0
     "@prisma/client": 5.21.1
@@ -3447,7 +3447,7 @@ __metadata:
     multer: ^1.4.5-lts.1
     uuid: ^11.0.2
     zod: ^3.23.8
-  checksum: 027c49224968b04356cebed6b4bfacd1a991b5d5f8d516f1b3ed950068945a7fb9e8d254fc72bf36c3544e83c3e03e0bb5729d869d6fede1a99c1c0a792d7caa
+  checksum: 58744169ddca254deed1f44743250ed3b09e4d4ba483b9799c1e98aab54501c4b14ce47d26f08ecdf8d134f5ecc99019fec3bae9d1b7ed7228f0199f0ba11b9a
   languageName: node
   linkType: hard
 

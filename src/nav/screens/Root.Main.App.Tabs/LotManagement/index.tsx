@@ -22,7 +22,11 @@ export function LotManagement() {
             <View style={styles.wrapper}>
                 <ScrollView style={styles.lotListWrapper}>
                     {lots.map(lot => (
-                        <Text key={lot.id}>{lot.name}</Text>
+                        <Text
+                            key={lot.id}
+                            onPress={() => navigation.navigate('ParkingLot__MyLotDetail', {lotId: lot.id})}>
+                            {lot.name}
+                        </Text>
                     ))}
                 </ScrollView>
             </View>
