@@ -7,6 +7,7 @@ import {ScrollView} from 'react-native';
 import {TCreateParkingLotPayload} from './index.submit';
 import {TextInput} from '@src/components/Input__Text';
 import {styles} from './index.styles';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const MAX_ALLOWED_MEDIA_COUNT = 5;
 
@@ -37,6 +38,23 @@ export function ParkingLotAdd() {
                         <TextInput multiline onChangeText={onChange} placeholder="Name" onBlur={onBlur} value={value} />
                     )}
                 />
+
+                <Controller
+                    control={control}
+                    name="phone"
+                    render={({field: {onChange, onBlur, value}}) => (
+                        <TextInput
+                            multiline
+                            onChangeText={onChange}
+                            placeholder="Phone"
+                            onBlur={onBlur}
+                            value={value}
+                            keyboardType="phone-pad"
+                        />
+                    )}
+                />
+
+                <Controller control={control} name="openAt" render={({field: {onChange, onBlur, value}}) => <></>} />
             </ScrollView>
         </SafeAreaView>
     );
