@@ -17,7 +17,7 @@ import AvatarPlaceHolder from '@src/static/images/Profile.png';
 import NotePencil from '@src/static/svgs/NotePencil.svg';
 import {useState} from 'react';
 
-export function ProfileSetup() {
+export function Profile__Setup() {
     const {bottom} = useSafeAreaInsets();
     const [selectedAvatar, setSelectedAvatar] = useState<Asset>();
     const {submit, isPending} = useSubmit();

@@ -12,7 +12,7 @@ const uploadInstance = axios.create({
 export function useUpload() {
     const [isUploading, setIsUploading] = useState(false);
 
-    // Upload avatar -------------------------------------------------------
+    // Upload avatar --------------------------------------------------------
     type TUploadAvatarPayload = {
         file: {
             uri: string;
@@ -36,5 +36,31 @@ export function useUpload() {
         }
     };
 
-    return {uploadAvatar, isUploading};
+    // Upload parking lot media -----------------------------------------------
+    type TUploadParkingLotMediaPayload = {
+        files: {
+            uri: string;
+            type: string;
+            name: string;
+        }[];
+    };
+    const uploadParkingLotMedia = async ({files}: TUploadParkingLotMediaPayload) => {
+        setIsUploading(true);
+        const payload = new FormData();
+        files.forEach(file => {
+            payload.append('files', file);
+        });
+
+        try {
+            const response = await uploadInstance.post('/parkingLot/media', payload);
+            const paths = (response?.data?.paths as string[]) || [];
+            return paths;
+        } catch (error) {
+            return [];
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    return {uploadAvatar, uploadParkingLotMedia, isUploading};
 }

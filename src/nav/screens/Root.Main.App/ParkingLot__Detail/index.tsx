@@ -24,12 +24,12 @@ import Geolocation from '@react-native-community/geolocation';
 const deviceWidth = Dimensions.get('window').width;
 const imageHeight = deviceWidth * (9 / 16);
 
-type ParkingLotDetailProps = {
+type ScreenProps = {
     navigation: NavigationProp<AppStackParamList, 'ParkingLot__Detail'>;
     route: RouteProp<AppStackParamList, 'ParkingLot__Detail'>;
 };
 
-export function ParkingLotDetail({route, navigation}: ParkingLotDetailProps) {
+export function ParkingLot__Detail({route, navigation}: ScreenProps) {
     const {lotId} = route.params;
     const {data: lot} = useParkingLot(lotId);
     const {bottom} = useSafeAreaInsets();
