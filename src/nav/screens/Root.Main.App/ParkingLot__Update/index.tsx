@@ -27,7 +27,7 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
     const {showActionSheetWithOptions} = useActionSheet();
 
     const [images, setImages] = useState<string[]>([]);
-    const [removalImageIndexes, setRemovalImageIndexes] = useState<number[]>([]);
+    const [removalImages, setRemovalImages] = useState<string[]>([]);
     const [additionalImages, setAdditionalImages] = useState<Asset[]>([]);
     const [isDatePickerVisible, setDatePickerVisibility] = useState<boolean>(false);
     const [timeField, setTimeField] = useState<keyof TUpdateParkingLotPayload>();
@@ -41,19 +41,14 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
     });
 
     const onSubmit = async (data: TUpdateParkingLotPayload) => {
-        const removalImagePaths = removalImageIndexes
-            .map(index => images[index])
-            .map(image => {
-                const urlParts = image.split('?')[0];
-                const pathParts = urlParts.split('/').slice(3).join('/');
-                return pathParts;
+        let additionalImagePaths;
+        if (additionalImages.length > 0) {
+            additionalImagePaths = await uploadParkingLotMedia({
+                files: additionalImages.map(image => ({uri: image.uri!, name: image.fileName!, type: image.type!})),
             });
+        }
 
-        const additionalImagePaths = await uploadParkingLotMedia({
-            files: additionalImages.map(image => ({uri: image.uri!, name: image.fileName!, type: image.type!})),
-        });
-
-        submit({...data, additionalMediaUrls: additionalImagePaths, removalMediaUrls: removalImagePaths});
+        submit({...data, additionalMediaUrls: additionalImagePaths, removalMediaUrls: removalImages});
     };
 
     const showDatePicker = (field: keyof TUpdateParkingLotPayload) => {
@@ -116,11 +111,11 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                         <TouchableOpacity
                             key={index}
                             onPress={() =>
-                                setRemovalImageIndexes(prev =>
-                                    prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index],
+                                setRemovalImages(prev =>
+                                    prev.includes(image) ? prev.filter(i => i !== image) : [...prev, image],
                                 )
                             }
-                            style={{width: 100, height: 100, opacity: removalImageIndexes.includes(index) ? 0.5 : 1}}>
+                            style={{width: 100, height: 100, opacity: removalImages.includes(image) ? 0.5 : 1}}>
                             <FastImage
                                 source={{uri: image}}
                                 style={{width: 100, height: 100}}

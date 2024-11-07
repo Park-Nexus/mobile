@@ -83,9 +83,12 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
     };
 
     const onSubmit = async (data: TCreateParkingLotPayload) => {
-        const paths = await uploadParkingLotMedia({
-            files: selectedImages.map(image => ({uri: image.uri!, name: image.fileName!, type: image.type!})),
-        });
+        let paths: string[] = [];
+        if (selectedImages.length > 0) {
+            paths = await uploadParkingLotMedia({
+                files: selectedImages.map(image => ({uri: image.uri!, name: image.fileName!, type: image.type!})),
+            });
+        }
         submit({...data, mediaUrls: paths, latitude: Number(data.latitude), longitude: Number(data.longitude)});
     };
 
