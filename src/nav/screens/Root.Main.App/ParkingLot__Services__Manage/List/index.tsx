@@ -5,10 +5,10 @@ import {useMyParkingLotDetail} from './index.data';
 import {Text} from 'react-native';
 import {useEffect, useRef} from 'react';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {AddServiceSheet} from '../Sheets/Add';
+import {AddServiceSheet} from '../Sheet/Sheet.Add';
 import {Button} from '@src/components/Button';
 import {useNavigation} from '@react-navigation/native';
-import {UpdateServiceSheet} from '../Sheets/Update';
+import {UpdateServiceSheet} from '../Sheet/Sheet.Update';
 
 export function List() {
     const navigation = useNavigation();

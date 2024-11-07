@@ -9,6 +9,7 @@ import {ParkingLot__MyLotDetail} from '@src/nav/screens/Root.Main.App/ParkingLot
 import {ParkingLot__Update} from '@src/nav/screens/Root.Main.App/ParkingLot__Update';
 import {ParkingLot__Prices__Manage} from '@src/nav/screens/Root.Main.App/ParkingLot__Prices__Manage';
 import {ParkingLot__Services__Manage} from '@src/nav/screens/Root.Main.App/ParkingLot__Services__Manage';
+import {ParkingLot__Spots__Manage} from '@src/nav/screens/Root.Main.App/ParkingLot__Spots__Manage';
 
 export type AppStackParamList = {
     Profile__Setup: undefined;
@@ -49,6 +50,7 @@ export function AppNavigator() {
 
                     <Screen name="ParkingLot__Prices__Manage" component={ParkingLot__Prices__Manage} />
                     <Screen name="ParkingLot__Services__Manage" component={ParkingLot__Services__Manage} />
+                    <Screen name="ParkingLot__Spots__Manage" component={ParkingLot__Spots__Manage} />
                 </>
             )}
         </Navigator>

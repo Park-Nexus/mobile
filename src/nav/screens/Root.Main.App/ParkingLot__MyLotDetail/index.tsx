@@ -79,7 +79,9 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
 
                 {/* Spots ---------------------------------------------------------------- */}
                 <View>
-                    <Text>Spots</Text>
+                    <Text onPress={() => navigation.navigate('ParkingLot__Spots__Manage', {lotId})}>
+                        Spots (Click to edit)
+                    </Text>
                     {lot?.parkingSpots.map((item, index) => (
                         <View key={index}>
                             <Text>{item.name}</Text>
