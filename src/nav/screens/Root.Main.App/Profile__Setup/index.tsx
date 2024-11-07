@@ -1,10 +1,8 @@
-import RNFetchBlob from 'rn-fetch-blob';
-
 import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {TCreateProfilePayload, useSubmit} from './index.data';
 import {Controller, useForm} from 'react-hook-form';
-import {Platform, ScrollView, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {styles} from './index.styles';
 import {TextInput} from '@src/components/Input__Text';
 import {Button} from '@src/components/Button';

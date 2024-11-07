@@ -88,5 +88,29 @@ export function useUpload() {
         }
     };
 
-    return {uploadAvatar, uploadParkingLotMedia, uploadParkingLotServiceMedia, isUploading};
+    // Upload vehicle image -----------------------------------------------------------
+    type TUploadVehicleImagePayload = {
+        file: {
+            uri: string;
+            type: string;
+            name: string;
+        };
+    };
+    const uploadVehicleImage = async ({file}: TUploadVehicleImagePayload) => {
+        setIsUploading(true);
+        const payload = new FormData();
+        payload.append('file', file);
+
+        try {
+            const response = await uploadInstance.post('/vehicle/image', payload);
+            const path = (response?.data?.path as string) || '';
+            return path;
+        } catch (error) {
+            return '';
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    return {uploadAvatar, uploadParkingLotMedia, uploadParkingLotServiceMedia, uploadVehicleImage, isUploading};
 }

@@ -10,6 +10,8 @@ import {ParkingLot__Update} from '@src/nav/screens/Root.Main.App/ParkingLot__Upd
 import {ParkingLot__Prices__Manage} from '@src/nav/screens/Root.Main.App/ParkingLot__Prices__Manage';
 import {ParkingLot__Services__Manage} from '@src/nav/screens/Root.Main.App/ParkingLot__Services__Manage';
 import {ParkingLot__Spots__Manage} from '@src/nav/screens/Root.Main.App/ParkingLot__Spots__Manage';
+import {Settings__Vehicle_List} from '@src/nav/screens/Root.Main.App/Settings__Vehicle_List';
+import {Settings__Vehicle_Add} from '@src/nav/screens/Root.Main.App/Settings__Vehicle_Add';
 
 export type AppStackParamList = {
     Profile__Setup: undefined;
@@ -25,6 +27,9 @@ export type AppStackParamList = {
     ParkingLot__Prices__Manage: {lotId: number};
     ParkingLot__Services__Manage: {lotId: number};
     ParkingLot__Spots__Manage: {lotId: number};
+
+    Settings__Vehicle_List: undefined;
+    Settings__Vehicle_Add: undefined;
 };
 
 const {Navigator, Screen} = createStackNavigator<AppStackParamList>();
@@ -51,6 +56,9 @@ export function AppNavigator() {
                     <Screen name="ParkingLot__Prices__Manage" component={ParkingLot__Prices__Manage} />
                     <Screen name="ParkingLot__Services__Manage" component={ParkingLot__Services__Manage} />
                     <Screen name="ParkingLot__Spots__Manage" component={ParkingLot__Spots__Manage} />
+
+                    <Screen name="Settings__Vehicle_List" component={Settings__Vehicle_List} />
+                    <Screen name="Settings__Vehicle_Add" component={Settings__Vehicle_Add} />
                 </>
             )}
         </Navigator>

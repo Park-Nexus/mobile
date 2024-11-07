@@ -12,10 +12,13 @@ import CaretRightBlackSvg from '@src/static/svgs/CaretRightBlack.svg';
 import {useMe} from './index.data';
 import {useAuthStore} from '@src/states';
 import {AuthStorage} from '@src/auth/auth.utils';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
 
 export function Settings() {
     const {me} = useMe();
     const {setIsAuthenticated} = useAuthStore();
+    const {navigate} = useNavigation<NavigationProp<AppStackParamList>>();
 
     const logout = async () => {
         await AuthStorage.clearAuthStorage();
@@ -56,6 +59,7 @@ export function Settings() {
                             variant="gray"
                             preIcon={<CaretRightBlackSvg width={16} height={16} />}
                             style={styles.button}
+                            onPress={() => navigate('Settings__Vehicle_List')}
                         />
                     </View>
                     <View style={styles.settingItem}>
