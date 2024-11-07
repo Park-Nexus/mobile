@@ -1,4 +1,3 @@
-import {ParkingLotService} from '@parknexus/api/prisma/client';
 import constate from 'constate';
 import {useState} from 'react';
 
@@ -7,13 +6,13 @@ type ServiceManagerContextProps = {
 };
 function useValues(props: ServiceManagerContextProps) {
     const [lotId] = useState(props.lotId);
-    const [selectedService, setSelectedService] = useState<ParkingLotService>();
+    const [selectedServiceId, setSelectedServiceId] = useState<number>();
 
     return {
         lotId,
 
-        selectedService,
-        setSelectedService,
+        selectedServiceId,
+        setSelectedServiceId,
     };
 }
 

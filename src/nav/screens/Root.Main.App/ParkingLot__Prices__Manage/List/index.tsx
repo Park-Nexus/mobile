@@ -3,7 +3,7 @@ import {usePriceManagerContext} from '../index.context';
 import {useMyParkingLotDetail} from './index.data';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Text} from 'react-native';
-import BottomSheet from '@gorhom/bottom-sheet';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import {useRef} from 'react';
 import {Header} from '@src/components/Header';
 import {useNavigation} from '@react-navigation/native';
@@ -15,7 +15,7 @@ export function List() {
     const {lotId} = usePriceManagerContext();
     const {lot} = useMyParkingLotDetail(lotId);
 
-    const sheetRef = useRef<BottomSheet>(null);
+    const sheetRef = useRef<BottomSheetModal>(null);
 
     return (
         <SafeAreaView>
@@ -27,8 +27,8 @@ export function List() {
                     </Text>
                 ))}
             </ScrollView>
-            <Button variant="green" text="Add Price" onPress={() => sheetRef.current?.expand()} />
-            <AddPriceSheet ref={sheetRef} onClose={() => sheetRef.current?.close()} />
+            <Button variant="green" text="Add Price" onPress={() => sheetRef.current?.present()} />
+            <AddPriceSheet ref={sheetRef} onClose={() => sheetRef.current?.dismiss()} />
         </SafeAreaView>
     );
 }

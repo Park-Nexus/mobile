@@ -1,5 +1,5 @@
 import {forwardRef} from 'react';
-import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
+import {BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
 import {Controller, useForm} from 'react-hook-form';
 import {TUpdateParkingLotPricePayload, useSubmitPrice} from './index.submit';
 import {TextInput} from '@src/components/Input__Text';
@@ -11,7 +11,7 @@ import {VEHICLE__TYPE_ALIAS} from '@parknexus/api/prisma/client';
 type TExportPriceSheetProps = {
     onClose: () => void;
 };
-export const AddPriceSheet = forwardRef<BottomSheet, TExportPriceSheetProps>(({onClose}, ref) => {
+export const AddPriceSheet = forwardRef<BottomSheetModal, TExportPriceSheetProps>(({onClose}, ref) => {
     const {lotId} = usePriceManagerContext();
     const {submitPrice} = useSubmitPrice();
     const {control, handleSubmit} = useForm<TUpdateParkingLotPricePayload>({
@@ -27,7 +27,7 @@ export const AddPriceSheet = forwardRef<BottomSheet, TExportPriceSheetProps>(({o
     };
 
     return (
-        <BottomSheet ref={ref} snapPoints={['50%']} index={-1} enablePanDownToClose>
+        <BottomSheetModal ref={ref} snapPoints={['50%']} enablePanDownToClose>
             <BottomSheetView>
                 <Controller
                     control={control}
@@ -50,6 +50,6 @@ export const AddPriceSheet = forwardRef<BottomSheet, TExportPriceSheetProps>(({o
                 />
                 <Button variant="green" text="Add" onPress={handleSubmit(onSubmit)} />
             </BottomSheetView>
-        </BottomSheet>
+        </BottomSheetModal>
     );
 });

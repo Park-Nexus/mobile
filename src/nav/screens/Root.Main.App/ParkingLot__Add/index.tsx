@@ -1,4 +1,4 @@
-import {NavigationProp, RouteProp, useNavigation} from '@react-navigation/native';
+import {NavigationProp, RouteProp} from '@react-navigation/native';
 import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';

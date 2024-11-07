@@ -3,30 +3,41 @@ import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {useServiceManagerContext} from '../index.context';
 import {useMyParkingLotDetail} from './index.data';
 import {Text} from 'react-native';
-import {useRef} from 'react';
-import BottomSheet from '@gorhom/bottom-sheet';
+import {useEffect, useRef} from 'react';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import {AddServiceSheet} from '../Sheets/Add';
 import {Button} from '@src/components/Button';
 import {useNavigation} from '@react-navigation/native';
+import {UpdateServiceSheet} from '../Sheets/Update';
 
 export function List() {
     const navigation = useNavigation();
-    const {lotId} = useServiceManagerContext();
+    const {lotId, setSelectedServiceId, selectedServiceId} = useServiceManagerContext();
     const {lot} = useMyParkingLotDetail(lotId);
 
-    const addSheetRef = useRef<BottomSheet>(null);
+    const addSheetRef = useRef<BottomSheetModal>(null);
+    const updateSheetRef = useRef<BottomSheetModal>(null);
+
+    useEffect(() => {
+        if (selectedServiceId) {
+            updateSheetRef.current?.present();
+        }
+    }, [selectedServiceId]);
 
     return (
         <SafeAreaView>
             <Header title="Services" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
             {lot?.parkingLotServices.map((service, index) => (
-                <Text key={index}>
+                <Text key={index} onPress={() => setSelectedServiceId(service.id)}>
                     {service.name} - {service.price} - {service.type} - {service.description}
                 </Text>
             ))}
-            <Button variant="green" text="Add Service" onPress={() => addSheetRef.current?.expand()} />
+            <Button variant="green" text="Add Service" onPress={() => addSheetRef.current?.present()} />
 
-            <AddServiceSheet ref={addSheetRef} onClose={() => addSheetRef.current?.close()} />
+            <AddServiceSheet ref={addSheetRef} onClose={() => addSheetRef.current?.dismiss()} />
+            {selectedServiceId && (
+                <UpdateServiceSheet ref={updateSheetRef} onClose={() => updateSheetRef.current?.dismiss()} />
+            )}
         </SafeAreaView>
     );
 }

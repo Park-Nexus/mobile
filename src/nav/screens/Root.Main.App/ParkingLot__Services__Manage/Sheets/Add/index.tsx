@@ -1,4 +1,4 @@
-import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
+import {BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
 import {forwardRef, useRef, useState} from 'react';
 import {useServiceManagerContext} from '../../index.context';
 import {TAddParkingLotServicePayload, useSubmit} from './index.submit';
@@ -19,7 +19,7 @@ const MAX_ALLOWED_MEDIA_COUNT = 5;
 type TExportServiceSheetProps = {
     onClose: () => void;
 };
-export const AddServiceSheet = forwardRef<BottomSheet, TExportServiceSheetProps>(({onClose}, ref) => {
+export const AddServiceSheet = forwardRef<BottomSheetModal, TExportServiceSheetProps>(({onClose}, ref) => {
     const {lotId} = useServiceManagerContext();
 
     const {submit, isPending} = useSubmit();
@@ -73,7 +73,7 @@ export const AddServiceSheet = forwardRef<BottomSheet, TExportServiceSheetProps>
     };
 
     return (
-        <BottomSheet ref={ref} snapPoints={['80%']} index={-1} enablePanDownToClose>
+        <BottomSheetModal ref={ref} snapPoints={['80%']} enablePanDownToClose>
             <BottomSheetView>
                 <ScrollView>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -137,6 +137,6 @@ export const AddServiceSheet = forwardRef<BottomSheet, TExportServiceSheetProps>
                     onPress={handleSubmit(onSubmit)}
                 />
             </BottomSheetView>
-        </BottomSheet>
+        </BottomSheetModal>
     );
 });

@@ -11,6 +11,7 @@ import Toast from 'react-native-toast-message';
 import {toastConfig} from '@src/utils/toast';
 
 import {RootNavigator} from '@src/nav';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 export function Root() {
     return (
@@ -18,9 +19,11 @@ export function Root() {
             <GestureHandlerRootView style={styles.gestureHandlerRootView}>
                 <ActionSheetProvider>
                     <TrpcProvider>
-                        <SafeAreaProvider>
-                            <RootNavigator />
-                        </SafeAreaProvider>
+                        <BottomSheetModalProvider>
+                            <SafeAreaProvider>
+                                <RootNavigator />
+                            </SafeAreaProvider>
+                        </BottomSheetModalProvider>
                     </TrpcProvider>
                 </ActionSheetProvider>
             </GestureHandlerRootView>
