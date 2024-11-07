@@ -3,7 +3,7 @@ import EngineSvg from '@src/static/svgs/Engine.svg';
 import ShoppingCartSvg from '@src/static/svgs/ShoppingCart.svg';
 import SprayBottleSvg from '@src/static/svgs/SprayBottle.svg';
 
-import {PARKING_LOT_SERVICE__TYPE_ALIAS} from '@parknexus/api/db';
+import {PARKING_LOT_SERVICE__TYPE_ALIAS} from '@parknexus/api/prisma/client';
 import React, {ReactNode} from 'react';
 
 export const LOT_SERVICE_ICONS: Record<PARKING_LOT_SERVICE__TYPE_ALIAS, ReactNode> = {

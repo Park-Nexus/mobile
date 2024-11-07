@@ -4,7 +4,7 @@ import {useState} from 'react';
 type PriceManagerContextProps = {
     lotId: number;
 };
-function useValue(props: PriceManagerContextProps) {
+function useValues(props: PriceManagerContextProps) {
     const [lotId] = useState(props.lotId);
 
     return {
@@ -12,4 +12,4 @@ function useValue(props: PriceManagerContextProps) {
     };
 }
 
-export const [PriceManagerContext, usePriceManagerContext] = constate(useValue);
+export const [PriceManagerContext, usePriceManagerContext] = constate(useValues);

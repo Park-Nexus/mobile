@@ -1,6 +1,6 @@
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {usePriceManagerContext} from '../index.context';
-import {useMyParkingLotDetail} from '../index.data';
+import {useMyParkingLotDetail} from './index.data';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Text} from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
