@@ -13,10 +13,15 @@ export type AppStackParamList = {
 
     Profile__Setup: undefined;
 
+    ParkingLot__Detail: {lotId: number};
+
     ParkingLot__Add: undefined;
     ParkingLot__Update: {lotId: number};
     ParkingLot__MyLotDetail: {lotId: number};
-    ParkingLot__Detail: {lotId: number};
+
+    ParkingLot__Prices__Manage: {lotId: number};
+    ParkingLot__Services__Manage: {lotId: number};
+    ParkingLot__Spots__Manage: {lotId: number};
 };
 
 const {Navigator, Screen} = createStackNavigator<AppStackParamList>();
