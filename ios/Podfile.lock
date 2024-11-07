@@ -1304,6 +1304,8 @@ PODS:
     - React-Core
   - RNCAsyncStorage (1.24.0):
     - React-Core
+  - RNCPicker (2.9.0):
+    - React-Core
   - RNDateTimePicker (8.2.0):
     - React-Core
   - RNFastImage (8.6.3):
@@ -1513,6 +1515,7 @@ DEPENDENCIES:
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -1671,6 +1674,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNFastImage:
@@ -1769,6 +1774,7 @@ SPEC CHECKSUMS:
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNBootSplash: 0177d81b7c094bbb9d7af80e77f8694922dae46d
   RNCAsyncStorage: ec53e44dc3e75b44aa2a9f37618a49c3bc080a7a
+  RNCPicker: f963e01f78e546a93b98aa201501713dbda14e94
   RNDateTimePicker: 40ffda97d071a98a10fdca4fa97e3977102ccd14
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNFBApp: 793adb33298db7e67dc365dc1ec0dc8a55a7a044

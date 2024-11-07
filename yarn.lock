@@ -3433,7 +3433,7 @@ __metadata:
 
 "@parknexus/api@https://github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=c090dfa980d8a41e24977f5d7cdd6f5f4e02450e"
+  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=34f1b89b6d1d1c5907ee96e5e4ce22acbb9e1dea"
   dependencies:
     "@google-cloud/storage": ^7.14.0
     "@prisma/client": 5.21.1
@@ -3447,7 +3447,7 @@ __metadata:
     multer: ^1.4.5-lts.1
     uuid: ^11.0.2
     zod: ^3.23.8
-  checksum: 1d132d56a9db33f8e70bfcb0fa56bf3e1704e696355ba281da703764119e65eee16334351cc6de3f1cda6c28d0dbb60ddf190e004576255e645f22eaa2642ccd
+  checksum: 710941e941f0e9c8b88bf6de8300fc96f1406d9e73dc8a9a77d756f721c21fab50c9721b0d62ff6130480f8413e6baa482bd3c15015467079b98b50fc5529f95
   languageName: node
   linkType: hard
 
@@ -3803,6 +3803,16 @@ __metadata:
     expo:
       optional: true
   checksum: f13bba65c096fc89a5b54b59d32ddc6bd8ac70da12609f5d11d86b0cf0111258827eab25777d95ff827c03e2466cd645d2cd28dc13784163e31e0459cef74a7d
+  languageName: node
+  linkType: hard
+
+"@react-native-picker/picker@npm:^2.9.0":
+  version: 2.9.0
+  resolution: "@react-native-picker/picker@npm:2.9.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 3f88ecbad85f071861bbd16c0d4891dd5eff13d638e6ecfe68da279a07e0a31dfa7844ae329fe2a2144695456f1c96d1be38e10185475dd164f8e918d6d083a1
   languageName: node
   linkType: hard
 
@@ -5017,6 +5027,7 @@ __metadata:
     "@react-native-community/geolocation": ^3.4.0
     "@react-native-firebase/app": ^20.3.0
     "@react-native-firebase/auth": ^20.3.0
+    "@react-native-picker/picker": ^2.9.0
     "@react-native/babel-preset": 0.74.85
     "@react-native/eslint-config": 0.74.85
     "@react-native/metro-config": 0.74.85

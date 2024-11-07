@@ -5,6 +5,8 @@ import {TUpdateParkingLotPricePayload, useSubmitPrice} from './index.submit';
 import {TextInput} from '@src/components/Input__Text';
 import {usePriceManagerContext} from '../index.context';
 import {Button} from '@src/components/Button';
+import {Picker} from '@react-native-picker/picker';
+import {VEHICLE__TYPE_ALIAS} from '@parknexus/api/prisma/client';
 
 type TExportPriceSheetProps = {
     onClose: () => void;
@@ -29,9 +31,21 @@ export const AddPriceSheet = forwardRef<BottomSheet, TExportPriceSheetProps>(({o
             <BottomSheetView>
                 <Controller
                     control={control}
+                    name="vehicleType"
+                    render={({field: {onChange, value}}) => (
+                        <Picker selectedValue={value} onValueChange={onChange} mode="dialog">
+                            <Picker.Item label="Car" value={VEHICLE__TYPE_ALIAS.CAR} />
+                            <Picker.Item label="Motorcycle" value={VEHICLE__TYPE_ALIAS.MOTORCYCLE} />
+                            <Picker.Item label="Truck" value={VEHICLE__TYPE_ALIAS.TRUCK} />
+                        </Picker>
+                    )}
+                />
+
+                <Controller
+                    control={control}
                     name="price"
                     render={({field: {onChange, value}}) => (
-                        <TextInput value={value.toString()} onChangeText={onChange} />
+                        <TextInput placeholder="Price" value={value.toString()} onChangeText={onChange} />
                     )}
                 />
                 <Button variant="green" text="Add" onPress={handleSubmit(onSubmit)} />
