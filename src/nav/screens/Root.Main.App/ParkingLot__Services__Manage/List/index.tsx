@@ -7,8 +7,10 @@ import {useRef} from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {AddServiceSheet} from '../Sheets/Add';
 import {Button} from '@src/components/Button';
+import {useNavigation} from '@react-navigation/native';
 
 export function List() {
+    const navigation = useNavigation();
     const {lotId} = useServiceManagerContext();
     const {lot} = useMyParkingLotDetail(lotId);
 
@@ -16,7 +18,7 @@ export function List() {
 
     return (
         <SafeAreaView>
-            <Header title="Services" />
+            <Header title="Services" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
             {lot?.parkingLotServices.map((service, index) => (
                 <Text key={index}>
                     {service.name} - {service.price} - {service.type} - {service.description}

@@ -36,7 +36,7 @@ export function useUpload() {
         }
     };
 
-    // Upload parking lot media -----------------------------------------------
+    // Upload parking lot media ------------------------------------------------------
     type TUploadParkingLotMediaPayload = {
         files: {
             uri: string;
@@ -62,5 +62,31 @@ export function useUpload() {
         }
     };
 
-    return {uploadAvatar, uploadParkingLotMedia, isUploading};
+    // Upload parking lot service media -----------------------------------------------
+    type TUploadParkingLotServiceMediaPayload = {
+        files: {
+            uri: string;
+            type: string;
+            name: string;
+        }[];
+    };
+    const uploadParkingLotServiceMedia = async ({files}: TUploadParkingLotServiceMediaPayload) => {
+        setIsUploading(true);
+        const payload = new FormData();
+        files.forEach(file => {
+            payload.append('files', file);
+        });
+
+        try {
+            const response = await uploadInstance.post('/parkingLotService/media', payload);
+            const paths = (response?.data?.paths as string[]) || [];
+            return paths;
+        } catch (error) {
+            return [];
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    return {uploadAvatar, uploadParkingLotMedia, uploadParkingLotServiceMedia, isUploading};
 }
