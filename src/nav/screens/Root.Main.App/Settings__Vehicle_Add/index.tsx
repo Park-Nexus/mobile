@@ -12,7 +12,6 @@ import {TextInput} from '@src/components/Input__Text';
 import {Picker} from '@react-native-picker/picker';
 import {Button} from '@src/components/Button';
 
-import ImagePlaceholder from '@src/static/images/Image_Placeholder.png';
 import FastImage from 'react-native-fast-image';
 
 const deviceWidth = Dimensions.get('window').width;

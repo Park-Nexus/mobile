@@ -21,7 +21,9 @@ export function Settings__Vehicle_List() {
                 onRightButtonPress={() => navigation.navigate('Settings__Vehicle_Add')}
             />
             {vehicles.map(vehicle => (
-                <Text key={vehicle.id}>{vehicle.plate}</Text>
+                <Text key={vehicle.id} onPress={() => navigation.navigate('Settings__Vehicle_Update', {vehicle})}>
+                    {vehicle.plate}
+                </Text>
             ))}
         </SafeAreaView>
     );
