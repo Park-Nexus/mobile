@@ -4,7 +4,7 @@ import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
 import {useMyParkingLot} from './index.data';
 import {Controller, useForm} from 'react-hook-form';
-import {TUpdateParkingLotPayload} from './index.submit';
+import {TUpdateParkingLotPayload, useSubmit} from './index.submit';
 import {useEffect, useState} from 'react';
 import {Asset, launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
@@ -13,6 +13,7 @@ import {Button} from '@src/components/Button';
 import FastImage from 'react-native-fast-image';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import {useUpload} from '@src/utils/upload';
 
 const MAX_ALLOWED_MEDIA_COUNT = 5;
 
@@ -31,11 +32,29 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
     const [isDatePickerVisible, setDatePickerVisibility] = useState<boolean>(false);
     const [timeField, setTimeField] = useState<keyof TUpdateParkingLotPayload>();
 
+    const {submit, isPending} = useSubmit();
+    const {isUploading, uploadParkingLotMedia} = useUpload();
     const {control, handleSubmit, setValue} = useForm<TUpdateParkingLotPayload>({
         values: {
             id: lotId,
         },
     });
+
+    const onSubmit = async (data: TUpdateParkingLotPayload) => {
+        const removalImagePaths = removalImageIndexes
+            .map(index => images[index])
+            .map(image => {
+                const urlParts = image.split('?')[0];
+                const pathParts = urlParts.split('/').slice(3).join('/');
+                return pathParts;
+            });
+
+        const additionalImagePaths = await uploadParkingLotMedia({
+            files: additionalImages.map(image => ({uri: image.uri!, name: image.fileName!, type: image.type!})),
+        });
+
+        submit({...data, additionalMediaUrls: additionalImagePaths, removalMediaUrls: removalImagePaths});
+    };
 
     const showDatePicker = (field: keyof TUpdateParkingLotPayload) => {
         setTimeField(field);
@@ -85,7 +104,6 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
         setValue('openAt', lot.openAt);
         setValue('closeAt', lot.closeAt);
         setImages([...lot.mediaUrls]);
-        console.log(lot.mediaUrls);
     }, [lot, lotId]);
 
     return (
@@ -218,7 +236,12 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                 onConfirm={handleConfirm}
                 onCancel={hideDatePicker}
             />
-            <Button variant="green" text="Update" />
+            <Button
+                variant="green"
+                text={isPending || isUploading ? 'Saving...' : 'Update'}
+                disabled={isPending || isUploading}
+                onPress={handleSubmit(onSubmit)}
+            />
         </SafeAreaView>
     );
 }
