@@ -13,18 +13,23 @@ type TExportParkingSpotSheetProps = {
     onClose: () => void;
 };
 export const UpdateParkingSpotSheet = forwardRef<BottomSheetModal, TExportParkingSpotSheetProps>(({onClose}, ref) => {
-    const {lotId, selectedSpot} = useSpotManagerContext();
+    const {lotId, selectedSpot, setSelectedSpot} = useSpotManagerContext();
 
     const {submit, isPending} = useSubmit();
 
     const {control, handleSubmit} = useForm<TUpdateParkingLotSpotPayload>({
         values: {
             spotId: selectedSpot!.id,
+            name: selectedSpot!.name,
+            vehicleType: selectedSpot!.vehicleType,
         },
     });
 
     const onSubmit = (data: TUpdateParkingLotSpotPayload) => {
-        submit(data, onClose);
+        submit(data, () => {
+            onClose();
+            setSelectedSpot(undefined);
+        });
     };
 
     return (

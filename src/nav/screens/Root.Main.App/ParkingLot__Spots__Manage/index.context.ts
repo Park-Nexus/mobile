@@ -1,7 +1,8 @@
-import {ParkingSpot} from '@parknexus/api/prisma/client';
+import {TrpcOutput} from '@src/trpc';
 import constate from 'constate';
 import {useState} from 'react';
 
+type Spot = TrpcOutput['parking']['lot']['get']['single']['parkingSpots'][number];
 type SpotManagerContextProps = {
     lotId: number;
 };
@@ -9,7 +10,7 @@ type SpotManagerContextProps = {
 function useValues(props: SpotManagerContextProps) {
     const [lotId] = useState(props.lotId);
 
-    const [selectedSpot, setSelectedSpot] = useState<ParkingSpot>();
+    const [selectedSpot, setSelectedSpot] = useState<Spot>();
 
     return {
         lotId,
