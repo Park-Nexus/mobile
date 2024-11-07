@@ -8,6 +8,7 @@ import {Profile__Setup} from '@src/nav/screens/Root.Main.App/Profile__Setup';
 import {ParkingLot__MyLotDetail} from '@src/nav/screens/Root.Main.App/ParkingLot__MyLotDetail';
 import {ParkingLot__Update} from '@src/nav/screens/Root.Main.App/ParkingLot__Update';
 import {ParkingLot__Prices__Manage} from '@src/nav/screens/Root.Main.App/ParkingLot__Prices__Manage';
+import {ParkingLot__Services__Manage} from '@src/nav/screens/Root.Main.App/ParkingLot__Services__Manage';
 
 export type AppStackParamList = {
     Profile__Setup: undefined;
@@ -45,7 +46,9 @@ export function AppNavigator() {
                     <Screen name="ParkingLot__MyLotDetail" component={ParkingLot__MyLotDetail} />
                     <Screen name="ParkingLot__Add" component={ParkingLot__Add} />
                     <Screen name="ParkingLot__Update" component={ParkingLot__Update} />
+
                     <Screen name="ParkingLot__Prices__Manage" component={ParkingLot__Prices__Manage} />
+                    <Screen name="ParkingLot__Services__Manage" component={ParkingLot__Services__Manage} />
                 </>
             )}
         </Navigator>
