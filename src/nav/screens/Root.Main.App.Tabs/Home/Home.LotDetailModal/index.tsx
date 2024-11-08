@@ -110,7 +110,11 @@ export function LotDetailModal() {
                     />
                 </View>
 
-                <Button variant="green" text="Book now" />
+                <Button
+                    variant="green"
+                    text="Book now"
+                    onPress={() => navigate('Reservation__Make_Booking', {lotId: lot?.id || 0})}
+                />
             </View>
         </Modal>
     );
