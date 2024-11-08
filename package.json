@@ -30,6 +30,7 @@
         "@trpc/server": "next",
         "axios": "^1.7.2",
         "constate": "^3.3.2",
+        "dayjs": "^1.11.13",
         "formik": "^2.4.6",
         "react": "18.2.0",
         "react-hook-form": "^7.53.0",
@@ -48,7 +49,6 @@
         "react-native-screens": "^3.34.0",
         "react-native-svg": "^15.7.1",
         "react-native-toast-message": "^2.2.1",
-        "rn-fetch-blob": "^0.12.0",
         "zustand": "^4.5.4"
     },
     "devDependencies": {

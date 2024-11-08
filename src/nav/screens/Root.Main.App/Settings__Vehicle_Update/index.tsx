@@ -63,7 +63,7 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
 
     return (
         <SafeAreaView>
-            <Header title="Update Vehicle" onBackButtonPress={() => navigation.goBack()} />
+            <Header title="Update Vehicle" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
             <ScrollView>
                 {(selectedImage || vehicle.imageUrl) && (
                     <TouchableWithoutFeedback onPress={openImagePicker}>
