@@ -4248,6 +4248,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stripe/stripe-react-native@npm:^0.39.0":
+  version: 0.39.0
+  resolution: "@stripe/stripe-react-native@npm:0.39.0"
+  peerDependencies:
+    expo: ">=46.0.9"
+    react: "*"
+    react-native: "*"
+  peerDependenciesMeta:
+    expo:
+      optional: true
+  checksum: 62b77dc55e7c2a56a976dc7b4302b401828ef20be54af3ddb76ddcda530e6f1896399667377ce6bd18ec4442cf20d319d5c7a146a05dd460250a53e615497354
+  languageName: node
+  linkType: hard
+
 "@svgr/babel-plugin-add-jsx-attribute@npm:8.0.0":
   version: 8.0.0
   resolution: "@svgr/babel-plugin-add-jsx-attribute@npm:8.0.0"
@@ -5076,6 +5090,7 @@ __metadata:
     "@react-navigation/native": ^6.1.18
     "@react-navigation/native-stack": ^6.11.0
     "@rnmapbox/maps": ^10.1.31
+    "@stripe/stripe-react-native": ^0.39.0
     "@tanstack/react-query": latest
     "@trpc/client": next
     "@trpc/react-query": next

@@ -10,7 +10,7 @@ export type TServiceDetailSheetRef = {
 };
 export const ServiceDetailSheet = forwardRef<TServiceDetailSheetRef>(({}, ref) => {
     const [serviceId, setServiceId] = useState<number>();
-    const {serviceIds, setServiceIds} = useMakeBookingContext();
+    const {services, setServices} = useMakeBookingContext();
     const {service} = useServiceDetail(serviceId);
 
     const sheetRef = useRef<BottomSheetModal>(null);
@@ -22,13 +22,13 @@ export const ServiceDetailSheet = forwardRef<TServiceDetailSheetRef>(({}, ref) =
         },
     }));
 
-    const isSelected = serviceIds.some(id => id === serviceId);
+    const isSelected = services.some(service => service.id === serviceId);
     const toggleSelect = () => {
         if (!serviceId) return;
-        if (serviceIds.includes(serviceId)) {
-            setServiceIds(serviceIds.filter(id => id !== serviceId));
+        if (isSelected) {
+            setServices(services.filter(service => service.id !== serviceId));
         } else {
-            setServiceIds([...serviceIds, serviceId]);
+            setServices([...services, service!]);
         }
         sheetRef.current?.dismiss();
     };

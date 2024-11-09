@@ -24,6 +24,7 @@
         "@react-navigation/native": "^6.1.18",
         "@react-navigation/native-stack": "^6.11.0",
         "@rnmapbox/maps": "^10.1.31",
+        "@stripe/stripe-react-native": "^0.39.0",
         "@tanstack/react-query": "latest",
         "@trpc/client": "next",
         "@trpc/react-query": "next",

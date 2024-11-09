@@ -9,6 +9,7 @@ import {Text, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {TabParamList} from '@src/nav/navigators/Root.Main.App.Tabs';
+import {Payment} from './Booking.Payment';
 
 export function Content() {
     const navigation = useNavigation<NavigationProp<TabParamList>>();
@@ -19,7 +20,7 @@ export function Content() {
         DATE_TIME: <DateTime />,
         VEHICLE: <Vehicle />,
         SERVICES: <Services />,
-        PAYMENT: <></>,
+        PAYMENT: <Payment />,
     };
 
     return (

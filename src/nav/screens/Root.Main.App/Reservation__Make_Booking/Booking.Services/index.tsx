@@ -9,7 +9,7 @@ import {useRef} from 'react';
 import {ServiceDetailSheet, TServiceDetailSheetRef} from './index.sheet';
 
 export function Services() {
-    const {setStep, setServiceIds, serviceIds} = useMakeBookingContext();
+    const {setStep, services} = useMakeBookingContext();
     const {lot} = useParkingLotDetail();
 
     const detailSheetRef = useRef<TServiceDetailSheetRef>(null);
