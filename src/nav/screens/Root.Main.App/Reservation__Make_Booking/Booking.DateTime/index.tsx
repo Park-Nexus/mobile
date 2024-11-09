@@ -9,7 +9,6 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {useState} from 'react';
 import {Button} from '@src/components/Button';
 import dayjs from 'dayjs';
-import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 
 export function DateTime() {
     const navigation = useNavigation();

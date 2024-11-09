@@ -14,3 +14,15 @@ export function useParkingLotAvailability() {
 
     return Object.assign({availableVehicleTypes}, response);
 }
+
+export function useParkingLotDetail() {
+    const {lotId} = useMakeBookingContext();
+
+    const response = trpc.parking.lot.get.single.useQuery({
+        id: lotId,
+    });
+
+    const lot = response.data;
+
+    return Object.assign({lot}, response);
+}
