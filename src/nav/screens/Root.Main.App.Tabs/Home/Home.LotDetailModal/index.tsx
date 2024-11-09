@@ -72,7 +72,9 @@ export function LotDetailModal() {
 
                 <View style={styles.titleWrapper}>
                     <View style={styles.titleItemWrapper}>
-                        <Text style={styles.titleText}>{lot?.name}</Text>
+                        <Text style={styles.titleText} numberOfLines={1}>
+                            {lot?.name}
+                        </Text>
                         <Text style={styles.subTitleText}>{address}</Text>
                     </View>
                     <View style={styles.titleItemWrapper}>

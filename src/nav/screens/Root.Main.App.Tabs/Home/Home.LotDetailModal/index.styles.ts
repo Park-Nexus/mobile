@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
     titleItemWrapper: {
         flexDirection: 'column',
         gap: 4,
+        maxWidth: '80%',
     },
     titleText: {
         fontSize: 20,

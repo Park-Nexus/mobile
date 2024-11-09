@@ -156,7 +156,7 @@ export function ParkingLot__Detail({route, navigation}: ScreenProps) {
 
             <Button
                 variant="green"
-                style={[styles.bookButton, {bottom: bottom}]}
+                style={[styles.bookButton, {bottom: bottom + 16}]}
                 text="Book Parking"
                 textProps={{style: styles.bookButtonText}}
             />
