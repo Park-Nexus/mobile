@@ -18,8 +18,6 @@ export function Reservation__Ticket_Detail({route}: ScreenProps) {
     const tabNavigation = useNavigation<NavigationProp<TabParamList>>();
     const {ticket} = useTicketDetail(route.params.ticketId);
 
-    console.log(ticket);
-
     const directionLink = Platform.select({
         ios: `maps://${ticket?.parkingSpot?.parkingLot?.latitude},${ticket?.parkingSpot?.parkingLot?.longitude}?q='${ticket?.parkingSpot?.parkingLot?.name}'`,
         android: `geo://${ticket?.parkingSpot?.parkingLot?.latitude},${ticket?.parkingSpot?.parkingLot?.longitude}?q='${ticket?.parkingSpot?.parkingLot?.name}'`,
@@ -125,16 +123,16 @@ export function Reservation__Ticket_Detail({route}: ScreenProps) {
                     </View>
                 </View>
                 <View style={{height: 14}} />
-                <View style={{flexDirection: 'row'}}>
+                <View style={{flexDirection: 'row', gap: 8}}>
                     <Button
                         variant="gray"
                         text="Navigate"
                         style={{flex: 1}}
-                        onPress={() => {
-                            console.log(directionLink);
-                            Linking.openURL(directionLink!);
-                        }}
+                        onPress={() => Linking.openURL(directionLink!)}
                     />
+                    {ticket?.paymentRecord?.status === 'AWAITING' && (
+                        <Button variant="pink" text="Pay ticket" style={{flex: 1}} onPress={() => {}} />
+                    )}
                 </View>
             </ScrollView>
         </SafeAreaView>
