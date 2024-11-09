@@ -15,6 +15,8 @@ import {Settings__Vehicle_Add} from '@src/nav/screens/Root.Main.App/Settings__Ve
 import {TrpcOutput} from '@src/trpc';
 import {Settings__Vehicle_Update} from '@src/nav/screens/Root.Main.App/Settings__Vehicle_Update';
 import {Reservation__Make_Booking} from '@src/nav/screens/Root.Main.App/Reservation__Make_Booking';
+import {Reservation__Ticket_Detail} from '@src/nav/screens/Root.Main.App/Reservation__Ticket_Detail';
+import {Reservation__Ticket_Payment} from '@src/nav/screens/Root.Main.App/Reservation__Ticket_Payment';
 
 export type AppStackParamList = {
     Profile__Setup: undefined;
@@ -23,6 +25,8 @@ export type AppStackParamList = {
 
     ParkingLot__Detail: {lotId: number};
     Reservation__Make_Booking: {lotId: number};
+    Reservation__Ticket_Detail: {ticketId: number};
+    Reservation__Ticket_Payment: {ticketId: number};
 
     ParkingLot__Add: undefined;
     ParkingLot__Update: {lotId: number};
@@ -53,6 +57,8 @@ export function AppNavigator() {
 
                     <Screen name="ParkingLot__Detail" component={ParkingLot__Detail} />
                     <Screen name="Reservation__Make_Booking" component={Reservation__Make_Booking} />
+                    <Screen name="Reservation__Ticket_Detail" component={Reservation__Ticket_Detail} />
+                    <Screen name="Reservation__Ticket_Payment" component={Reservation__Ticket_Payment} />
 
                     <Screen name="ParkingLot__MyLotDetail" component={ParkingLot__MyLotDetail} />
                     <Screen name="ParkingLot__Add" component={ParkingLot__Add} />

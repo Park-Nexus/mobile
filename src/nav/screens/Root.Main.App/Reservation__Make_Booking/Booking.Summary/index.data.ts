@@ -5,8 +5,8 @@ export function useCreateTicker() {
     const mutation = trpc.reservation.ticket.create.useMutation();
 
     const ctx = trpc.useUtils();
-    const createTicket = (payload: TCreateTicketPayload) => {
-        mutation.mutate(payload, {
+    const createTicket = async (payload: TCreateTicketPayload) => {
+        return mutation.mutateAsync(payload, {
             onSuccess() {
                 ctx.reservation.ticket.get.many.invalidate();
             },

@@ -6,11 +6,15 @@ import {useParkingLotDetail} from '../index.data';
 import {Button} from '@src/components/Button';
 import {useCreateTicker} from './index.data';
 import Toast from 'react-native-toast-message';
+import {BookingSuccessModal, TBookingSuccessModalRef} from './index.modal';
+import {useRef} from 'react';
 
-export function Payment() {
+export function Summary() {
     const {lotId, startTime, endTime, services, vehicle} = useMakeBookingContext();
     const {lot} = useParkingLotDetail();
-    const {createTicket} = useCreateTicker();
+    const {createTicket, isPending} = useCreateTicker();
+
+    const successModalRef = useRef<TBookingSuccessModalRef>(null);
 
     const onBook = () => {
         if (!lotId || !vehicle) return Toast.show({type: 'error', text1: 'Something went wrong'});
@@ -21,7 +25,7 @@ export function Payment() {
             endTime: endTime.toISOString(),
             serviceIds: services.map(s => s.id),
             vehicleId: vehicle.id,
-        });
+        }).then(({ticketId}) => successModalRef?.current?.show(ticketId));
     };
 
     const calcPrice = () => {
@@ -48,6 +52,7 @@ export function Payment() {
                 <Text>Estimated total: ${calcPrice()}</Text>
             </ScrollView>
             <Button variant="green" text="Book" onPress={onBook} />
+            <BookingSuccessModal ref={successModalRef} />
         </SafeAreaView>
     );
 }

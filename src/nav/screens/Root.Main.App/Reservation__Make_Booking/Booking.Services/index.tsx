@@ -25,7 +25,7 @@ export function Services() {
                 ))}
             </ScrollView>
             <ServiceDetailSheet ref={detailSheetRef} />
-            <Button variant="green" text="Next" onPress={() => setStep('PAYMENT')} />
+            <Button variant="green" text="Next" onPress={() => setStep('SUMMARY')} />
         </SafeAreaView>
     );
 }

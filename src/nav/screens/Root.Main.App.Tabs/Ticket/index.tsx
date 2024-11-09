@@ -15,7 +15,11 @@ export function Ticket() {
             <Header title="My Tickets" />
             <ScrollView>
                 {tickets.map(ticket => (
-                    <Text key={ticket.id}>{ticket.id}</Text>
+                    <Text
+                        key={ticket.id}
+                        onPress={() => navigation.navigate('Reservation__Ticket_Detail', {ticketId: ticket.id})}>
+                        {ticket.id}
+                    </Text>
                 ))}
             </ScrollView>
         </SafeAreaView>
