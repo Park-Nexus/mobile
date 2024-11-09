@@ -7,12 +7,13 @@ import {VEHICLE__TYPE_ALIAS} from '@parknexus/api/prisma/client';
 import {useState} from 'react';
 import {Asset, launchImageLibrary} from 'react-native-image-picker';
 import {useUpload} from '@src/utils/upload';
-import {Dimensions, ScrollView, TouchableWithoutFeedback} from 'react-native';
+import {Dimensions, ScrollView, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {TextInput} from '@src/components/Input__Text';
 import {Picker} from '@react-native-picker/picker';
 import {Button} from '@src/components/Button';
 
 import FastImage from 'react-native-fast-image';
+import {styles} from './index.styles';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -58,54 +59,25 @@ export function Settings__Vehicle_Add() {
     return (
         <SafeAreaView>
             <Header title="Add Vehicle" onBackButtonPress={() => navigation.goBack()} backButtonVisible />
-            <ScrollView>
+            <ScrollView style={styles.wrapper}>
+                <View style={{height: 8}} />
                 {selectedImage && (
                     <TouchableWithoutFeedback onPress={openImagePicker}>
                         <FastImage
                             source={{uri: selectedImage.uri}}
-                            style={{width: deviceWidth, height: (deviceWidth / 16) * 9}}
+                            style={{width: deviceWidth - 16 * 2, height: (deviceWidth / 16) * 9, borderRadius: 8}}
                             resizeMode="cover"
                             fallback
                         />
                     </TouchableWithoutFeedback>
                 )}
-
+                <View style={{height: 8}} />
                 {!selectedImage && (
-                    <Button variant="gray" text="Select Image" onPress={openImagePicker} disabled={isUploading} />
+                    <Button variant="gray" text="Select an image" onPress={openImagePicker} disabled={isUploading} />
                 )}
 
-                <Controller
-                    control={control}
-                    name="plate"
-                    render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="Plate" value={value} onChangeText={onChange} />
-                    )}
-                />
-
-                <Controller
-                    control={control}
-                    name="brand"
-                    render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="Brand" value={value} onChangeText={onChange} />
-                    )}
-                />
-
-                <Controller
-                    control={control}
-                    name="color"
-                    render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="Color" value={value} onChangeText={onChange} />
-                    )}
-                />
-
-                <Controller
-                    control={control}
-                    name="model"
-                    render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="Model" value={value} onChangeText={onChange} />
-                    )}
-                />
-
+                <View style={{height: 8}} />
+                <Text style={styles.vehicleTypeLabel}>Vehicle type</Text>
                 <Controller
                     control={control}
                     name="type"
@@ -117,6 +89,46 @@ export function Settings__Vehicle_Add() {
                         </Picker>
                     )}
                 />
+
+                <View style={{height: 8}} />
+                <Text style={styles.formFieldLabel}>Plate number</Text>
+                <Controller
+                    control={control}
+                    name="plate"
+                    render={({field: {onChange, value}}) => (
+                        <TextInput placeholder="e.g. FL-029-RF" value={value} onChangeText={onChange} />
+                    )}
+                />
+
+                <View style={{height: 8}} />
+                <Text style={styles.formFieldLabel}>Brand</Text>
+                <Controller
+                    control={control}
+                    name="brand"
+                    render={({field: {onChange, value}}) => (
+                        <TextInput placeholder="e.g. Ford" value={value} onChangeText={onChange} />
+                    )}
+                />
+
+                <View style={{height: 8}} />
+                <Text style={styles.formFieldLabel}>Model</Text>
+                <Controller
+                    control={control}
+                    name="model"
+                    render={({field: {onChange, value}}) => (
+                        <TextInput placeholder="e.g. F-150" value={value} onChangeText={onChange} />
+                    )}
+                />
+
+                <View style={{height: 8}} />
+                <Text style={styles.formFieldLabel}>Color</Text>
+                <Controller
+                    control={control}
+                    name="color"
+                    render={({field: {onChange, value}}) => (
+                        <TextInput placeholder="e.g. Red" value={value} onChangeText={onChange} />
+                    )}
+                />
             </ScrollView>
 
             <Button
@@ -124,6 +136,7 @@ export function Settings__Vehicle_Add() {
                 text={isPending || isUploading ? 'Saving...' : 'Save'}
                 onPress={handleSubmit(onSubmit)}
                 disabled={isPending || isUploading}
+                style={styles.saveButton}
             />
         </SafeAreaView>
     );

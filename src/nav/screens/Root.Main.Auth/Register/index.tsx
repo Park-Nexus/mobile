@@ -101,7 +101,7 @@ export function Register() {
                     <Button variant="gray" preIcon={<GoogleSvg width={24} height={24} />} />
                 </View>
             </View>
-            <Text style={[styles.loginText, {bottom: bottom}]} onPress={() => navigation.navigate('Login')}>
+            <Text style={[styles.loginText, {bottom: bottom + 16}]} onPress={() => navigation.navigate('Login')}>
                 Already have an account? <Text style={styles.loginTextColored}>Log in</Text>
             </Text>
         </SafeAreaView>

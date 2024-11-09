@@ -12,6 +12,7 @@ import {useUserLocation} from '@src/utils/location';
 
 import CurrentLocationSvg from '@src/static/svgs/CurrentLocation.svg';
 import MapPinSvg from '@src/static/svgs/MapPin.svg';
+import LocationPinSvg from '@src/static/svgs/LocationPin.svg';
 import {styles} from './index.styles';
 
 Mapbox.setAccessToken(MapTypes.MAPBOX_ACCESS_TOKEN);
@@ -66,6 +67,7 @@ export function Map() {
                 style={{flex: 1}}
                 logoEnabled={false}
                 scaleBarEnabled={false}
+                attributionEnabled={false}
                 compassEnabled
                 compassFadeWhenNorth
                 onCameraChanged={event => {

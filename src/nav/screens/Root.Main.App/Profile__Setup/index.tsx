@@ -123,7 +123,7 @@ export function Profile__Setup() {
                 disabled={isPending || isUploading}
                 variant="green"
                 text={isUploading || isPending ? 'Saving...' : 'Submit'}
-                style={[styles.submitButton, {bottom}]}
+                style={[styles.submitButton, {bottom: bottom + 16}]}
             />
         </SafeAreaView>
     );

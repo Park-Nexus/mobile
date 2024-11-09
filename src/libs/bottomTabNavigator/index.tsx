@@ -18,7 +18,7 @@ export function createBottomTabNavigator<T extends ParamListBase>() {
             minHeight: 65,
             marginHorizontal: 20,
             position: 'absolute',
-            bottom: 28,
+            bottom: 24,
             borderRadius: 12,
 
             overflow: 'hidden',

@@ -22,8 +22,8 @@ export function Login() {
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
     const {control, handleSubmit} = useForm<TLoginPayload>({
         values: {
-            email: 'vclong2003@gmail.com',
-            password: '12345678',
+            email: '',
+            password: '',
         },
     });
     const {submit, isPending} = useSubmit();
@@ -88,7 +88,7 @@ export function Login() {
                     <Button variant="gray" preIcon={<GoogleSvg width={24} height={24} />} />
                 </View>
             </View>
-            <Text style={[styles.registerText, {bottom: bottom}]} onPress={() => navigation.navigate('Register')}>
+            <Text style={[styles.registerText, {bottom: bottom + 16}]} onPress={() => navigation.navigate('Register')}>
                 Don’t have an account? <Text style={styles.registerTextColored}>Sign up</Text>
             </Text>
         </SafeAreaView>

@@ -14,9 +14,10 @@ export const styles = StyleSheet.create({
 
     zoomBtn: {
         position: 'absolute',
-        bottom: 120,
+        bottom: 116,
         right: 20,
-        width: 48,
-        height: 48,
+        width: 50,
+        height: 50,
+        borderRadius: 50 / 2,
     },
 });

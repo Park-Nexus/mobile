@@ -5,7 +5,9 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
 
 import PlusTealSvg from '@src/static/svgs/PlusTeal.svg';
-import {Text} from 'react-native';
+import {ScrollView, Text, TouchableWithoutFeedback} from 'react-native';
+import {styles} from './index.styles';
+import FastImage from 'react-native-fast-image';
 
 export function Settings__Vehicle_List() {
     const navigation = useNavigation<NavigationProp<AppStackParamList>>();
@@ -20,11 +22,20 @@ export function Settings__Vehicle_List() {
                 rightButtonIcon={<PlusTealSvg />}
                 onRightButtonPress={() => navigation.navigate('Settings__Vehicle_Add')}
             />
-            {vehicles.map(vehicle => (
-                <Text key={vehicle.id} onPress={() => navigation.navigate('Settings__Vehicle_Update', {vehicle})}>
-                    {vehicle.plate}
-                </Text>
-            ))}
+            <ScrollView style={styles.wrapper}>
+                {vehicles.map(vehicle => (
+                    <TouchableWithoutFeedback
+                        key={vehicle.id}
+                        onPress={() => navigation.navigate('Settings__Vehicle_Update', {vehicle})}>
+                        <FastImage
+                            source={{uri: vehicle.imageUrl}}
+                            style={{width: 100, height: 100}}
+                            resizeMode="cover"
+                            fallback
+                        />
+                    </TouchableWithoutFeedback>
+                ))}
+            </ScrollView>
         </SafeAreaView>
     );
 }
