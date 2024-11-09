@@ -9,12 +9,13 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Linking, Platform, Text, View} from 'react-native';
 import dayjs from 'dayjs';
 import {Button} from '@src/components/Button';
+import {EXPIRATION_TIME_IN_HOURS} from '@parknexus/api/rules';
 
 type ScreenProps = {
     navigation: NavigationProp<AppStackParamList, 'Reservation__Ticket_Detail'>;
     route: RouteProp<AppStackParamList, 'Reservation__Ticket_Detail'>;
 };
-export function Reservation__Ticket_Detail({route}: ScreenProps) {
+export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
     const tabNavigation = useNavigation<NavigationProp<TabParamList>>();
     const {ticket} = useTicketDetail(route.params.ticketId);
 
@@ -30,9 +31,12 @@ export function Reservation__Ticket_Detail({route}: ScreenProps) {
                 <View style={{backgroundColor: '#128085', borderRadius: 12}}>
                     <View style={{padding: 16}}>
                         <Text style={{color: '#FAFAFA', fontSize: 14, fontWeight: '400', textAlign: 'center'}}>
-                            Scan me when you arrive{'\n'}at the parking lot
+                            The ticket will be expired at{' '}
+                            <Text style={{fontWeight: '600'}}>
+                                {dayjs(ticket?.startTime).add(EXPIRATION_TIME_IN_HOURS, 'hour').format('MMM DD  HH:mm')}
+                            </Text>
                         </Text>
-                        <View style={{height: 8}} />
+                        <View style={{height: 10}} />
                         <View style={{alignItems: 'center'}}>
                             <QRCode color="#FAFAFA" backgroundColor="#128085" size={180} value={ticket?.code} />
                         </View>
@@ -93,7 +97,7 @@ export function Reservation__Ticket_Detail({route}: ScreenProps) {
                             <Text style={{color: '#CCCBCB', fontSize: 12, fontWeight: '600'}}>Start Time</Text>
                             <View style={{height: 4}} />
                             <Text numberOfLines={1} style={{color: '#FAFAFA', fontSize: 14, fontWeight: '600'}}>
-                                {dayjs(ticket?.startTime).format('DD-MM-YYYY HH:mm')}
+                                {dayjs(ticket?.startTime).format('MMM DD  HH:mm')}
                             </Text>
                         </View>
                         <View style={{width: 8}} />
@@ -117,7 +121,7 @@ export function Reservation__Ticket_Detail({route}: ScreenProps) {
                             <Text style={{color: '#CCCBCB', fontSize: 12, fontWeight: '600'}}>End Time</Text>
                             <View style={{height: 4}} />
                             <Text numberOfLines={1} style={{color: '#FAFAFA', fontSize: 14, fontWeight: '600'}}>
-                                {dayjs(ticket?.endTime).format('DD-MM-YYYY HH:mm')}
+                                {dayjs(ticket?.endTime).format('MMM DD  HH:mm')}
                             </Text>
                         </View>
                     </View>
@@ -131,7 +135,14 @@ export function Reservation__Ticket_Detail({route}: ScreenProps) {
                         onPress={() => Linking.openURL(directionLink!)}
                     />
                     {ticket?.paymentRecord?.status === 'AWAITING' && (
-                        <Button variant="pink" text="Pay ticket" style={{flex: 1}} onPress={() => {}} />
+                        <Button
+                            variant="pink"
+                            text="Pay ticket"
+                            style={{flex: 1}}
+                            onPress={() =>
+                                navigation.navigate('Reservation__Ticket_Payment', {ticketId: route.params.ticketId})
+                            }
+                        />
                     )}
                 </View>
             </ScrollView>
