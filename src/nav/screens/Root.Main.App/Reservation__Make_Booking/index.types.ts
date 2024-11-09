@@ -1,1 +1,1 @@
-export type TBookingStep = 'DATE_TIME' | 'VEHICLE' | 'SERVICES' | 'CONFIRMATION';
+export type TBookingStep = 'DATE_TIME' | 'VEHICLE' | 'SERVICES' | 'PAYMENT';

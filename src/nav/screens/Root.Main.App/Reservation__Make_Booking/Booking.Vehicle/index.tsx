@@ -6,7 +6,7 @@ import {ScrollView, Text} from 'react-native';
 import {useMyVehicles} from './index.data';
 
 export function Vehicle() {
-    const {setStep} = useMakeBookingContext();
+    const {setStep, setVehicleId, vehicleId} = useMakeBookingContext();
     const {availableVehicleTypes} = useParkingLotAvailability();
     const {vehicles} = useMyVehicles();
 

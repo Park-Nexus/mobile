@@ -4,7 +4,6 @@ import {TBookingStep} from './index.types';
 import {DateTime} from './Booking.DateTime';
 import {Vehicle} from './Booking.Vehicle';
 import {Services} from './Booking.Services';
-import {Confirmation} from './Booking.Confirmation';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 import {Text, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -20,7 +19,7 @@ export function Content() {
         DATE_TIME: <DateTime />,
         VEHICLE: <Vehicle />,
         SERVICES: <Services />,
-        CONFIRMATION: <Confirmation />,
+        PAYMENT: <></>,
     };
 
     return (

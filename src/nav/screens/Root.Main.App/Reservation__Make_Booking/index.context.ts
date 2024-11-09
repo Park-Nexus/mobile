@@ -1,7 +1,8 @@
 import constate from 'constate';
 import {useState} from 'react';
 import {TBookingStep} from './index.types';
-import dayjs from 'dayjs';
+import dayjs, {Dayjs} from 'dayjs';
+import {MAX_AHEAD_TIME_ALLOWED_IN_HOURS, MINIMUM_DURATION_IN_HOURS} from '@parknexus/api/rules';
 
 type TMakeBookingContextProps = {
     lotId: number;
@@ -9,13 +10,14 @@ type TMakeBookingContextProps = {
 function useValues(props: TMakeBookingContextProps) {
     const [lotId] = useState(props.lotId);
 
-    // can only book ahead of maximum 48 hours
-    const lowBoundaryDate = dayjs().add(15, 'minutes');
-    const highBoundaryDate = dayjs().add(48, 'hours').subtract(15, 'minutes');
-
     const [step, setStep] = useState<TBookingStep>('DATE_TIME');
 
-    const [startTime, setStartTime] = useState<Date>(lowBoundaryDate.toDate());
+    const minimumStartTime = dayjs().add(15, 'minutes');
+    const maximumStartTime = dayjs().add(MAX_AHEAD_TIME_ALLOWED_IN_HOURS, 'hour');
+    const minimumEndTime = minimumStartTime.add(MINIMUM_DURATION_IN_HOURS, 'hour');
+
+    const [startTime, setStartTime] = useState<Dayjs>(minimumStartTime);
+    const [endTime, setEndTime] = useState<Dayjs>(minimumEndTime);
     const [serviceIds, setServiceIds] = useState<number[]>([]);
     const [vehicleId, setVehicleId] = useState<number>();
 
@@ -28,14 +30,18 @@ function useValues(props: TMakeBookingContextProps) {
         startTime,
         setStartTime,
 
+        endTime,
+        setEndTime,
+
         serviceIds,
         setServiceIds,
 
         vehicleId,
         setVehicleId,
 
-        lowBoundaryDate,
-        highBoundaryDate,
+        minimumStartTime,
+        maximumStartTime,
+        minimumEndTime,
     };
 }
 

@@ -13,9 +13,11 @@ import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 
 export function DateTime() {
     const navigation = useNavigation();
-    const {startTime, setStartTime, lowBoundaryDate, highBoundaryDate, setStep} = useMakeBookingContext();
+    const {startTime, setStartTime, endTime, setEndTime, minimumStartTime, maximumStartTime, minimumEndTime, setStep} =
+        useMakeBookingContext();
 
-    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [isStartDatePickerVisible, setStartDatePickerVisibility] = useState(false);
+    const [isEndDatePickerVisible, setEndDatePickerVisibility] = useState(false);
 
     const calendarProps: CalendarProps = {
         dayComponent: Day,
@@ -31,22 +33,39 @@ export function DateTime() {
                 <Calendar {...calendarProps} />
                 <Button
                     variant="green"
-                    onPress={() => setDatePickerVisibility(true)}
-                    text={dayjs(startTime).format('HH:mm')}
+                    onPress={() => setStartDatePickerVisibility(true)}
+                    text={`Start ${dayjs(startTime).format('HH:mm')}`}
+                />
+                <Button
+                    variant="green"
+                    onPress={() => setEndDatePickerVisibility(true)}
+                    text={`End ${dayjs(endTime).format('HH:mm')}`}
                 />
             </ScrollView>
             <DateTimePickerModal
-                isVisible={isDatePickerVisible}
-                date={startTime}
+                isVisible={isStartDatePickerVisible}
+                date={startTime.toDate()}
                 mode="datetime"
                 is24Hour
-                minimumDate={lowBoundaryDate.toDate()}
-                maximumDate={highBoundaryDate.toDate()}
+                minimumDate={minimumStartTime.toDate()}
+                maximumDate={maximumStartTime.toDate()}
                 onConfirm={date => {
-                    setStartTime(date);
-                    setDatePickerVisibility(false);
+                    setStartTime(dayjs(date));
+                    setStartDatePickerVisibility(false);
                 }}
-                onCancel={() => setDatePickerVisibility(false)}
+                onCancel={() => setStartDatePickerVisibility(false)}
+            />
+            <DateTimePickerModal
+                isVisible={isEndDatePickerVisible}
+                date={endTime.toDate()}
+                mode="datetime"
+                is24Hour
+                minimumDate={minimumEndTime.toDate()}
+                onConfirm={date => {
+                    setEndTime(dayjs(date));
+                    setEndDatePickerVisibility(false);
+                }}
+                onCancel={() => setEndDatePickerVisibility(false)}
             />
             <Button variant="green" text="Next" onPress={() => setStep('VEHICLE')} />
         </SafeAreaView>
