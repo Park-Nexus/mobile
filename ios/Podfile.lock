@@ -1402,6 +1402,8 @@ PODS:
     - React
     - React-Core
     - Turf
+  - RNPermissions (5.1.0):
+    - React-Core
   - RNReanimated (3.15.4):
     - DoubleConversion
     - glog
@@ -1535,6 +1537,12 @@ PODS:
   - StripeUICore (23.30.0):
     - StripeCore (= 23.30.0)
   - Turf (2.8.0)
+  - VisionCamera (4.6.1):
+    - VisionCamera/Core (= 4.6.1)
+    - VisionCamera/React (= 4.6.1)
+  - VisionCamera/Core (4.6.1)
+  - VisionCamera/React (4.6.1):
+    - React-Core
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -1611,10 +1619,12 @@ DEPENDENCIES:
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "rnmapbox-maps (from `../node_modules/@rnmapbox/maps`)"
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - "stripe-react-native (from `../node_modules/@stripe/stripe-react-native`)"
+  - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1790,6 +1800,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   rnmapbox-maps:
     :path: "../node_modules/@rnmapbox/maps"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -1798,6 +1810,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-svg"
   stripe-react-native:
     :path: "../node_modules/@stripe/stripe-react-native"
+  VisionCamera:
+    :path: "../node_modules/react-native-vision-camera"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -1888,6 +1902,7 @@ SPEC CHECKSUMS:
   RNFBAuth: e923d3f87088009ac8505140599ec1e784d77bd0
   RNGestureHandler: 83fd202dbc0b8971414c5c7c56ddd9f5cde05911
   rnmapbox-maps: 91a8a19f9ad55c88024e4cee59c20f905d3a1195
+  RNPermissions: e827258be33d370288bd8c1b5b1a8d5f6fdb7968
   RNReanimated: 4e3738c07d997c502b5fa407524700dfa8712777
   RNScreens: db442e7b8c7bc8befec2ce057927305ff8598cc8
   RNSVG: 4590aa95758149fa27c5c83e54a6a466349a1688
@@ -1904,6 +1919,7 @@ SPEC CHECKSUMS:
   StripePaymentsUI: 7d7cffb2ecfc0d6b5ac3a4488c02893a5ff6cc77
   StripeUICore: bb102d453b1e1a10a37f810bc0a9aa0675fb17fd
   Turf: aa2ede4298009639d10db36aba1a7ebaad072a5e
+  VisionCamera: c95a8ad535f527562be1fb05fb2fd324578e769c
   Yoga: bd92064a0d558be92786820514d74fc4dddd1233
 
 PODFILE CHECKSUM: 8c99886ea37a7250b9094ed049751d30a4dde353

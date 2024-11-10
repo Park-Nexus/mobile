@@ -3448,7 +3448,7 @@ __metadata:
 
 "@parknexus/api@https://github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=a4e1b4db361db7d53089349e523749243af60778"
+  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=9d401ba2f71f930e3afe5bb06a5bdf6ceca8a65b"
   dependencies:
     "@google-cloud/storage": ^7.14.0
     "@onesignal/node-onesignal": ^5.0.0-alpha-01
@@ -3469,7 +3469,7 @@ __metadata:
     uuid: ^11.0.2
     yarn: ^1.22.22
     zod: ^3.23.8
-  checksum: f996800c4745276413310a36584bc7d1f60a28de6d0eacd974a809d9de69ba48e6dad4df1b0f5cb5ea5ac7c84892247d91a1644e22ee7793d033e7ae2d6ab1b3
+  checksum: 16056c585d7b5ebf8f9552e57533763d7d9426160117fee12596ab125876722f4da94903550618f3c859178ea0da85e9b28133695a53e8d9dea7a39018a31b20
   languageName: node
   linkType: hard
 
@@ -5145,6 +5145,7 @@ __metadata:
     react-native-modal: ^13.0.1
     react-native-modal-datetime-picker: ^18.0.0
     react-native-onesignal: ^5.2.6
+    react-native-permissions: ^5.1.0
     react-native-qrcode-svg: ^6.3.12
     react-native-reanimated: ^3.15.4
     react-native-reanimated-carousel: ^3.5.1
@@ -5153,8 +5154,10 @@ __metadata:
     react-native-svg: ^15.7.1
     react-native-svg-transformer: ^1.5.0
     react-native-toast-message: ^2.2.1
+    react-native-vision-camera: ^4.6.1
     react-test-renderer: 18.2.0
     typescript: 5.0.4
+    uuid: ^11.0.2
     zustand: ^4.5.4
   languageName: unknown
   linkType: soft
@@ -12070,6 +12073,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-permissions@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "react-native-permissions@npm:5.1.0"
+  peerDependencies:
+    react: ">=18.1.0"
+    react-native: ">=0.70.0"
+    react-native-windows: ">=0.70.0"
+  peerDependenciesMeta:
+    react-native-windows:
+      optional: true
+  checksum: 444c9d155bd255f82d26e5c4c2a548b9841413f0252fac1e759b9f96c1ad6289985bff09bc0cb33d180236f2f176c6b37cd0a93f495e87a0e96974dd30b7ac95
+  languageName: node
+  linkType: hard
+
 "react-native-qrcode-svg@npm:^6.3.12":
   version: 6.3.12
   resolution: "react-native-qrcode-svg@npm:6.3.12"
@@ -12186,6 +12203,26 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: c6b5d231b3b617b3d3d893023673534fe2cc0c5f32bb5fc4aecfe239e9de2fb9f0e9a4086d776e53daf3bc2376dce16dcec13e1b5cf1554dbf51808695fc2441
+  languageName: node
+  linkType: hard
+
+"react-native-vision-camera@npm:^4.6.1":
+  version: 4.6.1
+  resolution: "react-native-vision-camera@npm:4.6.1"
+  peerDependencies:
+    "@shopify/react-native-skia": "*"
+    react: "*"
+    react-native: "*"
+    react-native-reanimated: "*"
+    react-native-worklets-core: "*"
+  peerDependenciesMeta:
+    "@shopify/react-native-skia":
+      optional: true
+    react-native-reanimated:
+      optional: true
+    react-native-worklets-core:
+      optional: true
+  checksum: fcf820dfeec172c14f56e297954f24ede5251f0f1a03e77624dec37dd267ce51a8472b1339ddda7ea910724ceb129cf450f94adb9c39145e5bec72b88f426a26
   languageName: node
   linkType: hard
 

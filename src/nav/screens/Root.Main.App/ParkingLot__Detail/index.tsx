@@ -106,7 +106,7 @@ export function ParkingLot__Detail({route, navigation}: ScreenProps) {
                         <Text style={styles.addressText}>{address}</Text>
                     </View>
                     {/* Pills --------------------------------------------- */}
-                    <ScrollView horizontal style={styles.pillsWrapper}>
+                    <View style={styles.pillsWrapper}>
                         <View style={styles.pill}>
                             <StarFilledSvg width={20} height={20} />
                             <Text style={styles.pillText}>4.2</Text>
@@ -123,7 +123,7 @@ export function ParkingLot__Detail({route, navigation}: ScreenProps) {
                                 {lot?.openAt} - {lot?.closeAt}
                             </Text>
                         </View>
-                    </ScrollView>
+                    </View>
                     {/* Info buttons --------------------------------------- */}
                     <View style={styles.infoButtonsWrapper}>
                         <Button variant="gray" preIcon={<PhoneCallSvg width={16} height={16} />} text="Call" />

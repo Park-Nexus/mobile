@@ -2,15 +2,32 @@ import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {ScrollView, Text, View} from 'react-native';
 import {styles} from './index.styles';
+import {useMyParkingLots} from './index.data';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
+import {Button} from '@src/components/Button';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useCameraPermission} from 'react-native-vision-camera';
 
 import PlusTealSvg from '@src/static/svgs/PlusTeal.svg';
-import {useMyParkingLots} from './index.data';
-import {NavigationProp, NavigatorScreenParams, useNavigation} from '@react-navigation/native';
-import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
+import QrScanSvg from '@src/static/svgs/QrScan.svg';
+import {useEffect, useRef} from 'react';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import {CheckInSheet} from './LotManagement.CheckIn/index.sheet';
 
 export function LotManagement() {
+    const {hasPermission, requestPermission} = useCameraPermission();
     const {lots} = useMyParkingLots();
     const navigation = useNavigation<NavigationProp<AppStackParamList>>();
+    const {bottom} = useSafeAreaInsets();
+
+    const checkInSheetRef = useRef<BottomSheetModal>(null);
+
+    useEffect(() => {
+        if (!hasPermission) {
+            requestPermission();
+        }
+    }, [hasPermission, requestPermission]);
 
     return (
         <SafeAreaView>
@@ -30,6 +47,18 @@ export function LotManagement() {
                     ))}
                 </ScrollView>
             </View>
+            {hasPermission && (
+                <>
+                    <CheckInSheet ref={checkInSheetRef} onClose={() => checkInSheetRef.current?.dismiss()} />
+                    <Button
+                        variant="green"
+                        preIcon={<QrScanSvg width={24} height={24} />}
+                        text="Check-In"
+                        style={{position: 'absolute', bottom: bottom + 100, right: 20}}
+                        onPress={() => checkInSheetRef.current?.present()}
+                    />
+                </>
+            )}
         </SafeAreaView>
     );
 }
