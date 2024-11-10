@@ -13,3 +13,9 @@ export function useStripeIntent(ticketId: number) {
     const stripeClientSecret = response.data?.clientSecret;
     return Object.assign({stripeClientSecret}, response);
 }
+
+export function usePaymentMethods() {
+    const response = trpc.payment.method.get.many.useQuery();
+    const paymentMethods = response?.data || [];
+    return Object.assign({paymentMethods}, response);
+}

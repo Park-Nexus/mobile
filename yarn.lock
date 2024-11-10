@@ -3448,7 +3448,7 @@ __metadata:
 
 "@parknexus/api@https://github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=affb5b132c3dfd14d9d8ea04d480164ace82214e"
+  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=a4e1b4db361db7d53089349e523749243af60778"
   dependencies:
     "@google-cloud/storage": ^7.14.0
     "@onesignal/node-onesignal": ^5.0.0-alpha-01
@@ -3469,7 +3469,7 @@ __metadata:
     uuid: ^11.0.2
     yarn: ^1.22.22
     zod: ^3.23.8
-  checksum: f3c0547ab63ad36f106c5716c8fd32bf8b150a902027fb8a705a477d102e0b8e1333dcbe42230c99dead44341840f3be8e40e614adf04dca304a6d94a1aa14cb
+  checksum: f996800c4745276413310a36584bc7d1f60a28de6d0eacd974a809d9de69ba48e6dad4df1b0f5cb5ea5ac7c84892247d91a1644e22ee7793d033e7ae2d6ab1b3
   languageName: node
   linkType: hard
 
@@ -3583,6 +3583,20 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 1e47144b0c00dce562e72ea9f6c3e93d3bb392ec0ea001ce37ff801d9a496c9801927033ee4800bf92ea2ece9de0abe596715add3b7afe3c5d1533e260f5e09e
+  languageName: node
+  linkType: hard
+
+"@react-native-community/checkbox@npm:^0.5.17":
+  version: 0.5.17
+  resolution: "@react-native-community/checkbox@npm:0.5.17"
+  peerDependencies:
+    react: "*"
+    react-native: ">= 0.62"
+    react-native-windows: ">=0.62"
+  peerDependenciesMeta:
+    react-native-windows:
+      optional: true
+  checksum: 98cddff11b976a1f712bfc4d7de946d5e102108bedc016bbcb668b3917757dd5092b5b93f651f740508dd8437ba3a0ce5ca15cef3ebf7bcfc15a490b0b7d0d6b
   languageName: node
   linkType: hard
 
@@ -5087,6 +5101,7 @@ __metadata:
     "@parknexus/api": "https://github.com/Park-Nexus/api.git#master"
     "@react-native-async-storage/async-storage": ^1.24.0
     "@react-native-community/blur": ^4.4.1
+    "@react-native-community/checkbox": ^0.5.17
     "@react-native-community/datetimepicker": ^8.2.0
     "@react-native-community/geolocation": ^3.4.0
     "@react-native-firebase/app": ^20.3.0

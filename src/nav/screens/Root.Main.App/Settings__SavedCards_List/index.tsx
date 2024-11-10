@@ -24,7 +24,7 @@ export function Settings__SavedCards_List() {
             <ScrollView>
                 {paymentMethods.map(method => (
                     <Text key={method.id}>
-                        {method.card?.brand} {method.card?.issuer} - {method.card?.last4}
+                        {method.card?.brand} - **** **** **** {method.card?.last4}
                     </Text>
                 ))}
             </ScrollView>
