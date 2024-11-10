@@ -13,6 +13,10 @@ export function useSubmit() {
         mutation.mutate(payload, {
             onSuccess() {
                 navigation.navigate('Login');
+                Toast.show({
+                    type: 'success',
+                    text1: 'Done, you can login to your account now',
+                });
             },
             onError(err) {
                 console.error(err.message);

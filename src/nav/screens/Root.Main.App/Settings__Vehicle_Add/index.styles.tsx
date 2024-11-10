@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
         paddingHorizontal: 16,
+        marginBottom: 16,
     },
 
     formFieldLabel: {
@@ -17,7 +18,6 @@ export const styles = StyleSheet.create({
     },
 
     saveButton: {
-        marginHorizontal: 16,
-        marginVertical: 16,
+        marginTop: 16,
     },
 });

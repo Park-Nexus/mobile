@@ -2,7 +2,7 @@ import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {TCreateProfilePayload, useSubmit} from './index.data';
 import {Controller, useForm} from 'react-hook-form';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {styles} from './index.styles';
 import {TextInput} from '@src/components/Input__Text';
 import {Button} from '@src/components/Button';
@@ -45,7 +45,6 @@ export function Profile__Setup() {
                 file: {uri: selectedAvatar.uri, name: selectedAvatar.fileName, type: selectedAvatar.type},
             });
         }
-        console.log(avatarUrl, values);
         submit({...values, avatarUrl});
     };
 
@@ -88,31 +87,33 @@ export function Profile__Setup() {
                         </View>
                     )}
                 />
+                <Text style={styles.fieldLabel}>First Name</Text>
                 <Controller
                     control={control}
                     name="firstName"
-                    render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput onChangeText={onChange} onBlur={onBlur} value={value} placeholder="First Name" />
+                    render={({field: {onChange, value}}) => (
+                        <TextInput onChangeText={onChange} value={value} placeholder="John" />
                     )}
                 />
-                <View style={{height: 8}} />
+                <View style={{height: 10}} />
+                <Text style={styles.fieldLabel}>Last Name</Text>
                 <Controller
                     control={control}
                     name="lastName"
-                    render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput onChangeText={onChange} onBlur={onBlur} value={value} placeholder="Last Name" />
+                    render={({field: {onChange, value}}) => (
+                        <TextInput onChangeText={onChange} value={value} placeholder="Doe" />
                     )}
                 />
-                <View style={{height: 8}} />
+                <View style={{height: 10}} />
+                <Text style={styles.fieldLabel}>Phone</Text>
                 <Controller
                     control={control}
                     name="phone"
-                    render={({field: {onChange, onBlur, value}}) => (
+                    render={({field: {onChange, value}}) => (
                         <TextInput
                             onChangeText={onChange}
-                            onBlur={onBlur}
                             value={value}
-                            placeholder="Phone"
+                            placeholder="5556667777"
                             keyboardType="phone-pad"
                         />
                     )}

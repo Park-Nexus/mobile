@@ -129,15 +129,14 @@ export function Settings__Vehicle_Add() {
                         <TextInput placeholder="e.g. Red" value={value} onChangeText={onChange} />
                     )}
                 />
+                <Button
+                    variant="green"
+                    text={isPending || isUploading ? 'Saving...' : 'Save'}
+                    onPress={handleSubmit(onSubmit)}
+                    disabled={isPending || isUploading}
+                    style={styles.saveButton}
+                />
             </ScrollView>
-
-            <Button
-                variant="green"
-                text={isPending || isUploading ? 'Saving...' : 'Save'}
-                onPress={handleSubmit(onSubmit)}
-                disabled={isPending || isUploading}
-                style={styles.saveButton}
-            />
         </SafeAreaView>
     );
 }

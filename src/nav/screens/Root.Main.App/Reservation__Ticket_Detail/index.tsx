@@ -9,7 +9,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Linking, Platform, Text, View} from 'react-native';
 import dayjs from 'dayjs';
 import {Button} from '@src/components/Button';
-import {EXPIRATION_TIME_IN_HOURS} from '@parknexus/api/rules';
+import {EXPIRATION_TIME_IN_HOURS, OVERSTAYING_PENALTY_CHARGES_IN_USD} from '@parknexus/api/rules';
 
 type ScreenProps = {
     navigation: NavigationProp<AppStackParamList, 'Reservation__Ticket_Detail'>;
@@ -18,6 +18,9 @@ type ScreenProps = {
 export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
     const tabNavigation = useNavigation<NavigationProp<TabParamList>>();
     const {ticket} = useTicketDetail(route.params.ticketId);
+
+    const ticketCode = ticket?.code;
+    const isPending = ticket?.status === 'PENDING';
 
     const directionLink = Platform.select({
         ios: `maps://${ticket?.parkingSpot?.parkingLot?.latitude},${ticket?.parkingSpot?.parkingLot?.longitude}?q='${ticket?.parkingSpot?.parkingLot?.name}'`,
@@ -28,17 +31,31 @@ export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
         <SafeAreaView>
             <Header title="Ticket" backButtonVisible onBackButtonPress={() => tabNavigation.navigate('Ticket')} />
             <ScrollView style={{padding: 16}}>
-                <View style={{backgroundColor: '#128085', borderRadius: 12}}>
+                <View style={{backgroundColor: isPending ? '#128085' : '#d3d3d3', borderRadius: 12}}>
                     <View style={{padding: 16}}>
-                        <Text style={{color: '#FAFAFA', fontSize: 14, fontWeight: '400', textAlign: 'center'}}>
-                            The ticket will be expired at{' '}
-                            <Text style={{fontWeight: '600'}}>
-                                {dayjs(ticket?.startTime).add(EXPIRATION_TIME_IN_HOURS, 'hour').format('MMM DD  HH:mm')}
+                        {isPending ? (
+                            <Text style={{color: '#FAFAFA', fontSize: 14, fontWeight: '400', textAlign: 'center'}}>
+                                The ticket will be expired at{' '}
+                                <Text style={{fontWeight: '600'}}>
+                                    {dayjs(ticket?.startTime)
+                                        .add(EXPIRATION_TIME_IN_HOURS, 'hour')
+                                        .format('MMM DD  HH:mm')}
+                                </Text>
                             </Text>
-                        </Text>
+                        ) : (
+                            <Text style={{color: '#FAFAFA', fontSize: 14, fontWeight: '400', textAlign: 'center'}}>
+                                Please check out before{' '}
+                                <Text style={{fontWeight: '600'}}>
+                                    {dayjs(ticket?.endTime)
+                                        .add(OVERSTAYING_PENALTY_CHARGES_IN_USD, 'hour')
+                                        .format('MMM DD  HH:mm')}
+                                </Text>{' '}
+                                to avoid additional charges
+                            </Text>
+                        )}
                         <View style={{height: 10}} />
                         <View style={{alignItems: 'center'}}>
-                            <QRCode color="#FAFAFA" backgroundColor="#128085" size={180} value={ticket?.code} />
+                            <QRCode color="#FAFAFA" backgroundColor="#128085" size={180} value={ticketCode} />
                         </View>
                     </View>
                     <View

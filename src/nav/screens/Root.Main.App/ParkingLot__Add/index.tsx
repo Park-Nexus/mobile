@@ -3,10 +3,9 @@ import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
 import {Controller, useForm} from 'react-hook-form';
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {TCreateParkingLotPayload, useSubmit} from './index.submit';
 import {TextInput} from '@src/components/Input__Text';
-import {styles} from './index.styles';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {useState} from 'react';
 import {Button} from '@src/components/Button';
@@ -95,112 +94,138 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
     return (
         <SafeAreaView>
             <Header title="Add new parking lot" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
+
             <ScrollView style={styles.wrapper}>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.imageContainer}>
                     {selectedImages.map((image, index) => (
-                        <FastImage key={index} source={{uri: image.uri}} style={{width: 100, height: 100}} />
+                        <FastImage key={index} source={{uri: image.uri}} style={styles.imagePreview} />
                     ))}
-                    <Button variant="green" text="Select Images" onPress={selectOrTakeImage} />
+                    <Button variant="gray" text="Add Image" onPress={selectOrTakeImage} />
                 </ScrollView>
-                <Controller
-                    control={control}
-                    name="name"
-                    render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput multiline onChangeText={onChange} placeholder="Name" onBlur={onBlur} value={value} />
-                    )}
-                />
-                <Controller
-                    control={control}
-                    name="phone"
-                    render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput
-                            multiline
-                            onChangeText={onChange}
-                            placeholder="Phone"
-                            onBlur={onBlur}
-                            value={value}
-                            keyboardType="phone-pad"
-                        />
-                    )}
-                />
 
-                <Controller
-                    control={control}
-                    name="description"
-                    render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput
-                            multiline
-                            onChangeText={onChange}
-                            placeholder="Description"
-                            onBlur={onBlur}
-                            value={value}
-                        />
-                    )}
-                />
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Parking Lot Name</Text>
+                    <Controller
+                        control={control}
+                        name="name"
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <TextInput
+                                onChangeText={onChange}
+                                placeholder="e.g. Long Park Cau Giay"
+                                onBlur={onBlur}
+                                value={value}
+                            />
+                        )}
+                    />
+                </View>
 
-                <Controller
-                    control={control}
-                    name="openAt"
-                    render={({field: {value}}) => (
-                        <View>
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Contact Phone Number</Text>
+                    <Controller
+                        control={control}
+                        name="phone"
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <TextInput
+                                multiline
+                                onChangeText={onChange}
+                                placeholder="e.g. 0123456789"
+                                onBlur={onBlur}
+                                value={value}
+                                keyboardType="phone-pad"
+                            />
+                        )}
+                    />
+                </View>
+
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Description</Text>
+                    <Controller
+                        control={control}
+                        name="description"
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <TextInput
+                                multiline
+                                onChangeText={onChange}
+                                placeholder="e.g. Long Park Cau Giay, near Cau Giay University"
+                                onBlur={onBlur}
+                                value={value}
+                            />
+                        )}
+                    />
+                </View>
+
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Time Start Checking In</Text>
+                    <Controller
+                        control={control}
+                        name="openAt"
+                        render={({field: {value}}) => (
                             <Button
-                                variant="green"
-                                text="Select Opening Time"
+                                variant="gray"
+                                text={value ? value : 'Select'}
                                 onPress={() => showDatePicker('openAt')}
                             />
-                            {value ? <Text>Opening Time: {value}</Text> : null}
-                        </View>
-                    )}
-                />
-                <Controller
-                    control={control}
-                    name="closeAt"
-                    render={({field: {value}}) => (
-                        <View>
+                        )}
+                    />
+                </View>
+
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Time Stop Checking In</Text>
+                    <Controller
+                        control={control}
+                        name="closeAt"
+                        render={({field: {value}}) => (
                             <Button
-                                variant="green"
-                                text="Select Closing Time"
+                                variant="gray"
+                                text={value ? value : 'Select'}
                                 onPress={() => showDatePicker('closeAt')}
                             />
-                            {value ? <Text>Closing Time: {value}</Text> : null}
-                        </View>
-                    )}
-                />
+                        )}
+                    />
+                </View>
 
-                <Controller
-                    control={control}
-                    name="latitude"
-                    render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value.toString()}
-                            placeholder="Latitude"
-                            keyboardType="numeric"
-                        />
-                    )}
-                />
-                <Controller
-                    control={control}
-                    name="longitude"
-                    render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            value={value.toString()}
-                            placeholder="Longitude"
-                            keyboardType="numeric"
-                        />
-                    )}
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Latitude</Text>
+                    <Controller
+                        control={control}
+                        name="latitude"
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <TextInput
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                value={value.toString()}
+                                placeholder="e.g. 10.7654321"
+                                keyboardType="numeric"
+                            />
+                        )}
+                    />
+                </View>
+
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Longitude</Text>
+                    <Controller
+                        control={control}
+                        name="longitude"
+                        render={({field: {onChange, onBlur, value}}) => (
+                            <TextInput
+                                onChangeText={onChange}
+                                onBlur={onBlur}
+                                value={value.toString()}
+                                placeholder="e.g. 106.1234567"
+                                keyboardType="numeric"
+                            />
+                        )}
+                    />
+                </View>
+
+                <Button
+                    variant="green"
+                    text={isPending || isUploading ? 'Saving...' : 'Save'}
+                    onPress={handleSubmit(onSubmit)}
+                    disabled={isPending || isUploading}
+                    style={styles.submitButton}
                 />
             </ScrollView>
-
-            <Button
-                variant="green"
-                text={isPending || isUploading ? 'Saving...' : 'Save'}
-                onPress={handleSubmit(onSubmit)}
-                disabled={isPending || isUploading}
-            />
 
             <DateTimePickerModal
                 isVisible={isDatePickerVisible}
@@ -211,3 +236,45 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
         </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    wrapper: {
+        flex: 1,
+        paddingHorizontal: 16,
+        paddingTop: 16,
+    },
+    imageContainer: {
+        flexDirection: 'row',
+        marginBottom: 20,
+        paddingVertical: 10,
+    },
+    imagePreview: {
+        width: 100,
+        height: 100,
+        borderRadius: 8,
+        marginRight: 10,
+    },
+    selectImageButton: {
+        width: 100,
+        height: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#e0e0e0',
+        borderRadius: 8,
+        borderWidth: 1,
+        borderStyle: 'dashed',
+        borderColor: '#888',
+    },
+    formSection: {
+        marginBottom: 16,
+    },
+    label: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#333',
+        marginBottom: 8,
+    },
+    submitButton: {
+        marginBottom: 32,
+    },
+});

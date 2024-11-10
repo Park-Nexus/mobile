@@ -29,6 +29,7 @@ export type AppStackParamList = {
     Reservation__Make_Booking: {lotId: number};
     Reservation__Ticket_Detail: {ticketId: number};
     Reservation__Ticket_Payment: {ticketId: number};
+    Reservation__CICO: {ticketCode: string};
 
     ParkingLot__Add: undefined;
     ParkingLot__Update: {lotId: number};

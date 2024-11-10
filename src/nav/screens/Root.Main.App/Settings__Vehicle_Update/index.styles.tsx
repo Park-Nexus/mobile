@@ -4,16 +4,20 @@ export const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
         paddingHorizontal: 16,
+        marginBottom: 16,
     },
-    fieldLabel: {
+
+    formFieldLabel: {
         fontSize: 14,
         fontWeight: '600',
         marginBottom: 4,
-        color: '#555555',
     },
-    submitButton: {
-        position: 'absolute',
-        left: 16,
-        right: 16,
+    vehicleTypeLabel: {
+        fontSize: 14,
+        fontWeight: '600',
+    },
+
+    saveButton: {
+        marginTop: 16,
     },
 });

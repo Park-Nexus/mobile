@@ -43,7 +43,6 @@ export function Login() {
                     render={({field: {onChange, onBlur, value}}) => (
                         <TextInput
                             onChangeText={onChange}
-                            onBlur={onBlur}
                             value={value}
                             preIcon={<EmailSvg width={24} height={24} />}
                             placeholder="Email"
@@ -57,9 +56,9 @@ export function Login() {
                     name="password"
                     render={({field: {onBlur, onChange, value}}) => (
                         <TextInput
+                            blurOnSubmit={false}
                             secureTextEntry={!isPasswordVisible}
                             onChangeText={onChange}
-                            onBlur={onBlur}
                             value={value}
                             preIcon={<PasswordSvg width={24} height={24} />}
                             postIcon={

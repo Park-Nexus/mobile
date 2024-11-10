@@ -9,11 +9,12 @@ import {useState} from 'react';
 import {Asset, launchImageLibrary} from 'react-native-image-picker';
 import {useUpload} from '@src/utils/upload';
 import FastImage from 'react-native-fast-image';
-import {Dimensions} from 'react-native';
+import {Dimensions, Text, View} from 'react-native';
 import {TextInput} from '@src/components/Input__Text';
 import {Picker} from '@react-native-picker/picker';
 import {Button} from '@src/components/Button';
 import {VEHICLE__TYPE_ALIAS} from '@parknexus/api/prisma/client';
+import {styles} from './index.styles';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -64,54 +65,25 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
     return (
         <SafeAreaView>
             <Header title="Update Vehicle" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
-            <ScrollView>
+            <ScrollView style={styles.wrapper}>
+                <View style={{height: 8}} />
                 {(selectedImage || vehicle.imageUrl) && (
                     <TouchableWithoutFeedback onPress={openImagePicker}>
                         <FastImage
                             source={{uri: selectedImage ? selectedImage.uri : vehicle.imageUrl}}
-                            style={{width: deviceWidth, height: (deviceWidth / 16) * 9}}
+                            style={{width: deviceWidth - 16 * 2, height: (deviceWidth / 16) * 9, borderRadius: 8}}
                             resizeMode="cover"
                             fallback
                         />
                     </TouchableWithoutFeedback>
                 )}
-
+                <View style={{height: 8}} />
                 {!selectedImage && (
                     <Button variant="gray" text="Select Image" onPress={openImagePicker} disabled={isUploading} />
                 )}
 
-                <Controller
-                    control={control}
-                    name="plate"
-                    render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="Plate" value={value} onChangeText={onChange} />
-                    )}
-                />
-
-                <Controller
-                    control={control}
-                    name="brand"
-                    render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="Brand" value={value} onChangeText={onChange} />
-                    )}
-                />
-
-                <Controller
-                    control={control}
-                    name="color"
-                    render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="Color" value={value} onChangeText={onChange} />
-                    )}
-                />
-
-                <Controller
-                    control={control}
-                    name="model"
-                    render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="Model" value={value} onChangeText={onChange} />
-                    )}
-                />
-
+                <View style={{height: 8}} />
+                <Text style={styles.vehicleTypeLabel}>Vehicle type</Text>
                 <Controller
                     control={control}
                     name="type"
@@ -123,14 +95,55 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
                         </Picker>
                     )}
                 />
-            </ScrollView>
 
-            <Button
-                variant="green"
-                text={isPending || isUploading ? 'Saving...' : 'Save'}
-                onPress={handleSubmit(onSubmit)}
-                disabled={isPending || isUploading}
-            />
+                <View style={{height: 8}} />
+                <Text style={styles.formFieldLabel}>Plate number</Text>
+                <Controller
+                    control={control}
+                    name="plate"
+                    render={({field: {onChange, value}}) => (
+                        <TextInput placeholder="e.g. FL-029-RF" value={value} onChangeText={onChange} />
+                    )}
+                />
+
+                <View style={{height: 8}} />
+                <Text style={styles.formFieldLabel}>Brand</Text>
+                <Controller
+                    control={control}
+                    name="brand"
+                    render={({field: {onChange, value}}) => (
+                        <TextInput placeholder="e.g. Ford" value={value} onChangeText={onChange} />
+                    )}
+                />
+
+                <View style={{height: 8}} />
+                <Text style={styles.formFieldLabel}>Model</Text>
+                <Controller
+                    control={control}
+                    name="model"
+                    render={({field: {onChange, value}}) => (
+                        <TextInput placeholder="e.g. F-150" value={value} onChangeText={onChange} />
+                    )}
+                />
+
+                <View style={{height: 8}} />
+                <Text style={styles.formFieldLabel}>Color</Text>
+                <Controller
+                    control={control}
+                    name="color"
+                    render={({field: {onChange, value}}) => (
+                        <TextInput placeholder="e.g. Red" value={value} onChangeText={onChange} />
+                    )}
+                />
+
+                <Button
+                    variant="green"
+                    text={isPending || isUploading ? 'Saving...' : 'Save'}
+                    onPress={handleSubmit(onSubmit)}
+                    disabled={isPending || isUploading}
+                    style={styles.saveButton}
+                />
+            </ScrollView>
         </SafeAreaView>
     );
 }

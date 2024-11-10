@@ -11,8 +11,6 @@ export function Vehicle() {
     const {availableVehicleTypes} = useParkingLotAvailability();
     const {vehicles} = useMyVehicles();
 
-    console.log(availableVehicleTypes);
-
     return (
         <SafeAreaView>
             <Header title="Select vehicle" backButtonVisible onBackButtonPress={() => setStep('DATE_TIME')} />

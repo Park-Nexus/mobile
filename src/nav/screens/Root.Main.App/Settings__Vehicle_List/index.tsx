@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {useVehicles} from './index.data';
@@ -5,7 +6,7 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
 
 import PlusTealSvg from '@src/static/svgs/PlusTeal.svg';
-import {ScrollView, Text, TouchableWithoutFeedback} from 'react-native';
+import {Pressable, ScrollView, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {styles} from './index.styles';
 import FastImage from 'react-native-fast-image';
 
@@ -24,16 +25,31 @@ export function Settings__Vehicle_List() {
             />
             <ScrollView style={styles.wrapper}>
                 {vehicles.map(vehicle => (
-                    <TouchableWithoutFeedback
+                    <Pressable
+                        style={styles.vehicleWrapper}
                         key={vehicle.id}
                         onPress={() => navigation.navigate('Settings__Vehicle_Update', {vehicle})}>
                         <FastImage
                             source={{uri: vehicle.imageUrl}}
-                            style={{width: 100, height: 100}}
+                            style={{width: 120, height: (120 * 3) / 4, borderRadius: 10}}
                             resizeMode="cover"
                             fallback
                         />
-                    </TouchableWithoutFeedback>
+                        <View style={styles.vehicleTextsWrapper}>
+                            <Text style={styles.vehicleText}>
+                                <Text style={styles.vehicleTextBold}>{_.startCase(_.camelCase(vehicle.type))}: </Text>
+                                {vehicle.brand} {vehicle.model}
+                            </Text>
+                            <Text style={styles.vehicleText}>
+                                <Text style={styles.vehicleTextBold}>Color: </Text>
+                                {vehicle.color}
+                            </Text>
+                            <Text style={styles.vehicleText}>
+                                <Text style={styles.vehicleTextBold}>Plate: </Text>
+                                {vehicle.plate}
+                            </Text>
+                        </View>
+                    </Pressable>
                 ))}
             </ScrollView>
         </SafeAreaView>
