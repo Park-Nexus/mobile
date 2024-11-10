@@ -63,6 +63,15 @@ export function Settings() {
                         />
                     </View>
                     <View style={styles.settingItem}>
+                        <Text style={styles.settingItemText}>Saved Cards</Text>
+                        <Button
+                            variant="gray"
+                            preIcon={<CaretRightBlackSvg width={16} height={16} />}
+                            style={styles.button}
+                            onPress={() => navigate('Settings__SavedCards_List')}
+                        />
+                    </View>
+                    <View style={styles.settingItem}>
                         <Text style={styles.settingItemText}>Notification</Text>
                         <Button
                             variant="gray"

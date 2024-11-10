@@ -17,6 +17,8 @@ import {Settings__Vehicle_Update} from '@src/nav/screens/Root.Main.App/Settings_
 import {Reservation__Make_Booking} from '@src/nav/screens/Root.Main.App/Reservation__Make_Booking';
 import {Reservation__Ticket_Detail} from '@src/nav/screens/Root.Main.App/Reservation__Ticket_Detail';
 import {Reservation__Ticket_Payment} from '@src/nav/screens/Root.Main.App/Reservation__Ticket_Payment';
+import {Settings__SavedCards_List} from '@src/nav/screens/Root.Main.App/Settings__SavedCards_List';
+import {Settings__SavedCards_Add} from '@src/nav/screens/Root.Main.App/Settings__SavedCards_Add';
 
 export type AppStackParamList = {
     Profile__Setup: undefined;
@@ -38,6 +40,8 @@ export type AppStackParamList = {
     Settings__Vehicle_List: undefined;
     Settings__Vehicle_Add: undefined;
     Settings__Vehicle_Update: {vehicle: TrpcOutput['user']['vehicle']['get']['many'][number]};
+    Settings__SavedCards_List: undefined;
+    Settings__SavedCards_Add: undefined;
 };
 
 const {Navigator, Screen} = createStackNavigator<AppStackParamList>();
@@ -70,6 +74,8 @@ export function AppNavigator() {
                     <Screen name="Settings__Vehicle_List" component={Settings__Vehicle_List} />
                     <Screen name="Settings__Vehicle_Add" component={Settings__Vehicle_Add} />
                     <Screen name="Settings__Vehicle_Update" component={Settings__Vehicle_Update} />
+                    <Screen name="Settings__SavedCards_List" component={Settings__SavedCards_List} />
+                    <Screen name="Settings__SavedCards_Add" component={Settings__SavedCards_Add} />
                 </>
             )}
         </Navigator>

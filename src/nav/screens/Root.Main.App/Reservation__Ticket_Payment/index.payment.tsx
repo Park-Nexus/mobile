@@ -1,5 +1,4 @@
 import {CardField, useConfirmPayment} from '@stripe/stripe-react-native';
-import {Details} from '@stripe/stripe-react-native/lib/typescript/src/types/components/CardFieldInput';
 import {useStripeIntent} from './index.data';
 import {useState} from 'react';
 import {View} from 'react-native';
