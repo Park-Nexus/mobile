@@ -47,6 +47,9 @@ export function Login() {
                             preIcon={<EmailSvg width={24} height={24} />}
                             placeholder="Email"
                             defaultValue="vclong2003@gmail.com"
+                            keyboardType="email-address"
+                            textContentType="oneTimeCode"
+                            autoCapitalize="none"
                         />
                     )}
                 />

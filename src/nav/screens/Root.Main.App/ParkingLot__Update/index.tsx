@@ -1,26 +1,28 @@
-import {NavigationProp, RouteProp} from '@react-navigation/native';
-import {Header} from '@src/components/Header';
-import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
-import {useMyParkingLot} from './index.data';
-import {Controller, useForm} from 'react-hook-form';
-import {TUpdateParkingLotPayload, useSubmit} from './index.submit';
-import {useEffect, useState} from 'react';
-import {Asset, launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {TextInput} from '@src/components/Input__Text';
-import {Button} from '@src/components/Button';
-import FastImage from 'react-native-fast-image';
-import {useActionSheet} from '@expo/react-native-action-sheet';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {useUpload} from '@src/utils/upload';
-import {styles} from './index.styles';
+import React from "react";
+import _ from "lodash";
+import {NavigationProp, RouteProp} from "@react-navigation/native";
+import {Header} from "@src/components/Header";
+import {SafeAreaView} from "@src/components/SafeAreaWrapper";
+import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
+import {useMyParkingLot} from "./index.data";
+import {Controller, useForm} from "react-hook-form";
+import {TUpdateParkingLotPayload, useSubmit} from "./index.submit";
+import {useEffect, useState} from "react";
+import {Asset, launchCamera, launchImageLibrary} from "react-native-image-picker";
+import {ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {TextInput} from "@src/components/Input__Text";
+import {Button} from "@src/components/Button";
+import FastImage from "react-native-fast-image";
+import {useActionSheet} from "@expo/react-native-action-sheet";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import {useUpload} from "@src/utils/upload";
+import {styles} from "./index.styles";
 
 const MAX_ALLOWED_MEDIA_COUNT = 5;
 
 type ScreenProps = {
-    navigation: NavigationProp<AppStackParamList, 'ParkingLot__Update'>;
-    route: RouteProp<AppStackParamList, 'ParkingLot__Update'>;
+    navigation: NavigationProp<AppStackParamList, "ParkingLot__Update">;
+    route: RouteProp<AppStackParamList, "ParkingLot__Update">;
 };
 export function ParkingLot__Update({navigation, route}: ScreenProps) {
     const {lotId} = route.params;
@@ -49,7 +51,13 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
             });
         }
 
-        submit({...data, additionalMediaUrls: additionalImagePaths, removalMediaUrls: removalImages});
+        submit({
+            ...data,
+            additionalMediaUrls: additionalImagePaths,
+            removalMediaUrls: removalImages,
+            latitude: _.toNumber(_.toString(data.latitude).replace(",", ".")),
+            longitude: _.toNumber(_.toString(data.longitude).replace(",", ".")),
+        });
     };
 
     const showDatePicker = (field: keyof TUpdateParkingLotPayload) => {
@@ -59,10 +67,10 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
     const hideDatePicker = () => setDatePickerVisibility(false);
     const handleConfirm = (date: Date) => {
         const formattedTime = date.toTimeString().substring(0, 5);
-        if (timeField === 'openAt') {
-            setValue('openAt', formattedTime);
-        } else if (timeField === 'closeAt') {
-            setValue('closeAt', formattedTime);
+        if (timeField === "openAt") {
+            setValue("openAt", formattedTime);
+        } else if (timeField === "closeAt") {
+            setValue("closeAt", formattedTime);
         }
         hideDatePicker();
     };
@@ -70,18 +78,18 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
     const selectOrTakeImage = () => {
         showActionSheetWithOptions(
             {
-                options: ['Select from library', 'Take photo', 'Cancel'],
+                options: ["Select from library", "Take photo", "Cancel"],
                 cancelButtonIndex: 2,
             },
             buttonIndex => {
                 if (buttonIndex === 0) {
-                    launchImageLibrary({mediaType: 'photo', selectionLimit: MAX_ALLOWED_MEDIA_COUNT}).then(
+                    launchImageLibrary({mediaType: "photo", selectionLimit: MAX_ALLOWED_MEDIA_COUNT}).then(
                         ({assets}) => {
                             if (assets) setAdditionalImages(prev => [...prev, ...assets]);
                         },
                     );
                 } else if (buttonIndex === 1) {
-                    launchCamera({mediaType: 'photo'}).then(({assets}) => {
+                    launchCamera({mediaType: "photo"}).then(({assets}) => {
                         if (assets) setAdditionalImages(prev => [...prev, ...assets]);
                     });
                 }
@@ -92,13 +100,13 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
     useEffect(() => {
         if (!lot) return;
 
-        setValue('name', lot.name);
-        setValue('phone', lot.phone);
-        setValue('description', lot.description);
-        setValue('latitude', lot.latitude);
-        setValue('longitude', lot.longitude);
-        setValue('openAt', lot.openAt);
-        setValue('closeAt', lot.closeAt);
+        setValue("name", lot.name);
+        setValue("phone", lot.phone);
+        setValue("description", lot.description);
+        setValue("latitude", lot.latitude);
+        setValue("longitude", lot.longitude);
+        setValue("openAt", lot.openAt);
+        setValue("closeAt", lot.closeAt);
         setImages([...lot.mediaUrls]);
     }, [lot, lotId]);
 
@@ -117,7 +125,7 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                                 )
                             }
                             style={[styles.imagePreview, {opacity: removalImages.includes(image) ? 0.5 : 1}]}>
-                            <FastImage source={{uri: image}} style={styles.imagePreview} resizeMode="cover" fallback />
+                            <FastImage source={{uri: image}} style={styles.imagePreview} resizeMode="cover" />
                         </TouchableOpacity>
                     ))}
                     {additionalImages.map(image => (
@@ -182,8 +190,8 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                         render={({field: {value}}) => (
                             <Button
                                 variant="gray"
-                                text={value ? value : 'Select'}
-                                onPress={() => showDatePicker('openAt')}
+                                text={value ? value : "Select"}
+                                onPress={() => showDatePicker("openAt")}
                             />
                         )}
                     />
@@ -197,8 +205,8 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                         render={({field: {value}}) => (
                             <Button
                                 variant="gray"
-                                text={value ? value : 'Select'}
-                                onPress={() => showDatePicker('closeAt')}
+                                text={value ? value : "Select"}
+                                onPress={() => showDatePicker("closeAt")}
                             />
                         )}
                     />
@@ -216,6 +224,7 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                 </View>
 
                 <View style={styles.formSection}>
+                    <Text style={styles.label}>Longitude</Text>
                     <Controller
                         control={control}
                         name="longitude"
@@ -231,7 +240,7 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
 
                 <Button
                     variant="green"
-                    text={isPending || isUploading ? 'Saving...' : 'Update'}
+                    text={isPending || isUploading ? "Saving..." : "Update"}
                     disabled={isPending || isUploading}
                     onPress={handleSubmit(onSubmit)}
                     style={styles.submitButton}

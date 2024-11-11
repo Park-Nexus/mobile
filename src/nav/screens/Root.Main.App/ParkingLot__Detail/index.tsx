@@ -1,32 +1,33 @@
-import {NavigationProp, RouteProp} from '@react-navigation/native';
-import {Header} from '@src/components/Header';
-import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
-import {Text, View, Dimensions, ActivityIndicator, ScrollView} from 'react-native';
-import {styles} from './index.styles';
-import {useParkingLot} from './index.data';
-import FastImage from 'react-native-fast-image';
-import {useEffect, useState} from 'react';
-import {getDirection, reverseGeocode} from '@src/utils/location';
-import Carousel, {TCarouselProps} from 'react-native-reanimated-carousel';
-import {Button} from '@src/components/Button';
+import React from "react";
+import {NavigationProp, RouteProp} from "@react-navigation/native";
+import {Header} from "@src/components/Header";
+import {SafeAreaView} from "@src/components/SafeAreaWrapper";
+import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
+import {Text, View, Dimensions, ActivityIndicator, ScrollView} from "react-native";
+import {styles} from "./index.styles";
+import {useParkingLot} from "./index.data";
+import FastImage from "react-native-fast-image";
+import {useEffect, useState} from "react";
+import {getDirection, reverseGeocode} from "@src/utils/location";
+import Carousel, {TCarouselProps} from "react-native-reanimated-carousel";
+import {Button} from "@src/components/Button";
 
-import StarFilledSvg from '@src/static/svgs/StarFilled.svg';
-import MapPinAreaSvg from '@src/static/svgs/MapPinArea.svg';
-import ClockSvg from '@src/static/svgs/Clock.svg';
-import PhoneCallSvg from '@src/static/svgs/PhoneCall.svg';
-import ArrowBendDoubleUpRight from '@src/static/svgs/ArrowBendDoubleUpRight.svg';
-import ShareSvg from '@src/static/svgs/Share.svg';
-import GasPumpSvg from '@src/static/svgs/GasPump.svg';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import Geolocation from '@react-native-community/geolocation';
+import StarFilledSvg from "@src/static/svgs/StarFilled.svg";
+import MapPinAreaSvg from "@src/static/svgs/MapPinArea.svg";
+import ClockSvg from "@src/static/svgs/Clock.svg";
+import PhoneCallSvg from "@src/static/svgs/PhoneCall.svg";
+import ArrowBendDoubleUpRight from "@src/static/svgs/ArrowBendDoubleUpRight.svg";
+import ShareSvg from "@src/static/svgs/Share.svg";
+import GasPumpSvg from "@src/static/svgs/GasPump.svg";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import Geolocation from "@react-native-community/geolocation";
 
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Dimensions.get("window").width;
 const imageHeight = deviceWidth * (9 / 16);
 
 type ScreenProps = {
-    navigation: NavigationProp<AppStackParamList, 'ParkingLot__Detail'>;
-    route: RouteProp<AppStackParamList, 'ParkingLot__Detail'>;
+    navigation: NavigationProp<AppStackParamList, "ParkingLot__Detail">;
+    route: RouteProp<AppStackParamList, "ParkingLot__Detail">;
 };
 
 export function ParkingLot__Detail({route, navigation}: ScreenProps) {
@@ -34,7 +35,7 @@ export function ParkingLot__Detail({route, navigation}: ScreenProps) {
     const {data: lot} = useParkingLot(lotId);
     const {bottom} = useSafeAreaInsets();
 
-    const [address, setAddress] = useState<string>('');
+    const [address, setAddress] = useState<string>("");
     const [distance, setDistance] = useState<number>(0);
     const [isFetchingImages, setIsFetchingImages] = useState<boolean>(false);
     const isMediaExists = lot?.mediaUrls && lot?.mediaUrls.length > 0;
@@ -46,7 +47,7 @@ export function ParkingLot__Detail({route, navigation}: ScreenProps) {
             <View key={index} style={styles.imageWrapper}>
                 <FastImage
                     source={{uri: `${item}`}}
-                    style={{width: '100%', height: imageHeight}}
+                    style={{width: "100%", height: imageHeight}}
                     resizeMode="cover"
                     fallback
                     onLoadStart={() => setIsFetchingImages(true)}

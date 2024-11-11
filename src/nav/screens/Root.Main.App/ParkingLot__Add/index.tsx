@@ -1,25 +1,27 @@
-import {NavigationProp, RouteProp} from '@react-navigation/native';
-import {Header} from '@src/components/Header';
-import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
-import {Controller, useForm} from 'react-hook-form';
-import {ScrollView, Text, View} from 'react-native';
-import {TCreateParkingLotPayload, useSubmit} from './index.submit';
-import {TextInput} from '@src/components/Input__Text';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {useState} from 'react';
-import {Button} from '@src/components/Button';
-import {useActionSheet} from '@expo/react-native-action-sheet';
-import {Asset, launchImageLibrary, launchCamera} from 'react-native-image-picker';
-import FastImage from 'react-native-fast-image';
-import {useUpload} from '@src/utils/upload';
-import {styles} from './index.styles';
+import React from "react";
+import _ from "lodash";
+import {NavigationProp, RouteProp} from "@react-navigation/native";
+import {Header} from "@src/components/Header";
+import {SafeAreaView} from "@src/components/SafeAreaWrapper";
+import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
+import {Controller, useForm} from "react-hook-form";
+import {ScrollView, Text, View} from "react-native";
+import {TCreateParkingLotPayload, useSubmit} from "./index.submit";
+import {TextInput} from "@src/components/Input__Text";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import {useState} from "react";
+import {Button} from "@src/components/Button";
+import {useActionSheet} from "@expo/react-native-action-sheet";
+import {Asset, launchImageLibrary, launchCamera} from "react-native-image-picker";
+import FastImage from "react-native-fast-image";
+import {useUpload} from "@src/utils/upload";
+import {styles} from "./index.styles";
 
 const MAX_ALLOWED_MEDIA_COUNT = 5;
 
 type ScreenProps = {
-    navigation: NavigationProp<AppStackParamList, 'ParkingLot__Add'>;
-    route: RouteProp<AppStackParamList, 'ParkingLot__Add'>;
+    navigation: NavigationProp<AppStackParamList, "ParkingLot__Add">;
+    route: RouteProp<AppStackParamList, "ParkingLot__Add">;
 };
 
 export function ParkingLot__Add({navigation}: ScreenProps) {
@@ -34,14 +36,14 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
 
     const {control, handleSubmit, setValue} = useForm<TCreateParkingLotPayload>({
         values: {
-            name: '',
-            phone: '',
+            name: "",
+            phone: "",
             latitude: 0,
             longitude: 0,
-            openAt: '', // HH:MM
-            closeAt: '', // HH:MM
+            openAt: "", // HH:MM
+            closeAt: "", // HH:MM
             mediaUrls: [],
-            description: '',
+            description: "",
         },
     });
 
@@ -52,10 +54,10 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
     const hideDatePicker = () => setDatePickerVisibility(false);
     const handleConfirm = (date: Date) => {
         const formattedTime = date.toTimeString().substring(0, 5);
-        if (timeField === 'openAt') {
-            setValue('openAt', formattedTime);
-        } else if (timeField === 'closeAt') {
-            setValue('closeAt', formattedTime);
+        if (timeField === "openAt") {
+            setValue("openAt", formattedTime);
+        } else if (timeField === "closeAt") {
+            setValue("closeAt", formattedTime);
         }
         hideDatePicker();
     };
@@ -63,18 +65,18 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
     const selectOrTakeImage = () => {
         showActionSheetWithOptions(
             {
-                options: ['Select from library', 'Take photo', 'Cancel'],
+                options: ["Select from library", "Take photo", "Cancel"],
                 cancelButtonIndex: 2,
             },
             buttonIndex => {
                 if (buttonIndex === 0) {
-                    launchImageLibrary({mediaType: 'photo', selectionLimit: MAX_ALLOWED_MEDIA_COUNT}).then(
+                    launchImageLibrary({mediaType: "photo", selectionLimit: MAX_ALLOWED_MEDIA_COUNT}).then(
                         ({assets}) => {
                             if (assets) setSelectedImages(prev => [...prev, ...assets]);
                         },
                     );
                 } else if (buttonIndex === 1) {
-                    launchCamera({mediaType: 'photo'}).then(({assets}) => {
+                    launchCamera({mediaType: "photo"}).then(({assets}) => {
                         if (assets) setSelectedImages(prev => [...prev, ...assets]);
                     });
                 }
@@ -89,7 +91,18 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                 files: selectedImages.map(image => ({uri: image.uri!, name: image.fileName!, type: image.type!})),
             });
         }
-        submit({...data, mediaUrls: paths, latitude: Number(data.latitude), longitude: Number(data.longitude)});
+        console.log("data", {
+            ...data,
+            mediaUrls: paths,
+            latitude: _.toNumber(_.toString(data.latitude).replaceAll(",", ".")),
+            longitude: _.toNumber(_.toString(data.longitude).replaceAll(",", ".")),
+        });
+        submit({
+            ...data,
+            mediaUrls: paths,
+            latitude: _.toNumber(_.toString(data.latitude).replaceAll(",", ".")),
+            longitude: _.toNumber(_.toString(data.longitude).replaceAll(",", ".")),
+        });
     };
 
     return (
@@ -109,13 +122,8 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                     <Controller
                         control={control}
                         name="name"
-                        render={({field: {onChange, onBlur, value}}) => (
-                            <TextInput
-                                onChangeText={onChange}
-                                placeholder="e.g. Long Park Cau Giay"
-                                onBlur={onBlur}
-                                value={value}
-                            />
+                        render={({field: {onChange, value}}) => (
+                            <TextInput onChangeText={onChange} placeholder="e.g. Long Park Cau Giay" value={value} />
                         )}
                     />
                 </View>
@@ -125,12 +133,11 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                     <Controller
                         control={control}
                         name="phone"
-                        render={({field: {onChange, onBlur, value}}) => (
+                        render={({field: {onChange, value}}) => (
                             <TextInput
                                 multiline
                                 onChangeText={onChange}
                                 placeholder="e.g. 0123456789"
-                                onBlur={onBlur}
                                 value={value}
                                 keyboardType="phone-pad"
                             />
@@ -143,12 +150,11 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                     <Controller
                         control={control}
                         name="description"
-                        render={({field: {onChange, onBlur, value}}) => (
+                        render={({field: {onChange, value}}) => (
                             <TextInput
                                 multiline
                                 onChangeText={onChange}
                                 placeholder="e.g. Long Park Cau Giay, near Cau Giay University"
-                                onBlur={onBlur}
                                 value={value}
                             />
                         )}
@@ -163,8 +169,8 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                         render={({field: {value}}) => (
                             <Button
                                 variant="gray"
-                                text={value ? value : 'Select'}
-                                onPress={() => showDatePicker('openAt')}
+                                text={value ? value : "Select"}
+                                onPress={() => showDatePicker("openAt")}
                             />
                         )}
                     />
@@ -178,8 +184,8 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                         render={({field: {value}}) => (
                             <Button
                                 variant="gray"
-                                text={value ? value : 'Select'}
-                                onPress={() => showDatePicker('closeAt')}
+                                text={value ? value : "Select"}
+                                onPress={() => showDatePicker("closeAt")}
                             />
                         )}
                     />
@@ -190,10 +196,9 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                     <Controller
                         control={control}
                         name="latitude"
-                        render={({field: {onChange, onBlur, value}}) => (
+                        render={({field: {onChange, value}}) => (
                             <TextInput
                                 onChangeText={onChange}
-                                onBlur={onBlur}
                                 value={value.toString()}
                                 placeholder="e.g. 10.7654321"
                                 keyboardType="numeric"
@@ -207,10 +212,9 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                     <Controller
                         control={control}
                         name="longitude"
-                        render={({field: {onChange, onBlur, value}}) => (
+                        render={({field: {onChange, value}}) => (
                             <TextInput
                                 onChangeText={onChange}
-                                onBlur={onBlur}
                                 value={value.toString()}
                                 placeholder="e.g. 106.1234567"
                                 keyboardType="numeric"
@@ -221,7 +225,7 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
 
                 <Button
                     variant="green"
-                    text={isPending || isUploading ? 'Saving...' : 'Save'}
+                    text={isPending || isUploading ? "Saving..." : "Save"}
                     onPress={handleSubmit(onSubmit)}
                     disabled={isPending || isUploading}
                     style={styles.submitButton}

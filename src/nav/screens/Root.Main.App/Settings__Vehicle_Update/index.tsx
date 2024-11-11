@@ -1,26 +1,27 @@
-import {NavigationProp, RouteProp} from '@react-navigation/native';
-import {Header} from '@src/components/Header';
-import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
-import {ScrollView, TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {TUpdateVehiclePayload, useSubmit} from './index.submit';
-import {Controller, useForm} from 'react-hook-form';
-import {useState} from 'react';
-import {Asset, launchImageLibrary} from 'react-native-image-picker';
-import {useUpload} from '@src/utils/upload';
-import FastImage from 'react-native-fast-image';
-import {Dimensions, Text, View} from 'react-native';
-import {TextInput} from '@src/components/Input__Text';
-import {Picker} from '@react-native-picker/picker';
-import {Button} from '@src/components/Button';
-import {VEHICLE__TYPE_ALIAS} from '@parknexus/api/prisma/client';
-import {styles} from './index.styles';
+import React from "react";
+import {NavigationProp, RouteProp} from "@react-navigation/native";
+import {Header} from "@src/components/Header";
+import {SafeAreaView} from "@src/components/SafeAreaWrapper";
+import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
+import {ScrollView, TouchableWithoutFeedback} from "react-native-gesture-handler";
+import {TUpdateVehiclePayload, useSubmit} from "./index.submit";
+import {Controller, useForm} from "react-hook-form";
+import {useState} from "react";
+import {Asset, launchImageLibrary} from "react-native-image-picker";
+import {useUpload} from "@src/utils/upload";
+import FastImage from "react-native-fast-image";
+import {Dimensions, Text, View} from "react-native";
+import {TextInput} from "@src/components/Input__Text";
+import {Picker} from "@react-native-picker/picker";
+import {Button} from "@src/components/Button";
+import {VEHICLE__TYPE_ALIAS} from "@parknexus/api/prisma/client";
+import {styles} from "./index.styles";
 
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Dimensions.get("window").width;
 
 type ScreenProps = {
-    navigation: NavigationProp<AppStackParamList, 'Settings__Vehicle_Update'>;
-    route: RouteProp<AppStackParamList, 'Settings__Vehicle_Update'>;
+    navigation: NavigationProp<AppStackParamList, "Settings__Vehicle_Update">;
+    route: RouteProp<AppStackParamList, "Settings__Vehicle_Update">;
 };
 export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
     const {vehicle} = route.params;
@@ -41,7 +42,7 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
     });
 
     const openImagePicker = () => {
-        launchImageLibrary({mediaType: 'photo', selectionLimit: 1}).then(async ({assets}) => {
+        launchImageLibrary({mediaType: "photo", selectionLimit: 1}).then(async ({assets}) => {
             const asset = assets?.[0];
             if (!asset?.uri) return;
             setSelectedImage(asset);
@@ -138,7 +139,7 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
 
                 <Button
                     variant="green"
-                    text={isPending || isUploading ? 'Saving...' : 'Save'}
+                    text={isPending || isUploading ? "Saving..." : "Save"}
                     onPress={handleSubmit(onSubmit)}
                     disabled={isPending || isUploading}
                     style={styles.saveButton}

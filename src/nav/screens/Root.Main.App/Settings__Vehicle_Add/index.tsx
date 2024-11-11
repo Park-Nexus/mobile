@@ -1,21 +1,22 @@
-import {useNavigation} from '@react-navigation/native';
-import {Header} from '@src/components/Header';
-import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {TAddVehiclePayload, useSubmit} from './index.submit';
-import {Controller, useForm} from 'react-hook-form';
-import {VEHICLE__TYPE_ALIAS} from '@parknexus/api/prisma/client';
-import {useState} from 'react';
-import {Asset, launchImageLibrary} from 'react-native-image-picker';
-import {useUpload} from '@src/utils/upload';
-import {Dimensions, ScrollView, Text, TouchableWithoutFeedback, View} from 'react-native';
-import {TextInput} from '@src/components/Input__Text';
-import {Picker} from '@react-native-picker/picker';
-import {Button} from '@src/components/Button';
+import React from "react";
+import {useNavigation} from "@react-navigation/native";
+import {Header} from "@src/components/Header";
+import {SafeAreaView} from "@src/components/SafeAreaWrapper";
+import {TAddVehiclePayload, useSubmit} from "./index.submit";
+import {Controller, useForm} from "react-hook-form";
+import {VEHICLE__TYPE_ALIAS} from "@parknexus/api/prisma/client";
+import {useState} from "react";
+import {Asset, launchImageLibrary} from "react-native-image-picker";
+import {useUpload} from "@src/utils/upload";
+import {Dimensions, ScrollView, Text, TouchableWithoutFeedback, View} from "react-native";
+import {TextInput} from "@src/components/Input__Text";
+import {Picker} from "@react-native-picker/picker";
+import {Button} from "@src/components/Button";
 
-import FastImage from 'react-native-fast-image';
-import {styles} from './index.styles';
+import FastImage from "react-native-fast-image";
+import {styles} from "./index.styles";
 
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Dimensions.get("window").width;
 
 export function Settings__Vehicle_Add() {
     const navigation = useNavigation();
@@ -26,16 +27,16 @@ export function Settings__Vehicle_Add() {
     const {submit, isPending} = useSubmit();
     const {control, handleSubmit} = useForm<TAddVehiclePayload>({
         values: {
-            plate: '',
-            brand: '',
-            color: '',
-            model: '',
+            plate: "",
+            brand: "",
+            color: "",
+            model: "",
             type: VEHICLE__TYPE_ALIAS.CAR,
         },
     });
 
     const openImagePicker = () => {
-        launchImageLibrary({mediaType: 'photo', selectionLimit: 1}).then(async ({assets}) => {
+        launchImageLibrary({mediaType: "photo", selectionLimit: 1}).then(async ({assets}) => {
             const asset = assets?.[0];
             if (!asset?.uri) return;
             setSelectedImage(asset);
@@ -131,7 +132,7 @@ export function Settings__Vehicle_Add() {
                 />
                 <Button
                     variant="green"
-                    text={isPending || isUploading ? 'Saving...' : 'Save'}
+                    text={isPending || isUploading ? "Saving..." : "Save"}
                     onPress={handleSubmit(onSubmit)}
                     disabled={isPending || isUploading}
                     style={styles.saveButton}

@@ -43,12 +43,15 @@ export function Register() {
                 <Controller
                     control={control}
                     name="email"
-                    render={({field: {onChange, onBlur, value}}) => (
+                    render={({field: {onChange, value}}) => (
                         <TextInput
                             onChangeText={onChange}
                             value={value}
                             preIcon={<EmailSvg width={24} height={24} />}
                             placeholder="Email"
+                            keyboardType="email-address"
+                            textContentType="oneTimeCode"
+                            autoCapitalize="none"
                         />
                     )}
                 />
@@ -56,7 +59,7 @@ export function Register() {
                 <Controller
                     control={control}
                     name="password"
-                    render={({field: {onBlur, onChange, value}}) => (
+                    render={({field: {onChange, value}}) => (
                         <TextInput
                             blurOnSubmit={false}
                             secureTextEntry={!isPasswordVisible}
@@ -76,7 +79,7 @@ export function Register() {
                 <Controller
                     control={control}
                     name="passwordRetype"
-                    render={({field: {onBlur, onChange, value}}) => (
+                    render={({field: {onChange, value}}) => (
                         <TextInput
                             blurOnSubmit={false}
                             secureTextEntry={!isPasswordVisible}
