@@ -3448,7 +3448,7 @@ __metadata:
 
 "@parknexus/api@https://github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=d1f9c7319668d51baa28cb41a4235876c54178b4"
+  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=57ba8da8d87e7aaeb781d56335c4cf8da1a6cf2a"
   dependencies:
     "@google-cloud/storage": ^7.14.0
     "@onesignal/node-onesignal": ^5.0.0-alpha-01
@@ -3469,7 +3469,7 @@ __metadata:
     uuid: ^11.0.2
     yarn: ^1.22.22
     zod: ^3.23.8
-  checksum: 483342a0c408e3bcca1aee16d351ae8238e09e2a81c272609efe0ee1e099c3d4105a207d0f931b7a9d0b091e3640a149b6f7a426f34bae7dd28de1f30f6f3dcb
+  checksum: 87751d5a71e61774c997b222acb5b44b5b9bdb99d7b4e7c5c000c03a91f7926758eee4e915f37e417fc5e4c84030dc316960bc6745e1474f304868218c9f1058
   languageName: node
   linkType: hard
 
@@ -5150,6 +5150,7 @@ __metadata:
     react-native-fast-image: ^8.6.3
     react-native-gesture-handler: ^2.20.0
     react-native-image-picker: ^7.1.2
+    react-native-keyboard-controller: ^1.14.4
     react-native-maps: ^1.18.0
     react-native-modal: ^13.0.1
     react-native-modal-datetime-picker: ^18.0.0
@@ -12029,6 +12030,29 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: af52328b7cb06c28549442f0d923cfa92dde8d5a968a642336df4c882f81adbf0e5e606a14de27f96883a76fa1e03230061c4080011c9107942edebc8e09c478
+  languageName: node
+  linkType: hard
+
+"react-native-is-edge-to-edge@npm:^1.1.6":
+  version: 1.1.6
+  resolution: "react-native-is-edge-to-edge@npm:1.1.6"
+  peerDependencies:
+    react: ">=18.2.0"
+    react-native: ">=0.73.0"
+  checksum: 4e07c1e34c01c8d50fd7c1d0460db06f6f0515197405230386a8ffb950cb724b10743af032310d1384df0a90059bfb8992ba2d93344ce86315315f0493feccc2
+  languageName: node
+  linkType: hard
+
+"react-native-keyboard-controller@npm:^1.14.4":
+  version: 1.14.4
+  resolution: "react-native-keyboard-controller@npm:1.14.4"
+  dependencies:
+    react-native-is-edge-to-edge: ^1.1.6
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    react-native-reanimated: ">=3.0.0"
+  checksum: 373252bc62b4d37f3d8a9fea2dfb0f71a973b17c1eda2419c5f607a2b0e9eb02a5fadbfdd0abc0ccf49b7fd657f2f25a65913b2a390929e862e4760487ac44a2
   languageName: node
   linkType: hard
 

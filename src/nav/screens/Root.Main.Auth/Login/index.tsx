@@ -1,29 +1,31 @@
-import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {styles} from './index.styles';
+import React from "react";
+import {SafeAreaView} from "@src/components/SafeAreaWrapper";
+import {styles} from "./index.styles";
 
-import {TextInput} from '@src/components/Input__Text';
-import {Text, View, TouchableOpacity} from 'react-native';
-import {Button} from '@src/components/Button';
-import {Header} from '@src/components/Header';
-import {Controller, useForm} from 'react-hook-form';
+import {TextInput} from "@src/components/Input__Text";
+import {Text, View, TouchableOpacity} from "react-native";
+import {Button} from "@src/components/Button";
+import {Header} from "@src/components/Header";
+import {Controller, useForm} from "react-hook-form";
 
-import EmailSvg from '@src/static/svgs/Envelope.svg';
-import PasswordSvg from '@src/static/svgs/Lock.svg';
-import GoogleSvg from '@src/static/svgs/Google.svg';
-import EyeSvg from '@src/static/svgs/Eye.svg';
-import {useState} from 'react';
-import {TLoginPayload, useSubmit} from './index.submit';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {AuthStackParamList} from '@src/nav/navigators/Root.Main.Auth';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import EmailSvg from "@src/static/svgs/Envelope.svg";
+import PasswordSvg from "@src/static/svgs/Lock.svg";
+import GoogleSvg from "@src/static/svgs/Google.svg";
+import EyeSvg from "@src/static/svgs/Eye.svg";
+import {useState} from "react";
+import {TLoginPayload, useSubmit} from "./index.submit";
+import {NavigationProp, useNavigation} from "@react-navigation/native";
+import {AuthStackParamList} from "@src/nav/navigators/Root.Main.Auth";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
 
 export function Login() {
     const {bottom} = useSafeAreaInsets();
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
     const {control, handleSubmit} = useForm<TLoginPayload>({
         values: {
-            email: '',
-            password: '',
+            email: "",
+            password: "",
         },
     });
     const {submit, isPending} = useSubmit();
@@ -33,14 +35,14 @@ export function Login() {
         <SafeAreaView>
             <Header onBackButtonPress={navigation.goBack} backButtonVisible />
             <View style={{height: 52}} />
-            <View style={styles.wrapper}>
+            <KeyboardAwareScrollView style={styles.wrapper}>
                 <Text style={styles.title}>Log in your Account</Text>
                 <View style={{height: 42}} />
 
                 <Controller
                     control={control}
                     name="email"
-                    render={({field: {onChange, onBlur, value}}) => (
+                    render={({field: {onChange, value}}) => (
                         <TextInput
                             onChangeText={onChange}
                             value={value}
@@ -57,7 +59,7 @@ export function Login() {
                 <Controller
                     control={control}
                     name="password"
-                    render={({field: {onBlur, onChange, value}}) => (
+                    render={({field: {onChange, value}}) => (
                         <TextInput
                             blurOnSubmit={false}
                             secureTextEntry={!isPasswordVisible}
@@ -89,8 +91,8 @@ export function Login() {
                 <View style={styles.oauthButtonWrapper}>
                     <Button variant="gray" preIcon={<GoogleSvg width={24} height={24} />} />
                 </View>
-            </View>
-            <Text style={[styles.registerText, {bottom: bottom + 16}]} onPress={() => navigation.navigate('Register')}>
+            </KeyboardAwareScrollView>
+            <Text style={[styles.registerText, {bottom: bottom + 16}]} onPress={() => navigation.navigate("Register")}>
                 Don’t have an account? <Text style={styles.registerTextColored}>Sign up</Text>
             </Text>
         </SafeAreaView>

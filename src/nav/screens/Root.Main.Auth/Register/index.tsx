@@ -1,31 +1,33 @@
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {Header} from '@src/components/Header';
-import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {AuthStackParamList} from '@src/nav/navigators/Root.Main.Auth';
-import {Controller, useForm} from 'react-hook-form';
-import {Text, View} from 'react-native';
-import {TRegisterPayload, useSubmit} from './index.submit';
-import {Button} from '@src/components/Button';
-import {styles} from './index.styles';
+import React from "react";
+import {NavigationProp, useNavigation} from "@react-navigation/native";
+import {Header} from "@src/components/Header";
+import {SafeAreaView} from "@src/components/SafeAreaWrapper";
+import {AuthStackParamList} from "@src/nav/navigators/Root.Main.Auth";
+import {Controller, useForm} from "react-hook-form";
+import {Text, View} from "react-native";
+import {TRegisterPayload, useSubmit} from "./index.submit";
+import {Button} from "@src/components/Button";
+import {styles} from "./index.styles";
 
-import EmailSvg from '@src/static/svgs/Envelope.svg';
-import PasswordSvg from '@src/static/svgs/Lock.svg';
-import GoogleSvg from '@src/static/svgs/Google.svg';
-import EyeSvg from '@src/static/svgs/Eye.svg';
+import EmailSvg from "@src/static/svgs/Envelope.svg";
+import PasswordSvg from "@src/static/svgs/Lock.svg";
+import GoogleSvg from "@src/static/svgs/Google.svg";
+import EyeSvg from "@src/static/svgs/Eye.svg";
 
-import {TextInput} from '@src/components/Input__Text';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useState} from 'react';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {TextInput} from "@src/components/Input__Text";
+import {TouchableOpacity} from "react-native-gesture-handler";
+import {useState} from "react";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
 
 export function Register() {
     const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
     const {submit, isPending} = useSubmit();
     const {control, handleSubmit} = useForm<TRegisterPayload>({
         values: {
-            email: '',
-            password: '',
-            passwordRetype: '',
+            email: "",
+            password: "",
+            passwordRetype: "",
         },
     });
 
@@ -36,7 +38,7 @@ export function Register() {
         <SafeAreaView>
             <Header onBackButtonPress={navigation.goBack} backButtonVisible />
             <View style={{height: 52}} />
-            <View style={styles.wrapper}>
+            <KeyboardAwareScrollView style={styles.wrapper}>
                 <Text style={styles.title}>Create your Account</Text>
                 <View style={{height: 42}} />
 
@@ -102,8 +104,8 @@ export function Register() {
                 <View style={styles.oauthButtonWrapper}>
                     <Button variant="gray" preIcon={<GoogleSvg width={24} height={24} />} />
                 </View>
-            </View>
-            <Text style={[styles.loginText, {bottom: bottom + 16}]} onPress={() => navigation.navigate('Login')}>
+            </KeyboardAwareScrollView>
+            <Text style={[styles.loginText, {bottom: bottom + 16}]} onPress={() => navigation.navigate("Login")}>
                 Already have an account? <Text style={styles.loginTextColored}>Log in</Text>
             </Text>
         </SafeAreaView>

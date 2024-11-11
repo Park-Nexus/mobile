@@ -8,13 +8,14 @@ import {VEHICLE__TYPE_ALIAS} from "@parknexus/api/prisma/client";
 import {useState} from "react";
 import {Asset, launchImageLibrary} from "react-native-image-picker";
 import {useUpload} from "@src/utils/upload";
-import {Dimensions, ScrollView, Text, TouchableWithoutFeedback, View} from "react-native";
+import {Dimensions, Text, TouchableWithoutFeedback, View} from "react-native";
 import {TextInput} from "@src/components/Input__Text";
 import {Picker} from "@react-native-picker/picker";
 import {Button} from "@src/components/Button";
 
 import FastImage from "react-native-fast-image";
 import {styles} from "./index.styles";
+import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -60,7 +61,7 @@ export function Settings__Vehicle_Add() {
     return (
         <SafeAreaView>
             <Header title="Add Vehicle" onBackButtonPress={() => navigation.goBack()} backButtonVisible />
-            <ScrollView style={styles.wrapper}>
+            <KeyboardAwareScrollView style={styles.wrapper}>
                 <View style={{height: 8}} />
                 {selectedImage && (
                     <TouchableWithoutFeedback onPress={openImagePicker}>
@@ -137,7 +138,7 @@ export function Settings__Vehicle_Add() {
                     disabled={isPending || isUploading}
                     style={styles.saveButton}
                 />
-            </ScrollView>
+            </KeyboardAwareScrollView>
         </SafeAreaView>
     );
 }

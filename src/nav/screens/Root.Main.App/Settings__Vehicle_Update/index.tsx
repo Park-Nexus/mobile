@@ -3,7 +3,7 @@ import {NavigationProp, RouteProp} from "@react-navigation/native";
 import {Header} from "@src/components/Header";
 import {SafeAreaView} from "@src/components/SafeAreaWrapper";
 import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
-import {ScrollView, TouchableWithoutFeedback} from "react-native-gesture-handler";
+import {TouchableWithoutFeedback} from "react-native-gesture-handler";
 import {TUpdateVehiclePayload, useSubmit} from "./index.submit";
 import {Controller, useForm} from "react-hook-form";
 import {useState} from "react";
@@ -16,6 +16,7 @@ import {Picker} from "@react-native-picker/picker";
 import {Button} from "@src/components/Button";
 import {VEHICLE__TYPE_ALIAS} from "@parknexus/api/prisma/client";
 import {styles} from "./index.styles";
+import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -66,7 +67,7 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
     return (
         <SafeAreaView>
             <Header title="Update Vehicle" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
-            <ScrollView style={styles.wrapper}>
+            <KeyboardAwareScrollView style={styles.wrapper}>
                 <View style={{height: 8}} />
                 {(selectedImage || vehicle.imageUrl) && (
                     <TouchableWithoutFeedback onPress={openImagePicker}>
@@ -144,7 +145,7 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
                     disabled={isPending || isUploading}
                     style={styles.saveButton}
                 />
-            </ScrollView>
+            </KeyboardAwareScrollView>
         </SafeAreaView>
     );
 }

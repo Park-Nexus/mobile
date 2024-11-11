@@ -1,29 +1,29 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet} from "react-native";
 
 export const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor: '#FFF',
+        backgroundColor: "#FFF",
         paddingHorizontal: 16,
     },
 
     title: {
         fontSize: 40,
-        fontWeight: '700',
-        color: '#128085',
+        fontWeight: "700",
+        color: "#128085",
     },
 
     forgotPasswordText: {
         fontSize: 14,
-        fontWeight: '400',
-        color: '#FF5900',
+        fontWeight: "400",
+        color: "#FF5900",
 
-        textAlign: 'center',
+        textAlign: "center",
     },
 
     dividerWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
         gap: 4,
 
         marginBottom: 32,
@@ -31,29 +31,28 @@ export const styles = StyleSheet.create({
     },
     dividerText: {
         fontSize: 14,
-        fontWeight: '400',
+        fontWeight: "400",
     },
     dividerLine: {
         flex: 1,
         height: 1,
-        backgroundColor: '#9F9C9C',
+        backgroundColor: "#9F9C9C",
     },
 
     oauthButtonWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
     },
 
     loginText: {
         fontSize: 14,
-        fontWeight: '400',
-        color: '#0A0A0B',
-        position: 'absolute',
-        width: '100%',
-        textAlign: 'center',
+        fontWeight: "400",
+        color: "#0A0A0B",
+        width: "100%",
+        textAlign: "center",
     },
     loginTextColored: {
-        color: '#FF5900',
+        color: "#FF5900",
     },
 });

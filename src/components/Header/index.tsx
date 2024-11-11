@@ -1,7 +1,8 @@
-import {View, ViewStyle, Text} from 'react-native';
-import {styles} from './index.styles';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import ChevronLeft from '@src/static/svgs/ChevronLeft.svg';
+import React from "react";
+import {View, ViewStyle, Text} from "react-native";
+import {styles} from "./index.styles";
+import {TouchableWithoutFeedback} from "react-native-gesture-handler";
+import ChevronLeft from "@src/static/svgs/ChevronLeft.svg";
 
 interface IHeaderProps {
     backButtonVisible?: boolean;

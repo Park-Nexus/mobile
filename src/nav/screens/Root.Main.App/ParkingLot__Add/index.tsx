@@ -16,6 +16,7 @@ import {Asset, launchImageLibrary, launchCamera} from "react-native-image-picker
 import FastImage from "react-native-fast-image";
 import {useUpload} from "@src/utils/upload";
 import {styles} from "./index.styles";
+import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
 
 const MAX_ALLOWED_MEDIA_COUNT = 5;
 
@@ -109,7 +110,7 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
         <SafeAreaView>
             <Header title="Add new parking lot" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
 
-            <ScrollView style={styles.wrapper}>
+            <KeyboardAwareScrollView style={styles.wrapper}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.imageContainer}>
                     {selectedImages.map((image, index) => (
                         <FastImage key={index} source={{uri: image.uri}} style={styles.imagePreview} />
@@ -230,8 +231,7 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                     disabled={isPending || isUploading}
                     style={styles.submitButton}
                 />
-            </ScrollView>
-
+            </KeyboardAwareScrollView>
             <DateTimePickerModal
                 isVisible={isDatePickerVisible}
                 mode="time"
