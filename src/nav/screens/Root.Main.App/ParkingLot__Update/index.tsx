@@ -14,6 +14,7 @@ import FastImage from 'react-native-fast-image';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {useUpload} from '@src/utils/upload';
+import {styles} from './index.styles';
 
 const MAX_ALLOWED_MEDIA_COUNT = 5;
 
@@ -105,8 +106,8 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
         <SafeAreaView>
             <Header title="Update parking lot" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
 
-            <ScrollView>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <ScrollView contentContainerStyle={styles.wrapper}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.imageContainer}>
                     {images.map((image, index) => (
                         <TouchableOpacity
                             key={index}
@@ -115,127 +116,133 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                                     prev.includes(image) ? prev.filter(i => i !== image) : [...prev, image],
                                 )
                             }
-                            style={{width: 100, height: 100, opacity: removalImages.includes(image) ? 0.5 : 1}}>
-                            <FastImage
-                                source={{uri: image}}
-                                style={{width: 100, height: 100}}
-                                resizeMode="cover"
-                                fallback
-                            />
+                            style={[styles.imagePreview, {opacity: removalImages.includes(image) ? 0.5 : 1}]}>
+                            <FastImage source={{uri: image}} style={styles.imagePreview} resizeMode="cover" fallback />
                         </TouchableOpacity>
                     ))}
                     {additionalImages.map(image => (
                         <TouchableOpacity
                             key={image.uri}
-                            style={{width: 100, height: 100}}
+                            style={[styles.imagePreview, {opacity: additionalImages.includes(image) ? 0.5 : 1}]}
                             onPress={() => setAdditionalImages(prev => prev.filter(i => i.uri !== image.uri))}>
                             <FastImage
                                 source={{uri: image.uri}}
-                                style={{width: 100, height: 100}}
+                                style={styles.imagePreview}
                                 resizeMode="cover"
                                 fallback
                             />
                         </TouchableOpacity>
                     ))}
-                    <Button variant="gray" text="Add" onPress={selectOrTakeImage} />
+                    <Button variant="gray" text="Add Image" onPress={selectOrTakeImage} />
                 </ScrollView>
 
-                <Controller
-                    control={control}
-                    name="name"
-                    render={({field: {onChange, value, onBlur}}) => (
-                        <TextInput placeholder="Enter name" value={value} onChangeText={onChange} onBlur={onBlur} />
-                    )}
-                />
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Parking Lot Name</Text>
+                    <Controller
+                        control={control}
+                        name="name"
+                        render={({field: {onChange, value}}) => (
+                            <TextInput placeholder="e.g. Cau Giay Parking" value={value} onChangeText={onChange} />
+                        )}
+                    />
+                </View>
 
-                <Controller
-                    control={control}
-                    name="phone"
-                    render={({field: {onChange, value, onBlur}}) => (
-                        <TextInput placeholder="Enter phone" value={value} onChangeText={onChange} onBlur={onBlur} />
-                    )}
-                />
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Contact Phone</Text>
+                    <Controller
+                        control={control}
+                        name="phone"
+                        render={({field: {onChange, value}}) => (
+                            <TextInput placeholder="e.g. 0123456789" value={value} onChangeText={onChange} />
+                        )}
+                    />
+                </View>
 
-                <Controller
-                    control={control}
-                    name="description"
-                    render={({field: {onChange, value, onBlur}}) => (
-                        <TextInput
-                            placeholder="Enter description"
-                            value={value}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            multiline
-                        />
-                    )}
-                />
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Description</Text>
+                    <Controller
+                        control={control}
+                        name="description"
+                        render={({field: {onChange, value}}) => (
+                            <TextInput
+                                placeholder="e.g. Cau Giay Parking"
+                                value={value}
+                                onChangeText={onChange}
+                                multiline
+                            />
+                        )}
+                    />
+                </View>
 
-                <Controller
-                    control={control}
-                    name="openAt"
-                    render={({field: {value}}) => (
-                        <View>
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Time Start Checking In</Text>
+                    <Controller
+                        control={control}
+                        name="openAt"
+                        render={({field: {value}}) => (
                             <Button
-                                variant="green"
-                                text="Select Opening Time"
+                                variant="gray"
+                                text={value ? value : 'Select'}
                                 onPress={() => showDatePicker('openAt')}
                             />
-                            {value ? <Text>Opening Time: {value}</Text> : null}
-                        </View>
-                    )}
-                />
-                <Controller
-                    control={control}
-                    name="closeAt"
-                    render={({field: {value}}) => (
-                        <View>
+                        )}
+                    />
+                </View>
+
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Time Stop Checking In</Text>
+                    <Controller
+                        control={control}
+                        name="closeAt"
+                        render={({field: {value}}) => (
                             <Button
-                                variant="green"
-                                text="Select Closing Time"
+                                variant="gray"
+                                text={value ? value : 'Select'}
                                 onPress={() => showDatePicker('closeAt')}
                             />
-                            {value ? <Text>Closing Time: {value}</Text> : null}
-                        </View>
-                    )}
-                />
+                        )}
+                    />
+                </View>
 
-                <Controller
-                    control={control}
-                    name="latitude"
-                    render={({field: {onChange, value, onBlur}}) => (
-                        <TextInput
-                            placeholder="Enter latitude"
-                            value={value?.toString()}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                        />
-                    )}
-                />
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Latitude</Text>
+                    <Controller
+                        control={control}
+                        name="latitude"
+                        render={({field: {onChange, value}}) => (
+                            <TextInput placeholder="e.g. 12.345" value={value?.toString()} onChangeText={onChange} />
+                        )}
+                    />
+                </View>
 
-                <Controller
-                    control={control}
-                    name="longitude"
-                    render={({field: {onChange, value, onBlur}}) => (
-                        <TextInput
-                            placeholder="Enter longitude"
-                            value={value?.toString()}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                        />
-                    )}
+                <View style={styles.formSection}>
+                    <Controller
+                        control={control}
+                        name="longitude"
+                        render={({field: {onChange, value}}) => (
+                            <TextInput
+                                placeholder="e.g. 105.345345"
+                                value={value?.toString()}
+                                onChangeText={onChange}
+                            />
+                        )}
+                    />
+                </View>
+
+                <Button
+                    variant="green"
+                    text={isPending || isUploading ? 'Saving...' : 'Update'}
+                    disabled={isPending || isUploading}
+                    onPress={handleSubmit(onSubmit)}
+                    style={styles.submitButton}
                 />
             </ScrollView>
+
             <DateTimePickerModal
                 isVisible={isDatePickerVisible}
                 mode="time"
                 onConfirm={handleConfirm}
                 onCancel={hideDatePicker}
-            />
-            <Button
-                variant="green"
-                text={isPending || isUploading ? 'Saving...' : 'Update'}
-                disabled={isPending || isUploading}
-                onPress={handleSubmit(onSubmit)}
             />
         </SafeAreaView>
     );

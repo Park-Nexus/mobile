@@ -3,7 +3,7 @@ import {Header} from '@src/components/Header';
 import {SafeAreaView} from '@src/components/SafeAreaWrapper';
 import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
 import {Controller, useForm} from 'react-hook-form';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {TCreateParkingLotPayload, useSubmit} from './index.submit';
 import {TextInput} from '@src/components/Input__Text';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -13,6 +13,7 @@ import {useActionSheet} from '@expo/react-native-action-sheet';
 import {Asset, launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import FastImage from 'react-native-fast-image';
 import {useUpload} from '@src/utils/upload';
+import {styles} from './index.styles';
 
 const MAX_ALLOWED_MEDIA_COUNT = 5;
 
@@ -236,45 +237,3 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        paddingHorizontal: 16,
-        paddingTop: 16,
-    },
-    imageContainer: {
-        flexDirection: 'row',
-        marginBottom: 20,
-        paddingVertical: 10,
-    },
-    imagePreview: {
-        width: 100,
-        height: 100,
-        borderRadius: 8,
-        marginRight: 10,
-    },
-    selectImageButton: {
-        width: 100,
-        height: 100,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#e0e0e0',
-        borderRadius: 8,
-        borderWidth: 1,
-        borderStyle: 'dashed',
-        borderColor: '#888',
-    },
-    formSection: {
-        marginBottom: 16,
-    },
-    label: {
-        fontSize: 16,
-        fontWeight: '600',
-        color: '#333',
-        marginBottom: 8,
-    },
-    submitButton: {
-        marginBottom: 32,
-    },
-});
