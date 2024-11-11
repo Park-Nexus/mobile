@@ -155,12 +155,23 @@ export function ParkingLot__Detail({route, navigation}: ScreenProps) {
                 </View>
             </ScrollView>
 
-            <Button
-                variant="green"
-                style={[styles.bookButton, {bottom: bottom + 16}]}
-                text="Book Parking"
-                textProps={{style: styles.bookButtonText}}
-            />
+            {!lot?.isMine && (
+                <Button
+                    variant="green"
+                    style={[styles.bookButton, {bottom: bottom + 16}]}
+                    text="Book Parking"
+                    textProps={{style: styles.bookButtonText}}
+                    onPress={() => navigation.navigate("Reservation__Make_Booking", {lotId: lot?.id!})}
+                />
+            )}
+            {lot?.isMine && (
+                <Button
+                    variant="gray"
+                    style={[styles.bookButton, {bottom: bottom + 16}]}
+                    text="Manage Your Parking Lot"
+                    onPress={() => navigation.navigate("ParkingLot__MyLotDetail", {lotId: lot?.id!})}
+                />
+            )}
         </SafeAreaView>
     );
 }

@@ -101,8 +101,6 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
                             <View key={index} style={styles.itemContainer}>
                                 <Text style={styles.label}>Name:</Text>
                                 <Text style={styles.text}>{item.name}</Text>
-                                <Text style={styles.label}>Vehicle Types:</Text>
-                                <Text style={styles.text}>{item.vehicleTypes}</Text>
                                 <Text style={styles.label}>Price:</Text>
                                 <Text style={styles.text}>${item.price}</Text>
                             </View>

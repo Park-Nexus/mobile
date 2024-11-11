@@ -1,19 +1,20 @@
-import Modal from 'react-native-modal';
-import {useHomeContext} from '../index.$context';
-import {Text, View} from 'react-native';
-import {styles} from './index.styles';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Button} from '@src/components/Button';
-import {useParkingLot} from './index.$data';
-import {getDirection, reverseGeocode} from '@src/utils/location';
-import {useEffect, useState} from 'react';
+import React from "react";
+import Modal from "react-native-modal";
+import {useHomeContext} from "../index.$context";
+import {Text, View} from "react-native";
+import {styles} from "./index.styles";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {Button} from "@src/components/Button";
+import {useParkingLot} from "./index.$data";
+import {getDirection, reverseGeocode} from "@src/utils/location";
+import {useEffect, useState} from "react";
 
-import MapPinSvg from '@src/static/svgs/MapPinArea.svg';
-import LetterPSvg from '@src/static/svgs/LetterCircleP.svg';
-import CaretRightSvg from '@src/static/svgs/CaretRight.svg';
-import {LOT_SERVICE_ICONS} from './index.types';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
+import MapPinSvg from "@src/static/svgs/MapPinArea.svg";
+import LetterPSvg from "@src/static/svgs/LetterCircleP.svg";
+import CaretRightSvg from "@src/static/svgs/CaretRight.svg";
+import {LOT_SERVICE_ICONS} from "./index.types";
+import {NavigationProp, useNavigation} from "@react-navigation/native";
+import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
 
 export function LotDetailModal() {
     const {navigate} = useNavigation<NavigationProp<AppStackParamList>>();
@@ -22,7 +23,7 @@ export function LotDetailModal() {
     const {bottom} = useSafeAreaInsets();
     const {data: lot} = useParkingLot();
 
-    const [address, setAddress] = useState<string>('');
+    const [address, setAddress] = useState<string>("");
     const [distance, setDistance] = useState<number>(0);
     const prices = lot?.parkingLotPrices || [];
     const maxPrice = prices.reduce((acc, price) => Math.max(acc, price.price), 0);
@@ -34,7 +35,7 @@ export function LotDetailModal() {
     }, 0);
 
     useEffect(() => {
-        if (!lot) return setAddress('');
+        if (!lot) return setAddress("");
         reverseGeocode({
             lat: lot?.latitude,
             lon: lot?.longitude,
@@ -59,9 +60,9 @@ export function LotDetailModal() {
         <Modal
             animationIn="slideInUp"
             animationInTiming={400}
-            animationOut={'slideOutDown'}
+            animationOut={"slideOutDown"}
             animationOutTiming={700}
-            style={{justifyContent: 'flex-end', paddingBottom: bottom + 80}}
+            style={{justifyContent: "flex-end", paddingBottom: bottom + 80}}
             isVisible={!!selectedLotId}
             hasBackdrop={false}
             swipeDirection="down"
@@ -78,7 +79,7 @@ export function LotDetailModal() {
                         <Text style={styles.subTitleText}>{address}</Text>
                     </View>
                     <View style={styles.titleItemWrapper}>
-                        <Text style={[styles.titleText, {textAlign: 'right'}]}>${minPrice}</Text>
+                        <Text style={[styles.titleText, {textAlign: "right"}]}>${minPrice}</Text>
                         <Text style={styles.subTitleText}>per hour</Text>
                     </View>
                 </View>
@@ -103,7 +104,7 @@ export function LotDetailModal() {
                         ))}
                     </View>
                     <Button
-                        onPress={() => navigate('ParkingLot__Detail', {lotId: lot?.id || 0})}
+                        onPress={() => navigate("ParkingLot__Detail", {lotId: lot?.id || 0})}
                         variant="white"
                         text="Details"
                         postIcon={<CaretRightSvg width={24} height={24} />}
@@ -112,11 +113,13 @@ export function LotDetailModal() {
                     />
                 </View>
 
-                <Button
-                    variant="green"
-                    text="Book now"
-                    onPress={() => navigate('Reservation__Make_Booking', {lotId: lot?.id || 0})}
-                />
+                {!lot?.isMine && (
+                    <Button
+                        variant="green"
+                        text="Book now"
+                        onPress={() => navigate("Reservation__Make_Booking", {lotId: lot?.id || 0})}
+                    />
+                )}
             </View>
         </Modal>
     );

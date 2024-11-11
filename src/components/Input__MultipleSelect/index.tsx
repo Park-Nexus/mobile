@@ -1,7 +1,7 @@
-import {View, ScrollView, TouchableOpacity, Text} from 'react-native';
-
-import CrossSvg from '@src/static/svgs/Cross.svg';
-import {styles} from './index.styles';
+import React from "react";
+import {View, ScrollView, TouchableOpacity, Text} from "react-native";
+import CrossSvg from "@src/static/svgs/Cross.svg";
+import {styles} from "./index.styles";
 
 type Option<T> = {
     label: string;

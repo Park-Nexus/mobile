@@ -1,6 +1,6 @@
-import {trpc, TrpcInput} from '@src/trpc';
+import {trpc, TrpcInput} from "@src/trpc";
 
-export type TAddParkingLotServicePayload = TrpcInput['parking']['lot']['service']['add'];
+export type TAddParkingLotServicePayload = TrpcInput["parking"]["lot"]["service"]["add"];
 export function useSubmit() {
     const mutation = trpc.parking.lot.service.add.useMutation();
 
