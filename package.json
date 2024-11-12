@@ -10,6 +10,7 @@
         "test": "jest"
     },
     "dependencies": {
+        "@azure/core-asynciterator-polyfill": "^1.0.2",
         "@expo/react-native-action-sheet": "^4.1.0",
         "@gorhom/bottom-sheet": "^4.6.4",
         "@parknexus/api": "https://github.com/Park-Nexus/api.git#master",
@@ -59,7 +60,9 @@
         "react-native-svg": "^15.7.1",
         "react-native-toast-message": "^2.2.1",
         "react-native-vision-camera": "^4.6.1",
+        "rn-eventsource-reborn": "^1.0.5",
         "uuid": "^11.0.2",
+        "web-streams-polyfill": "^4.0.0",
         "zustand": "^4.5.4"
     },
     "devDependencies": {

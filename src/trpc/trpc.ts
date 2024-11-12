@@ -1,5 +1,5 @@
-import {TrpcRouter} from '@parknexus/api';
+import {TrpcRouter} from "@parknexus/api";
 
-import {createTRPCReact} from '@trpc/react-query';
+import {createTRPCReact} from "@trpc/react-query";
 
 export const trpc = createTRPCReact<TrpcRouter>();

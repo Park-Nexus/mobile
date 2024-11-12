@@ -14,6 +14,14 @@ import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 
 import {KeyboardProvider} from "react-native-keyboard-controller";
 
+import "@azure/core-asynciterator-polyfill";
+import {RNEventSource} from "rn-eventsource-reborn";
+import {ReadableStream, TransformStream} from "web-streams-polyfill";
+
+globalThis.ReadableStream = globalThis.ReadableStream || ReadableStream;
+globalThis.TransformStream = globalThis.TransformStream || TransformStream;
+globalThis.EventSource = globalThis.EventSource || RNEventSource;
+
 export function Root() {
     return (
         <>

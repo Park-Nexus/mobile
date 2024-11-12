@@ -15,6 +15,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@azure/core-asynciterator-polyfill@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@azure/core-asynciterator-polyfill@npm:1.0.2"
+  checksum: ccdad3bcf3f670e0b4f52e421cd1566368dce36ea4b3cb18a9b554c14ea0c1436868cb55e774b2377307dcb222e4eb3777b48e97249157c612e9c24654a56d16
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.24.7":
   version: 7.24.7
   resolution: "@babel/code-frame@npm:7.24.7"
@@ -3448,7 +3455,7 @@ __metadata:
 
 "@parknexus/api@https://github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=3fb5e02e27eeb6edbeab820e0edac4cb2f8e3fc7"
+  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=7d72a0c36e85fe613c1bc100088949f0b5100c87"
   dependencies:
     "@google-cloud/storage": ^7.14.0
     "@onesignal/node-onesignal": ^5.0.0-alpha-01
@@ -3469,7 +3476,7 @@ __metadata:
     uuid: ^11.0.2
     yarn: ^1.22.22
     zod: ^3.23.8
-  checksum: 6f34b05320fa86018066e79145724e919247447b990fc0278d8deb8791cb4818f21cc3ae79bea5a4654eeb04ed5b14c19ba6371f7130ef8669913c334dafcb01
+  checksum: e7c727dbb9db5610f5596621412bfe291c4df0f4b78cf1c5c417d44010b93f068f74cf3a1bf34e48e9774ddbb1972a494fbabc9c1e7a40db125d28a4e8d6a876
   languageName: node
   linkType: hard
 
@@ -5100,6 +5107,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ParkNexus@workspace:."
   dependencies:
+    "@azure/core-asynciterator-polyfill": ^1.0.2
     "@babel/core": ^7.20.0
     "@babel/preset-env": ^7.20.0
     "@babel/runtime": ^7.20.0
@@ -5166,8 +5174,10 @@ __metadata:
     react-native-toast-message: ^2.2.1
     react-native-vision-camera: ^4.6.1
     react-test-renderer: 18.2.0
+    rn-eventsource-reborn: ^1.0.5
     typescript: 5.0.4
     uuid: ^11.0.2
+    web-streams-polyfill: ^4.0.0
     zustand: ^4.5.4
   languageName: unknown
   linkType: soft
@@ -12725,6 +12735,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rn-eventsource-reborn@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "rn-eventsource-reborn@npm:1.0.5"
+  dependencies:
+    event-target-shim: ^5.0.1
+  checksum: f4f88b5ec3732b7345e8c6060f80a937a0ef1b6345c9a178952c79890783a119619549fb7c5413858cf338076022397ee28a11ff4446b978abbd8b6562dd4a8a
+  languageName: node
+  linkType: hard
+
 "run-parallel@npm:^1.1.9":
   version: 1.2.0
   resolution: "run-parallel@npm:1.2.0"
@@ -14215,6 +14234,13 @@ __metadata:
   dependencies:
     defaults: ^1.0.3
   checksum: 814e9d1ddcc9798f7377ffa448a5a3892232b9275ebb30a41b529607691c0491de47cba426e917a4d08ded3ee7e9ba2f3fe32e62ee3cd9c7d3bafb7754bd553c
+  languageName: node
+  linkType: hard
+
+"web-streams-polyfill@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "web-streams-polyfill@npm:4.0.0"
+  checksum: df1abcb0f811621fa3ed95491c3d281eb7c82aa898b9759e47c3c9dffe73eb65c0459433da60a76a1ea08e6158c8b33fdf3a2ea2a44b9c4c252965507d54edc4
   languageName: node
   linkType: hard
 
