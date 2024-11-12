@@ -18,9 +18,9 @@ import "@azure/core-asynciterator-polyfill";
 import {RNEventSource} from "rn-eventsource-reborn";
 import {ReadableStream, TransformStream} from "web-streams-polyfill";
 
-globalThis.ReadableStream = globalThis.ReadableStream || ReadableStream;
-globalThis.TransformStream = globalThis.TransformStream || TransformStream;
-globalThis.EventSource = globalThis.EventSource || RNEventSource;
+(globalThis as any).ReadableStream = (globalThis as any).ReadableStream || ReadableStream;
+(globalThis as any).TransformStream = (globalThis as any).TransformStream || TransformStream;
+(globalThis as any).EventSource = (globalThis as any).EventSource || RNEventSource;
 
 export function Root() {
     return (

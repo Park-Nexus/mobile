@@ -1,9 +1,12 @@
 import {trpc} from "@src/trpc";
 
 export function useParkingLot(lotId: number) {
-    const subscription = trpc.parking.lot.get.singleSubscription.useSubscription(undefined, {
-        onData(data) {
-            console.log(data);
+    const response = trpc.parking.lot.get.single.useQuery({
+        id: lotId,
+    });
+    trpc.parking.lot.get.singleSubscription.useSubscription(undefined, {
+        onData() {
+            response.refetch();
         },
         onStarted() {
             console.log("started");
@@ -11,10 +14,6 @@ export function useParkingLot(lotId: number) {
         onError(error) {
             console.log(error);
         },
-    });
-    console.log("subscription", subscription);
-    const response = trpc.parking.lot.get.single.useQuery({
-        id: lotId,
     });
 
     return response;
