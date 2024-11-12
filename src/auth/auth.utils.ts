@@ -1,6 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {AuthTypes} from './index.types';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import auth, {FirebaseAuthTypes} from "@react-native-firebase/auth";
+import {AuthTypes} from "./index.types";
 
 export namespace PhoneAuth {
     export async function signIn(phone: string): Promise<FirebaseAuthTypes.ConfirmationResult> {

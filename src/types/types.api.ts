@@ -1,4 +1,4 @@
-const HOST = 'https://doe-sunny-logically.ngrok-free.app';
+const HOST = "https://doe-sunny-logically.ngrok-free.app";
 
 export namespace ApiTypes {
     export const API_HOST = `${HOST}/trpc`;
