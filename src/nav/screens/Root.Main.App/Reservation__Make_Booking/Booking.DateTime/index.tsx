@@ -1,14 +1,16 @@
-import {useNavigation} from '@react-navigation/native';
-import {Header} from '@src/components/Header';
-import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {ScrollView, Text} from 'react-native';
-import {Calendar, CalendarProps} from 'react-native-calendars';
-import {useMakeBookingContext} from '../index.context';
-import {Day} from './index.day';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {useState} from 'react';
-import {Button} from '@src/components/Button';
-import dayjs from 'dayjs';
+import React from "react";
+import {useNavigation} from "@react-navigation/native";
+import {Header} from "@src/components/Header";
+import {SafeAreaView} from "@src/components/SafeAreaWrapper";
+import {View} from "react-native";
+import {Calendar, CalendarProps} from "react-native-calendars";
+import {useMakeBookingContext} from "../index.context";
+import {Day} from "./index.day";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import {useState} from "react";
+import {Button} from "@src/components/Button";
+import dayjs from "dayjs";
+import {styles} from "./index.styles";
 
 export function DateTime() {
     const navigation = useNavigation();
@@ -28,19 +30,20 @@ export function DateTime() {
         <SafeAreaView>
             <Header title="Select start time" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
 
-            <ScrollView>
+            <View style={styles.wrapper}>
                 <Calendar {...calendarProps} />
                 <Button
-                    variant="green"
+                    variant="gray"
                     onPress={() => setStartDatePickerVisibility(true)}
-                    text={`Start ${dayjs(startTime).format('HH:mm')}`}
+                    text={`Check in ${dayjs(startTime).format("HH:mm")}`}
                 />
+                <View style={{height: 8}} />
                 <Button
-                    variant="green"
+                    variant="gray"
                     onPress={() => setEndDatePickerVisibility(true)}
-                    text={`End ${dayjs(endTime).format('HH:mm')}`}
+                    text={`Check out ${dayjs(endTime).format("HH:mm")}`}
                 />
-            </ScrollView>
+            </View>
             <DateTimePickerModal
                 isVisible={isStartDatePickerVisible}
                 date={startTime.toDate()}
@@ -54,6 +57,7 @@ export function DateTime() {
                 }}
                 onCancel={() => setStartDatePickerVisibility(false)}
             />
+            <Button variant="green" text="Next" onPress={() => setStep("VEHICLE")} style={styles.nextBtn} />
             <DateTimePickerModal
                 isVisible={isEndDatePickerVisible}
                 date={endTime.toDate()}
@@ -66,7 +70,6 @@ export function DateTime() {
                 }}
                 onCancel={() => setEndDatePickerVisibility(false)}
             />
-            <Button variant="green" text="Next" onPress={() => setStep('VEHICLE')} />
         </SafeAreaView>
     );
 }
