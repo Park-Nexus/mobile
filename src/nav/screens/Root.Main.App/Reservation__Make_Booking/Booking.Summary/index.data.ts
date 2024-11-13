@@ -1,6 +1,6 @@
-import {trpc, TrpcInput} from '@src/trpc';
+import {trpc, TrpcInput} from "@src/trpc";
 
-export type TCreateTicketPayload = TrpcInput['reservation']['ticket']['create'];
+export type TCreateTicketPayload = TrpcInput["reservation"]["ticket"]["create"];
 export function useCreateTicker() {
     const mutation = trpc.reservation.ticket.create.useMutation();
 

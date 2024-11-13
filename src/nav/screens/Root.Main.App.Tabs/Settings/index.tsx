@@ -1,19 +1,20 @@
-import {Header} from '@src/components/Header';
-import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {ScrollView, Text, View} from 'react-native';
+import React from "react";
+import {Header} from "@src/components/Header";
+import {SafeAreaView} from "@src/components/SafeAreaWrapper";
+import {ScrollView, Text, View} from "react-native";
 
-import ListBulletSvg from '@src/static/svgs/ListBullet.svg';
-import {styles} from './index.styles';
-import FastImage from 'react-native-fast-image';
-import {Button} from '@src/components/Button';
+import ListBulletSvg from "@src/static/svgs/ListBullet.svg";
+import {styles} from "./index.styles";
+import FastImage from "react-native-fast-image";
+import {Button} from "@src/components/Button";
 
-import AvatarPlaceHolder from '@src/static/images/Profile.png';
-import CaretRightBlackSvg from '@src/static/svgs/CaretRightBlack.svg';
-import {useMe} from './index.data';
-import {useAuthStore} from '@src/states';
-import {AuthStorage} from '@src/auth/auth.utils';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {AppStackParamList} from '@src/nav/navigators/Root.Main.App';
+import AvatarPlaceHolder from "@src/static/images/Profile.png";
+import CaretRightBlackSvg from "@src/static/svgs/CaretRightBlack.svg";
+import {useMe} from "./index.data";
+import {useAuthStore} from "@src/states";
+import {AuthStorage} from "@src/auth/auth.utils";
+import {NavigationProp, useNavigation} from "@react-navigation/native";
+import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
 
 export function Settings() {
     const {me} = useMe();
@@ -47,6 +48,7 @@ export function Settings() {
                         variant="gray"
                         preIcon={<CaretRightBlackSvg width={16} height={16} />}
                         style={styles.button}
+                        onPress={() => navigate("Settings__Profile_Update")}
                     />
                 </View>
                 <View style={{height: 32}} />
@@ -59,7 +61,7 @@ export function Settings() {
                             variant="gray"
                             preIcon={<CaretRightBlackSvg width={16} height={16} />}
                             style={styles.button}
-                            onPress={() => navigate('Settings__Vehicle_List')}
+                            onPress={() => navigate("Settings__Vehicle_List")}
                         />
                     </View>
                     <View style={styles.settingItem}>
@@ -68,7 +70,7 @@ export function Settings() {
                             variant="gray"
                             preIcon={<CaretRightBlackSvg width={16} height={16} />}
                             style={styles.button}
-                            onPress={() => navigate('Settings__SavedCards_List')}
+                            onPress={() => navigate("Settings__SavedCards_List")}
                         />
                     </View>
                     <View style={styles.settingItem}>

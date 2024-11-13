@@ -1,10 +1,10 @@
-import Geolocation from '@react-native-community/geolocation';
-import {Position} from '@rnmapbox/maps/lib/typescript/src/types/Position';
-import {useCallback, useEffect, useState} from 'react';
-import {TFeatureCollection, TLocationSuggestion, TRouteResponse} from './index.types';
-import axios from 'axios';
-import {MapTypes} from '@src/types/types.map';
-import {useDebounce} from '../debounce';
+import Geolocation from "@react-native-community/geolocation";
+import {Position} from "@rnmapbox/maps/lib/typescript/src/types/Position";
+import {useCallback, useEffect, useState} from "react";
+import {TFeatureCollection, TLocationSuggestion, TRouteResponse} from "./index.types";
+import axios from "axios";
+import {MapTypes} from "@src/types/types.map";
+import {useDebounce} from "../debounce";
 
 // User Location ----------------------------------------------------------------------------
 export function useUserLocation() {
@@ -45,7 +45,7 @@ export function useUserLocation() {
 // Location search suggestion  ------------------------------------------------------------------
 export function useSearchLocation({userLocation}: {userLocation: {lat?: number; lon?: number}}) {
     const {lat, lon} = userLocation;
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState<TLocationSuggestion[]>([]);
     const debouncedQuery = useDebounce<string>(query, 300);
 
@@ -81,7 +81,7 @@ export async function reverseGeocode({lat, lon}: {lat?: number; lon?: number}): 
     }`;
     const response = await axios.get(endpoint);
     const featureCollection = response.data as TFeatureCollection;
-    return featureCollection.features?.[0]?.properties?.full_address || '';
+    return featureCollection.features?.[0]?.properties?.full_address || "";
 }
 
 // Get direction  -------------------------------------------------------------------------------

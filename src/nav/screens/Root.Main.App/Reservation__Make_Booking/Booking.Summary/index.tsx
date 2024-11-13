@@ -1,13 +1,14 @@
-import {Header} from '@src/components/Header';
-import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {useMakeBookingContext} from '../index.context';
-import {ScrollView, Text} from 'react-native';
-import {useParkingLotDetail} from '../index.data';
-import {Button} from '@src/components/Button';
-import {useCreateTicker} from './index.data';
-import Toast from 'react-native-toast-message';
-import {BookingSuccessModal, TBookingSuccessModalRef} from './index.modal';
-import {useRef} from 'react';
+import React from "react";
+import {Header} from "@src/components/Header";
+import {SafeAreaView} from "@src/components/SafeAreaWrapper";
+import {useMakeBookingContext} from "../index.context";
+import {ScrollView, Text} from "react-native";
+import {useParkingLotDetail} from "../index.data";
+import {Button} from "@src/components/Button";
+import {useCreateTicker} from "./index.data";
+import Toast from "react-native-toast-message";
+import {BookingSuccessModal, TBookingSuccessModalRef} from "./index.modal";
+import {useRef} from "react";
 
 export function Summary() {
     const {lotId, startTime, endTime, services, vehicle} = useMakeBookingContext();
@@ -17,7 +18,7 @@ export function Summary() {
     const successModalRef = useRef<TBookingSuccessModalRef>(null);
 
     const onBook = () => {
-        if (!lotId || !vehicle) return Toast.show({type: 'error', text1: 'Something went wrong'});
+        if (!lotId || !vehicle) return Toast.show({type: "error", text1: "Something went wrong"});
 
         createTicket({
             parkingLotId: lotId,
@@ -40,7 +41,7 @@ export function Summary() {
 
         const vehicleType = vehicle.type;
         const pricePerHour = lot.parkingLotPrices.find(p => p.vehicleType === vehicleType)?.price || 0;
-        const parkingHours = endTime.diff(startTime, 'hours');
+        const parkingHours = endTime.diff(startTime, "hours");
 
         return total + parkingHours * pricePerHour;
     };

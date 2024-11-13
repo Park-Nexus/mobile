@@ -1,59 +1,60 @@
-import React from "react";
 import {Header} from "@src/components/Header";
 import {SafeAreaView} from "@src/components/SafeAreaWrapper";
-import {TCreateProfilePayload, useSubmit} from "./index.submit";
+import React, {useEffect, useState} from "react";
+import {StyleSheet, Text, View} from "react-native";
+import {Asset, launchImageLibrary} from "react-native-image-picker";
+import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
+import {TUpdateProfilePayload, useSubmit} from "./index.submit";
 import {Controller, useForm} from "react-hook-form";
-import {ScrollView, Text, View} from "react-native";
-import {styles} from "./index.styles";
-import {TextInput} from "@src/components/Input__Text";
-import {Button} from "@src/components/Button";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {launchImageLibrary, Asset} from "react-native-image-picker";
-import {useUpload} from "@src/utils/upload";
+import {useMe} from "./index.data";
 import FastImage from "react-native-fast-image";
+import {Button} from "@src/components/Button";
 
-import AvatarPlaceHolder from "@src/static/images/Profile.png";
 import NotePencil from "@src/static/svgs/NotePencil.svg";
-import {useState} from "react";
+import {TextInput} from "@src/components/Input__Text";
+import AvatarPlaceHolder from "@src/static/images/Profile.png";
+import {useUpload} from "@src/utils/upload";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
-export function Profile__Setup() {
+export function Settings__Profile_Update() {
     const {bottom} = useSafeAreaInsets();
-    const [selectedAvatar, setSelectedAvatar] = useState<Asset>();
+    const [avatar, setAvatar] = useState<Asset>();
+    const {control, handleSubmit, setValue} = useForm<TUpdateProfilePayload>();
+    const {me} = useMe();
     const {submit, isPending} = useSubmit();
     const {isUploading, uploadAvatar} = useUpload();
-    const {control, handleSubmit} = useForm<TCreateProfilePayload>({
-        values: {
-            firstName: "",
-            lastName: "",
-            phone: "",
-            gender: "MALE",
-            avatarUrl: "",
-        },
-    });
 
     const openImagePicker = () => {
         launchImageLibrary({mediaType: "photo", selectionLimit: 1}).then(async ({assets}) => {
             const asset = assets?.[0];
             if (!asset?.uri) return;
-            setSelectedAvatar(asset);
+            setAvatar(asset);
         });
     };
 
-    const onSubmit = async (values: TCreateProfilePayload) => {
-        let avatarUrl = "";
-        if (selectedAvatar && selectedAvatar.uri && selectedAvatar.type && selectedAvatar.fileName) {
+    const onSubmit = async (values: TUpdateProfilePayload) => {
+        let avatarUrl: string | undefined;
+        if (avatar && avatar.uri && avatar.type && avatar.fileName) {
             avatarUrl = await uploadAvatar({
-                file: {uri: selectedAvatar.uri, name: selectedAvatar.fileName, type: selectedAvatar.type},
+                file: {uri: avatar.uri, name: avatar.fileName, type: avatar.type},
             });
         }
         submit({...values, avatarUrl});
     };
 
+    useEffect(() => {
+        if (!me) return;
+
+        setValue("firstName", me.firstName);
+        setValue("lastName", me.lastName);
+        setValue("avatarUrl", me.avatarUrl || undefined);
+        setValue("phone", me.phone);
+    }, [me]);
+
     return (
         <SafeAreaView>
-            <Header title="Fill Your Profile" />
-
-            <ScrollView style={styles.wrapper}>
+            <Header title="Update Profile" />
+            <KeyboardAwareScrollView style={styles.wrapper}>
                 <Controller
                     control={control}
                     name="avatarUrl"
@@ -68,7 +69,13 @@ export function Profile__Setup() {
                                 marginBottom: 32,
                             }}>
                             <FastImage
-                                source={selectedAvatar ? {uri: selectedAvatar.uri} : AvatarPlaceHolder}
+                                source={
+                                    avatar
+                                        ? {uri: avatar.uri}
+                                        : me?.avatarUrl
+                                        ? {uri: me?.avatarUrl}
+                                        : AvatarPlaceHolder
+                                }
                                 resizeMode="cover"
                                 style={{width: "100%", height: "100%", borderRadius: 50}}
                             />
@@ -119,7 +126,7 @@ export function Profile__Setup() {
                         />
                     )}
                 />
-            </ScrollView>
+            </KeyboardAwareScrollView>
             <Button
                 onPress={handleSubmit(onSubmit)}
                 disabled={isPending || isUploading}
@@ -130,3 +137,20 @@ export function Profile__Setup() {
         </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    wrapper: {
+        paddingHorizontal: 16,
+    },
+    fieldLabel: {
+        fontSize: 14,
+        fontWeight: "600",
+        marginBottom: 4,
+        color: "#555555",
+    },
+    submitButton: {
+        position: "absolute",
+        left: 16,
+        right: 16,
+    },
+});
