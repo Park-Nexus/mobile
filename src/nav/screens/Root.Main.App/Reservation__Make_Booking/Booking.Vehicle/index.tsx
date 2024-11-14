@@ -26,36 +26,34 @@ export function Vehicle() {
                 {vehicles.map(v => {
                     const isAvailable = availableVehicleTypes.includes(v.type);
                     return (
-                        <>
-                            <Pressable
-                                key={v.id}
+                        <Pressable
+                            key={v.id}
+                            onPress={() => {
+                                if (isAvailable) setVehicle(v);
+                            }}
+                            style={[
+                                styles.vehicleItem,
+                                {
+                                    opacity: isAvailable ? 1 : 0.6,
+                                },
+                            ]}>
+                            <Text style={styles.vehicleItemText}>
+                                {v.brand} {v.model} - {v.plate}
+                                <View style={{width: 8}} />
+                                <Text
+                                    style={{
+                                        color: isAvailable ? "#128085" : "#e70000t",
+                                    }}>
+                                    {isAvailable ? "Available" : "Out of spot"}
+                                </Text>
+                            </Text>
+                            <InputRadioButton
+                                isSelected={v.id === vehicle?.id}
                                 onPress={() => {
                                     if (isAvailable) setVehicle(v);
                                 }}
-                                style={[
-                                    styles.vehicleItem,
-                                    {
-                                        opacity: isAvailable ? 1 : 0.6,
-                                    },
-                                ]}>
-                                <Text style={styles.vehicleItemText}>
-                                    {v.brand} {v.model} - {v.plate}
-                                    <View style={{width: 8}} />
-                                    <Text
-                                        style={{
-                                            color: isAvailable ? "#128085" : "#e70000t",
-                                        }}>
-                                        {isAvailable ? "Available" : "Out of spot"}
-                                    </Text>
-                                </Text>
-                                <InputRadioButton
-                                    isSelected={v.id === vehicle?.id}
-                                    onPress={() => {
-                                        if (isAvailable) setVehicle(v);
-                                    }}
-                                />
-                            </Pressable>
-                        </>
+                            />
+                        </Pressable>
                     );
                 })}
             </ScrollView>

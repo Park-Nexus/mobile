@@ -7,6 +7,19 @@ export function useCustomerTicketDetail(ticketCode: string) {
         },
         {enabled: !!ticketCode},
     );
+
     const ticket = response.data;
+
+    trpc.reservation.ticket.get.shouldUpdate.single.useSubscription(
+        {
+            id: ticket?.id,
+        },
+        {
+            onData() {
+                response.refetch();
+            },
+        },
+    );
+
     return Object.assign({ticket}, response);
 }

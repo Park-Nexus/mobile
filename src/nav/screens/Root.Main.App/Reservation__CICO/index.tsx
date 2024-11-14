@@ -1,5 +1,4 @@
 import React from "react";
-import _ from "lodash";
 import {NavigationProp, RouteProp} from "@react-navigation/native";
 import {Header} from "@src/components/Header";
 import {SafeAreaView} from "@src/components/SafeAreaWrapper";
@@ -30,6 +29,13 @@ export function Reservation__CICO({route, navigation}: ScreenParams) {
     const onCheckIn = () => {};
     const onCheckOut = () => {};
 
+    const renderRow = (label: string, value: string | React.ReactNode, valueStyle?: object) => (
+        <View style={styles.row}>
+            <Text style={styles.label}>{label}:</Text>
+            <Text style={[styles.value, valueStyle]}>{value}</Text>
+        </View>
+    );
+
     const renderTicketInfo = () => {
         if (!ticket) return null;
 
@@ -38,22 +44,24 @@ export function Reservation__CICO({route, navigation}: ScreenParams) {
                 {/* Ticket Details */}
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Ticket Details</Text>
-                    <Text style={styles.text}>
-                        Status:{" "}
-                        <Text style={{color: isPending ? "#128085" : "#B33E00"}}>{parseEnum(ticket.status)}</Text>
-                    </Text>
-                    <Text style={styles.text}>
-                        Time: {dayjs(ticket.startTime).format("HH:mm MMM DD")} -{" "}
-                        {dayjs(ticket.endTime).format("HH:mm MMM DD")}
-                    </Text>
+                    {renderRow(
+                        "Status",
+                        <Text style={{color: isPending ? "#128085" : "#B33E00"}}>{parseEnum(ticket.status)}</Text>,
+                    )}
+                    {renderRow(
+                        "Time",
+                        `${dayjs(ticket.startTime).format("HH:mm MMM DD")} - ${dayjs(ticket.endTime).format(
+                            "HH:mm MMM DD",
+                        )}`,
+                    )}
                 </View>
 
                 {/* Parking Spot Info */}
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Parking Spot</Text>
-                    <Text style={styles.text}>Name: {ticket.parkingSpot.name}</Text>
-                    <Text style={styles.text}>Lot: {ticket.parkingSpot.parkingLot.name}</Text>
-                    <Text style={styles.text}>Type: {parseEnum(ticket.parkingSpot.vehicleType)}</Text>
+                    {renderRow("Name", ticket.parkingSpot.name)}
+                    {renderRow("Lot", ticket.parkingSpot.parkingLot.name)}
+                    {renderRow("Type", parseEnum(ticket.parkingSpot.vehicleType))}
                 </View>
 
                 {/* Vehicle Info */}
@@ -62,35 +70,33 @@ export function Reservation__CICO({route, navigation}: ScreenParams) {
                     {ticket.vehicle.imageUrl && (
                         <FastImage source={{uri: ticket.vehicle.imageUrl}} style={styles.vehicleImage} fallback />
                     )}
-                    <Text style={styles.text}>
-                        {parseEnum(ticket.vehicle.type)}: {ticket.vehicle.color} {ticket.vehicle.brand}{" "}
-                        {ticket.vehicle.model}
-                    </Text>
-                    <Text style={styles.text}>Plate: {ticket.vehicle.plate}</Text>
+                    {renderRow(
+                        parseEnum(ticket.vehicle.type),
+                        `${ticket.vehicle.color} ${ticket.vehicle.brand} ${ticket.vehicle.model}`,
+                    )}
+                    {renderRow("Plate", ticket.vehicle.plate)}
                 </View>
 
                 {/* Services */}
                 {ticket.services && ticket.services.length > 0 && (
                     <View style={styles.section}>
                         <Text style={styles.sectionTitle}>Services</Text>
-                        {ticket.services.map(service => (
-                            <Text key={service.id} style={styles.text}>
-                                {service.name} - ${service.price}
-                            </Text>
-                        ))}
+                        {ticket.services.map(service =>
+                            renderRow(service.name, `$${service.price}`, {color: "#128085"}),
+                        )}
                     </View>
                 )}
 
                 {/* Payment Info */}
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Payment Info</Text>
-                    <Text style={styles.text}>Amount: ${ticket.paymentRecord?.amountInUsd}</Text>
-                    <Text style={styles.text}>
-                        Status:{" "}
+                    {renderRow("Amount", `$${ticket.paymentRecord?.amountInUsd}`)}
+                    {renderRow(
+                        "Status",
                         <Text style={{color: isAwaitingPayment ? "#B33E00" : "#128085"}}>
                             {parseEnum(ticket.paymentRecord?.status)}
-                        </Text>
-                    </Text>
+                        </Text>,
+                    )}
                 </View>
             </View>
         );
@@ -108,7 +114,7 @@ export function Reservation__CICO({route, navigation}: ScreenParams) {
         <SafeAreaView>
             <Header title="Check In/Check Out" />
             <ScrollView style={styles.wrapper}>{renderTicketInfo()}</ScrollView>
-            {isPending && (
+            {isPending && !isAwaitingPayment && (
                 <Button
                     variant="gray"
                     text="Check In"
@@ -131,14 +137,14 @@ const styles = StyleSheet.create({
     },
     section: {
         marginBottom: 16,
-        backgroundColor: "#f7f7f7",
+        backgroundColor: "#f6f6f6",
         padding: 16,
         borderRadius: 8,
     },
     sectionTitle: {
         fontSize: 18,
-        fontWeight: "600",
-        color: "#3c3c3c",
+        fontWeight: "700",
+        color: "#2D2D2D",
         marginBottom: 8,
     },
     vehicleImage: {
@@ -147,13 +153,25 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginBottom: 8,
     },
-    text: {
+    row: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginBottom: 8,
+        alignItems: "center",
+    },
+    label: {
         fontSize: 16,
-        marginBottom: 4,
-        color: "#3c3c3c",
-        fontWeight: "500",
+        color: "#6C6C6C",
+        fontWeight: "700",
+    },
+    value: {
+        fontSize: 16,
+        color: "#333333",
+        textAlign: "right",
+        fontWeight: "400",
     },
     button: {
         margin: 16,
+        borderRadius: 8,
     },
 });
