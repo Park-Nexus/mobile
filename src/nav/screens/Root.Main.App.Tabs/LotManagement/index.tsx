@@ -25,9 +25,7 @@ export function LotManagement() {
     const checkInSheetRef = useRef<BottomSheetModal>(null);
 
     useEffect(() => {
-        if (!hasPermission) {
-            requestPermission();
-        }
+        if (!hasPermission) requestPermission();
     }, [hasPermission, requestPermission]);
 
     return (

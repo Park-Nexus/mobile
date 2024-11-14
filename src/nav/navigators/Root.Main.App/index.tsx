@@ -21,6 +21,7 @@ import {Reservation__Ticket_Payment} from "@src/nav/screens/Root.Main.App/Reserv
 import {Settings__SavedCards_List} from "@src/nav/screens/Root.Main.App/Settings__SavedCards_List";
 import {Settings__SavedCards_Add} from "@src/nav/screens/Root.Main.App/Settings__SavedCards_Add";
 import {Settings__Profile_Update} from "@src/nav/screens/Root.Main.App/Settings__Profile_Update";
+import {Reservation__CICO} from "@src/nav/screens/Root.Main.App/Reservation__CICO";
 
 export type AppStackParamList = {
     Profile__Setup: undefined;
@@ -67,6 +68,7 @@ export function AppNavigator() {
                     <Screen name="Reservation__Make_Booking" component={Reservation__Make_Booking} />
                     <Screen name="Reservation__Ticket_Detail" component={Reservation__Ticket_Detail} />
                     <Screen name="Reservation__Ticket_Payment" component={Reservation__Ticket_Payment} />
+                    <Screen name="Reservation__CICO" component={Reservation__CICO} />
 
                     <Screen name="ParkingLot__MyLotDetail" component={ParkingLot__MyLotDetail} />
                     <Screen name="ParkingLot__Add" component={ParkingLot__Add} />

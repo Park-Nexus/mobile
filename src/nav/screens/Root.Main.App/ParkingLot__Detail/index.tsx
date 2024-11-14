@@ -47,7 +47,7 @@ export function ParkingLot__Detail({route, navigation}: ScreenProps) {
             <View key={index} style={styles.imageWrapper}>
                 <FastImage
                     source={{uri: `${item}`}}
-                    style={{width: "100%", height: imageHeight}}
+                    style={{width: "100%", aspectRatio: 16 / 9}}
                     resizeMode="cover"
                     fallback
                     onLoadStart={() => setIsFetchingImages(true)}

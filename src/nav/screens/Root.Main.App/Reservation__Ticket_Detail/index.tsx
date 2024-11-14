@@ -21,7 +21,6 @@ export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
     const {ticket} = useTicketDetail(route.params.ticketId);
 
     const ticketCode = ticket?.code;
-    const isPending = ticket?.status === "PENDING";
 
     const directionLink = Platform.select({
         ios: `maps://${ticket?.parkingSpot?.parkingLot?.latitude},${ticket?.parkingSpot?.parkingLot?.longitude}?q='${ticket?.parkingSpot?.parkingLot?.name}'`,
@@ -32,10 +31,10 @@ export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
         <SafeAreaView>
             <Header title="Ticket" backButtonVisible onBackButtonPress={() => tabNavigation.navigate("Ticket")} />
             <ScrollView style={{padding: 16}}>
-                <View style={{backgroundColor: isPending ? "#128085" : "#d3d3d3", borderRadius: 12}}>
+                <View style={{backgroundColor: "#128085", borderRadius: 12}}>
                     <View style={{padding: 16}}>
-                        {isPending ? (
-                            <Text style={{color: "#FAFAFA", fontSize: 14, fontWeight: "400", textAlign: "center"}}>
+                        {ticket?.status === "PENDING" && (
+                            <Text style={{color: "#FAFAFA", fontSize: 14, fontWeight: "500", textAlign: "center"}}>
                                 The ticket will be expired at{" "}
                                 <Text style={{fontWeight: "600"}}>
                                     {dayjs(ticket?.startTime)
@@ -43,8 +42,9 @@ export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
                                         .format("MMM DD  HH:mm")}
                                 </Text>
                             </Text>
-                        ) : (
-                            <Text style={{color: "#FAFAFA", fontSize: 14, fontWeight: "400", textAlign: "center"}}>
+                        )}
+                        {ticket?.status === "ON_GOING" && (
+                            <Text style={{color: "#FAFAFA", fontSize: 14, fontWeight: "500", textAlign: "center"}}>
                                 Please check out before{" "}
                                 <Text style={{fontWeight: "600"}}>
                                     {dayjs(ticket?.endTime)
@@ -54,9 +54,14 @@ export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
                                 to avoid additional charges
                             </Text>
                         )}
+                        {ticket?.status === "EXPIRED" && (
+                            <Text style={{color: "#FAFAFA", fontSize: 14, fontWeight: "500", textAlign: "center"}}>
+                                Your ticket has been expired
+                            </Text>
+                        )}
                         <View style={{height: 10}} />
                         <View style={{alignItems: "center"}}>
-                            <QRCode color="#FAFAFA" backgroundColor="#128085" size={180} value={ticketCode} />
+                            <QRCode color="#FAFAFA" backgroundColor={"#128085"} size={180} value={ticketCode} />
                         </View>
                     </View>
                     <View

@@ -1,13 +1,18 @@
-import {BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
-import {forwardRef, useState} from 'react';
-import {Text, View} from 'react-native';
-import {useCameraDevice, Camera, useCameraPermission, CodeScannerFrame} from 'react-native-vision-camera';
+import React from "react";
+import {BottomSheetModal, BottomSheetView} from "@gorhom/bottom-sheet";
+import {forwardRef, useState} from "react";
+import {StyleSheet, Text, View} from "react-native";
+import {useCameraDevice, Camera, useCameraPermission} from "react-native-vision-camera";
+import {NavigationProp, useNavigation} from "@react-navigation/native";
+import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
+import {Button} from "@src/components/Button";
 
 type TCheckInSheetProps = {
     onClose: () => void;
 };
 export const CheckInSheet = forwardRef<BottomSheetModal, TCheckInSheetProps>(({onClose}, ref) => {
-    const device = useCameraDevice('back');
+    const navigation = useNavigation<NavigationProp<AppStackParamList>>();
+    const device = useCameraDevice("back");
     const {hasPermission} = useCameraPermission();
     const [isCameraActive, setIsCameraActive] = useState(false);
 
@@ -15,30 +20,58 @@ export const CheckInSheet = forwardRef<BottomSheetModal, TCheckInSheetProps>(({o
     return (
         <BottomSheetModal
             ref={ref}
-            snapPoints={['80%']}
-            backgroundStyle={{backgroundColor: '#f6f6f6'}}
+            snapPoints={["70%"]}
+            backgroundStyle={{backgroundColor: "#ebebeb"}}
             enableDismissOnClose>
-            <BottomSheetView>
-                <Text>CheckInSheet</Text>
-                <View style={{borderRadius: 16, overflow: 'hidden', width: 250, height: 250}}>
-                    <Camera
-                        device={device}
-                        isActive={isCameraActive}
-                        style={{width: 250, height: 250}}
-                        resizeMode="cover"
-                        codeScanner={{
-                            codeTypes: ['qr'],
-                            regionOfInterest: {x: 0, y: (1920 - 1080) / 2 / 1920, width: 1, height: 1080 / 1920},
-                            onCodeScanned: codes => {
-                                console.log(codes[0]?.value);
-                                setIsCameraActive(false);
-                                onClose();
-                            },
-                        }}
-                        onInitialized={() => setIsCameraActive(true)}
-                    />
+            <BottomSheetView style={styles.wrapper}>
+                <Text style={styles.title}>Scan customer's ticket</Text>
+                <View style={styles.scannerWrapper}>
+                    <View style={styles.scanner}>
+                        <Camera
+                            device={device}
+                            isActive={isCameraActive}
+                            style={{width: "100%", height: "100%"}}
+                            resizeMode="cover"
+                            codeScanner={{
+                                codeTypes: ["qr"],
+                                regionOfInterest: {x: 0, y: (1920 - 1200) / 2 / 1920, width: 1, height: 1200 / 1920},
+                                onCodeScanned: codes => {
+                                    const code = codes[0]?.value;
+                                    if (!code) return;
+                                    setIsCameraActive(false);
+                                    onClose();
+                                    return navigation.navigate("Reservation__CICO", {ticketCode: code});
+                                },
+                            }}
+                            onInitialized={() => setIsCameraActive(true)}
+                        />
+                    </View>
                 </View>
+                <Button variant="pink" text="Cancel" onPress={onClose} style={styles.cancelBtn} />
             </BottomSheetView>
         </BottomSheetModal>
     );
+});
+
+const styles = StyleSheet.create({
+    wrapper: {
+        flex: 1,
+    },
+    title: {
+        textAlign: "center",
+        fontSize: 18,
+        fontWeight: "600",
+    },
+    scannerWrapper: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    scanner: {borderRadius: 16, overflow: "hidden", width: 280, height: 280},
+    cancelBtn: {
+        marginLeft: "auto",
+        marginRight: "auto",
+        width: 280,
+        marginBottom: 16,
+    },
 });

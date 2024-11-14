@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet} from "react-native";
 
 export const styles = StyleSheet.create({
     wrapper: {
@@ -7,10 +7,11 @@ export const styles = StyleSheet.create({
         paddingVertical: 16,
     },
     vehicleWrapper: {
-        flexDirection: 'row',
-        backgroundColor: '#eeeeee',
+        flexDirection: "row",
+        backgroundColor: "#eeeeee",
         padding: 10,
         borderRadius: 10,
+        marginBottom: 8,
     },
 
     vehicleTextsWrapper: {
@@ -20,12 +21,12 @@ export const styles = StyleSheet.create({
     },
     vehicleTextBold: {
         fontSize: 16,
-        fontWeight: '600',
-        color: '#404040',
+        fontWeight: "600",
+        color: "#404040",
     },
     vehicleText: {
         fontSize: 16,
-        fontWeight: '500',
-        color: '#404040',
+        fontWeight: "500",
+        color: "#404040",
     },
 });

@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
         marginBottom: 4,
     },
     image: {
-        width: (100 / 2) * 3,
+        aspectRatio: 3 / 2,
         height: 100,
         borderRadius: 8,
         marginRight: 8,

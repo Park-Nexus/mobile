@@ -173,7 +173,7 @@ export const AddServiceSheet = forwardRef<BottomSheetModal, TExportServiceSheetP
 const styles = StyleSheet.create({
     container: {flex: 1, padding: 16},
     imageScroll: {marginBottom: 16},
-    image: {width: 100, height: 100, borderRadius: 8, marginRight: 8},
+    image: {width: 100, aspectRatio: 1, borderRadius: 8, marginRight: 8},
     label: {fontSize: 16, fontWeight: "600", marginBottom: 6, color: "#3f3f3f"},
     picker: {marginBottom: 16},
     submitButton: {marginBottom: 16, marginTop: 8},

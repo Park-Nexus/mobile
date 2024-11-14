@@ -10,15 +10,11 @@ import {useState} from "react";
 import {Asset, launchImageLibrary} from "react-native-image-picker";
 import {useUpload} from "@src/utils/upload";
 import FastImage from "react-native-fast-image";
-import {Dimensions, Text, View} from "react-native";
+import {Text, View} from "react-native";
 import {TextInput} from "@src/components/Input__Text";
-import {Picker} from "@react-native-picker/picker";
 import {Button} from "@src/components/Button";
-import {VEHICLE__TYPE_ALIAS} from "@parknexus/api/prisma/client";
 import {styles} from "./index.styles";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
-
-const deviceWidth = Dimensions.get("window").width;
 
 type ScreenProps = {
     navigation: NavigationProp<AppStackParamList, "Settings__Vehicle_Update">;
@@ -38,7 +34,6 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
             brand: vehicle.brand,
             color: vehicle.color,
             model: vehicle.model,
-            type: vehicle.type,
         },
     });
 
@@ -73,30 +68,16 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
                     <TouchableWithoutFeedback onPress={openImagePicker}>
                         <FastImage
                             source={{uri: selectedImage ? selectedImage.uri : vehicle.imageUrl}}
-                            style={{width: deviceWidth - 16 * 2, height: (deviceWidth / 16) * 9, borderRadius: 8}}
+                            style={{width: "100%", aspectRatio: 3 / 2, borderRadius: 8}}
                             resizeMode="cover"
                             fallback
                         />
                     </TouchableWithoutFeedback>
                 )}
-                <View style={{height: 8}} />
+                <View style={{height: 10}} />
                 {!selectedImage && (
                     <Button variant="gray" text="Select Image" onPress={openImagePicker} disabled={isUploading} />
                 )}
-
-                <View style={{height: 8}} />
-                <Text style={styles.vehicleTypeLabel}>Vehicle type</Text>
-                <Controller
-                    control={control}
-                    name="type"
-                    render={({field: {onChange, value}}) => (
-                        <Picker selectedValue={value} onValueChange={onChange} mode="dialog">
-                            <Picker.Item label="Car" value={VEHICLE__TYPE_ALIAS.CAR} />
-                            <Picker.Item label="Motorcycle" value={VEHICLE__TYPE_ALIAS.MOTORCYCLE} />
-                            <Picker.Item label="Truck" value={VEHICLE__TYPE_ALIAS.TRUCK} />
-                        </Picker>
-                    )}
-                />
 
                 <View style={{height: 8}} />
                 <Text style={styles.formFieldLabel}>Plate number</Text>

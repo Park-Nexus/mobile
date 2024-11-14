@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     },
     imagePreview: {
         width: 100,
-        height: 100,
+        aspectRatio: 1,
         borderRadius: 8,
         marginRight: 10,
     },
