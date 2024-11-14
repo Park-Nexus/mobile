@@ -5,6 +5,7 @@ import {TFeatureCollection, TLocationSuggestion, TRouteResponse} from "./index.t
 import axios from "axios";
 import {MapTypes} from "@src/types/types.map";
 import {useDebounce} from "../debounce";
+import {Linking} from "react-native";
 
 // User Location ----------------------------------------------------------------------------
 export function useUserLocation() {
@@ -102,4 +103,10 @@ export async function getDirection({source, destination}: TGetDirectionPayload) 
     const response = await axios.get(endpoint);
     const routes = response.data as TRouteResponse;
     return routes?.routes?.[0] || null;
+}
+
+// Open in Google Maps  -------------------------------------------------------------------------------
+export function openInGoogleMaps(latitude: number = 0, longitude: number = 0) {
+    const url = `https://www.google.com/maps/?q=${latitude},${longitude}`;
+    Linking.openURL(url).catch(err => console.error("An error occurred", err));
 }

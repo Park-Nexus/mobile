@@ -7,10 +7,11 @@ import {Header} from "@src/components/Header";
 import QRCode from "react-native-qrcode-svg";
 import {TabParamList} from "@src/nav/navigators/Root.Main.App.Tabs";
 import {ScrollView} from "react-native-gesture-handler";
-import {Linking, Platform, Text, View} from "react-native";
+import {Text, View} from "react-native";
 import dayjs from "dayjs";
 import {Button} from "@src/components/Button";
 import {EXPIRATION_TIME_IN_HOURS, OVERSTAYING_PENALTY_CHARGES_IN_USD} from "@parknexus/api/rules";
+import {openInGoogleMaps} from "@src/utils/location";
 
 type ScreenProps = {
     navigation: NavigationProp<AppStackParamList, "Reservation__Ticket_Detail">;
@@ -22,10 +23,8 @@ export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
 
     const ticketCode = ticket?.code;
 
-    const directionLink = Platform.select({
-        ios: `maps://${ticket?.parkingSpot?.parkingLot?.latitude},${ticket?.parkingSpot?.parkingLot?.longitude}?q='${ticket?.parkingSpot?.parkingLot?.name}'`,
-        android: `geo://${ticket?.parkingSpot?.parkingLot?.latitude},${ticket?.parkingSpot?.parkingLot?.longitude}?q='${ticket?.parkingSpot?.parkingLot?.name}'`,
-    });
+    const lat = ticket?.parkingSpot?.parkingLot?.latitude;
+    const lon = ticket?.parkingSpot?.parkingLot?.longitude;
 
     return (
         <SafeAreaView>
@@ -155,7 +154,7 @@ export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
                         variant="gray"
                         text="Navigate"
                         style={{flex: 1}}
-                        onPress={() => Linking.openURL(directionLink!)}
+                        onPress={() => openInGoogleMaps(lat, lon)}
                     />
                     {ticket?.paymentRecord?.status === "AWAITING" && (
                         <Button
