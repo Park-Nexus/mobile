@@ -1,19 +1,26 @@
 import React from "react";
+import dayjs from "dayjs";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
 import {Header} from "@src/components/Header";
 import {SafeAreaView} from "@src/components/SafeAreaWrapper";
 import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
 import {RefreshControl, ScrollView, StyleSheet, Text, View} from "react-native";
+import {RESERVATION__STATUS_ALIAS} from "@parknexus/api/prisma/client";
 import {useMyTickets} from "./index.data";
 import {Button} from "@src/components/Button";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {openInGoogleMaps} from "@src/utils/location";
 
 import CalendarRemoveSvg from "@src/static/svgs/CalendarRemove.svg";
 import CalendarSmallSvg from "@src/static/svgs/CalendarSmall.svg";
 import CalendarSuccessSvg from "@src/static/svgs/CalendarSuccess.svg";
 import CalendarTimeSvg from "@src/static/svgs/CalendarTime.svg";
-import dayjs from "dayjs";
-import {RESERVATION__STATUS_ALIAS} from "@parknexus/api/prisma/client";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+import CarTealSvg from "@src/static/svgs/CarTeal.svg";
+import TruckTealSvg from "@src/static/svgs/TruckTeal.svg";
+import MotorcycleTealSvg from "@src/static/svgs/MotorcycleTeal.svg";
+import ArrowBendDoubleUpRight from "@src/static/svgs/ArrowBendDoubleUpRight.svg";
+import QrCodeTealSvg from "@src/static/svgs/QrCodeTeal.svg";
+import TimeDarkGraySvg from "@src/static/svgs/TimeDarkGray.svg";
 
 export function Ticket() {
     const navigation = useNavigation<NavigationProp<AppStackParamList>>();
@@ -30,38 +37,27 @@ export function Ticket() {
                 return styles.statusFinished;
             case "EXPIRED":
                 return styles.statusExpired;
+            case "OVERSTAYED":
+                return styles.statusOverstayed;
+            case "CANCELLED":
+                return styles.statusCancelled;
             default:
-                return styles.statusDefault;
+                return null;
         }
     };
 
-    /* tickets sample data
-      [
-  {
-    "id": 1,
-    "code": "920add00-4c33-453f-b9ab-f3d6c6fb4390",
-    "status": "EXPIRED",
-    "startTime": "2024-11-11T20:01:46.888Z",
-    "endTime": "2024-11-12T00:01:46.888Z",
-    "createdAt": "2024-11-11T19:46:58.342Z",
-    "updatedAt": "2024-11-11T21:01:46.098Z",
-    "userId": 4,
-    "parkingSpotId": 1,
-    "vehicleId": 2
-  },
-  {
-    "id": 2,
-    "code": "bd754a24-90d4-4ebf-a4da-02c539e1cda7",
-    "status": "PENDING",
-    "startTime": "2024-11-13T11:50:08.801Z",
-    "endTime": "2024-11-14T15:50:24.000Z",
-    "createdAt": "2024-11-13T11:36:42.301Z",
-    "updatedAt": "2024-11-13T11:36:42.301Z",
-    "userId": 4,
-    "parkingSpotId": 1,
-    "vehicleId": 2
-  }]
-     */
+    const getVehicleIcon = (vehicleType: string) => {
+        switch (vehicleType) {
+            case "CAR":
+                return <CarTealSvg width={24} height={24} />;
+            case "TRUCK":
+                return <TruckTealSvg width={24} height={24} />;
+            case "MOTORCYCLE":
+                return <MotorcycleTealSvg width={24} height={24} />;
+            default:
+                return null;
+        }
+    };
 
     return (
         <SafeAreaView>
@@ -106,17 +102,38 @@ export function Ticket() {
                         <View style={styles.statusTag}>
                             <Text style={[styles.statusText, getStatusStyle(ticket.status)]}>{ticket.status}</Text>
                         </View>
-                        <Text style={styles.ticketCode}>Parking Lot: </Text>
+                        <View style={styles.ticketHeader}>
+                            {getVehicleIcon(ticket.vehicle.type)}
+                            <Text style={styles.ticketCode}>{ticket.parkingSpot.parkingLot.name}</Text>
+                        </View>
                         <Text style={styles.ticketDate}>
+                            <TimeDarkGraySvg width={18} height={18} style={{marginRight: 5, marginBottom: -3}} />
                             {dayjs(ticket.startTime).format("MMM DD, HH:mm")} -{" "}
                             {dayjs(ticket.endTime).format("MMM DD, HH:mm")}
                         </Text>
-                        <Button
-                            text="View Details"
-                            variant="gray"
-                            style={styles.ticketButton}
-                            onPress={() => navigation.navigate("Reservation__Ticket_Detail", {ticketId: ticket.id})}
-                        />
+                        <View style={styles.ticketButtonsWrapper}>
+                            <Button
+                                preIcon={<QrCodeTealSvg width={28} height={28} />}
+                                text=""
+                                variant="gray"
+                                style={styles.ticketButton}
+                                onPress={() => navigation.navigate("Reservation__Ticket_Detail", {ticketId: ticket.id})}
+                            />
+                            {["PENDING", "ON_GOING", "OVERSTAYED"].includes(ticket.status) && (
+                                <Button
+                                    preIcon={<ArrowBendDoubleUpRight width={28} height={28} />}
+                                    text=""
+                                    variant="gray"
+                                    style={styles.ticketButton}
+                                    onPress={() =>
+                                        openInGoogleMaps(
+                                            ticket.parkingSpot.parkingLot.latitude,
+                                            ticket.parkingSpot.parkingLot.longitude,
+                                        )
+                                    }
+                                />
+                            )}
+                        </View>
                     </View>
                 ))}
                 <View style={{height: bottom + 50}} />
@@ -157,7 +174,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 8,
         right: 8,
-        backgroundColor: "#f7f7f7",
+        backgroundColor: "#f6f6f6",
         borderRadius: 4,
         paddingHorizontal: 8,
         paddingVertical: 4,
@@ -179,21 +196,35 @@ const styles = StyleSheet.create({
     statusExpired: {
         color: "#DC3545",
     },
-    statusDefault: {
+    statusOverstayed: {
+        color: "#FF5733",
+    },
+    statusCancelled: {
         color: "#6C757D",
+    },
+    ticketHeader: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: 8,
+        gap: 8,
     },
     ticketCode: {
         fontSize: 16,
         fontWeight: "600",
-        marginBottom: 8,
         color: "#333333",
     },
     ticketDate: {
         fontSize: 14,
-        marginBottom: 4,
+        marginBottom: 8,
         color: "#555555",
     },
+    ticketButtonsWrapper: {
+        flexDirection: "row",
+        gap: 8,
+    },
     ticketButton: {
-        marginTop: 12,
+        marginTop: 8,
+        backgroundColor: "#f5f5f5",
+        flex: 1,
     },
 });
