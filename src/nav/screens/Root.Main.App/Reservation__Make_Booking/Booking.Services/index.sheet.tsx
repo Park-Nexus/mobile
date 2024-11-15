@@ -1,9 +1,10 @@
-import {forwardRef, useImperativeHandle, useRef, useState} from 'react';
-import {BottomSheetModal, BottomSheetView} from '@gorhom/bottom-sheet';
-import {useServiceDetail} from './index.data';
-import {ScrollView, Text} from 'react-native';
-import {Button} from '@src/components/Button';
-import {useMakeBookingContext} from '../index.context';
+import React from "react";
+import {forwardRef, useImperativeHandle, useRef, useState} from "react";
+import {BottomSheetModal, BottomSheetView} from "@gorhom/bottom-sheet";
+import {TServiceItem, useServiceDetail} from "./index.data";
+import {ScrollView, Text} from "react-native";
+import {Button} from "@src/components/Button";
+import {useMakeBookingContext} from "../index.context";
 
 export type TServiceDetailSheetRef = {
     show: (serviceId: number) => void;
@@ -22,11 +23,11 @@ export const ServiceDetailSheet = forwardRef<TServiceDetailSheetRef>(({}, ref) =
         },
     }));
 
-    const isSelected = services.some(service => service.id === serviceId);
+    const isSelected = services.some((service: TServiceItem) => service.id === serviceId);
     const toggleSelect = () => {
         if (!serviceId) return;
         if (isSelected) {
-            setServices(services.filter(service => service.id !== serviceId));
+            setServices(services.filter((service: TServiceItem) => service.id !== serviceId));
         } else {
             setServices([...services, service!]);
         }
@@ -34,12 +35,12 @@ export const ServiceDetailSheet = forwardRef<TServiceDetailSheetRef>(({}, ref) =
     };
 
     return (
-        <BottomSheetModal ref={sheetRef} snapPoints={['60%']}>
+        <BottomSheetModal ref={sheetRef} snapPoints={["60%"]}>
             <BottomSheetView>
                 <ScrollView>
                     <Text>{service?.name}</Text>
                 </ScrollView>
-                <Button variant="green" text={isSelected ? 'Remove' : 'Add'} onPress={toggleSelect} />
+                <Button variant="green" text={isSelected ? "Remove" : "Add"} onPress={toggleSelect} />
             </BottomSheetView>
         </BottomSheetModal>
     );

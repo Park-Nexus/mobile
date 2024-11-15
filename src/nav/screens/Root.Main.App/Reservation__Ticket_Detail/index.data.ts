@@ -1,4 +1,4 @@
-import {trpc} from '@src/trpc';
+import {trpc} from "@src/trpc";
 
 export const useTicketDetail = (ticketId: number) => {
     const response = trpc.reservation.ticket.get.single.useQuery({
@@ -6,6 +6,17 @@ export const useTicketDetail = (ticketId: number) => {
     });
 
     const ticket = response.data;
+
+    trpc.reservation.ticket.get.shouldUpdate.single.useSubscription(
+        {
+            id: ticket?.id,
+        },
+        {
+            onData() {
+                response.refetch();
+            },
+        },
+    );
 
     return Object.assign({ticket}, response);
 };

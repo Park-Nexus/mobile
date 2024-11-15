@@ -113,7 +113,7 @@ export function Ticket() {
                         </Text>
                         <View style={styles.ticketButtonsWrapper}>
                             <Button
-                                preIcon={<QrCodeTealSvg width={28} height={28} />}
+                                preIcon={<QrCodeTealSvg width={22} height={22} />}
                                 text=""
                                 variant="gray"
                                 style={styles.ticketButton}
@@ -121,7 +121,7 @@ export function Ticket() {
                             />
                             {["PENDING", "ON_GOING", "OVERSTAYED"].includes(ticket.status) && (
                                 <Button
-                                    preIcon={<ArrowBendDoubleUpRight width={28} height={28} />}
+                                    preIcon={<ArrowBendDoubleUpRight width={22} height={22} />}
                                     text=""
                                     variant="gray"
                                     style={styles.ticketButton}

@@ -10,6 +10,8 @@ import {Button} from "@src/components/Button";
 import dayjs from "dayjs";
 import FastImage from "react-native-fast-image";
 import {parseEnum} from "@src/utils/text";
+import {useCheckIn, useCheckOut} from "./index.submit";
+import {useActionSheet} from "@expo/react-native-action-sheet";
 
 type ScreenParams = {
     navigation: NavigationProp<AppStackParamList>;
@@ -18,6 +20,9 @@ type ScreenParams = {
 export function Reservation__CICO({route, navigation}: ScreenParams) {
     const ticketCode = route.params.ticketCode;
     const {ticket, isError} = useCustomerTicketDetail(ticketCode);
+    const {showActionSheetWithOptions} = useActionSheet();
+    const {checkIn, isPending: isCheckInPending} = useCheckIn();
+    const {checkOut, isPending: isCheckOutPending} = useCheckOut();
 
     const isAwaitingPayment = ticket?.paymentRecord?.status === "AWAITING";
     const isPending = ticket?.status === "PENDING";
@@ -26,8 +31,39 @@ export function Reservation__CICO({route, navigation}: ScreenParams) {
     const isOverstayed = ticket?.status === "OVERSTAYED";
     const isCancelled = ticket?.status === "CANCELLED";
 
-    const onCheckIn = () => {};
-    const onCheckOut = () => {};
+    const onCheckIn = () => {
+        const options = ["Confirm Check-In", "Cancel"];
+        const destructiveButtonIndex = 0;
+        const cancelButtonIndex = 1;
+
+        showActionSheetWithOptions(
+            {
+                options,
+                destructiveButtonIndex,
+                cancelButtonIndex,
+            },
+            buttonIndex => {
+                if (buttonIndex === 0) checkIn(ticketCode);
+            },
+        );
+    };
+
+    const onCheckOut = () => {
+        const options = ["Confirm Check-Out", "Cancel"];
+        const destructiveButtonIndex = 0;
+        const cancelButtonIndex = 1;
+
+        showActionSheetWithOptions(
+            {
+                options,
+                destructiveButtonIndex,
+                cancelButtonIndex,
+            },
+            buttonIndex => {
+                if (buttonIndex === 0) checkOut(ticketCode);
+            },
+        );
+    };
 
     const renderRow = (label: string, value: string | React.ReactNode, valueStyle?: object) => (
         <View style={styles.row}>
@@ -120,10 +156,18 @@ export function Reservation__CICO({route, navigation}: ScreenParams) {
                     text="Check In"
                     onPress={onCheckIn}
                     style={styles.button}
-                    disabled={isAwaitingPayment}
+                    disabled={isAwaitingPayment || isCheckInPending}
                 />
             )}
-            {isOngoing && <Button variant="pink" text="Check Out" onPress={onCheckOut} style={styles.button} />}
+            {(isOngoing || isOverstayed) && (
+                <Button
+                    variant="pink"
+                    text="Check Out"
+                    onPress={onCheckOut}
+                    disabled={isCheckOutPending}
+                    style={styles.button}
+                />
+            )}
         </SafeAreaView>
     );
 }

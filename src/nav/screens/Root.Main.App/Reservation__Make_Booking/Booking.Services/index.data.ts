@@ -1,4 +1,4 @@
-import {trpc} from '@src/trpc';
+import {trpc, TrpcOutput} from "@src/trpc";
 
 export function useServiceDetail(serviceId?: number) {
     const response = trpc.parking.lot.service.get.single.useQuery(
@@ -14,3 +14,5 @@ export function useServiceDetail(serviceId?: number) {
 
     return Object.assign({service}, response);
 }
+
+export type TServiceItem = TrpcOutput["parking"]["lot"]["service"]["get"]["single"];
