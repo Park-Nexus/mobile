@@ -1,15 +1,19 @@
-import {useNavigation} from '@react-navigation/native';
-import {Header} from '@src/components/Header';
-import {SafeAreaView} from '@src/components/SafeAreaWrapper';
-import {useMyParkingLotDetail} from './index.data';
-import {useSpotManagerContext} from '../index.context';
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {Button} from '@src/components/Button';
-import {useEffect, useRef} from 'react';
-import {BottomSheetModal} from '@gorhom/bottom-sheet';
-import {AddParkingSpotSheet} from '../Sheet/Sheet.Add';
-import {UpdateParkingSpotSheet} from '../Sheet/Sheet.Update';
-import {ParkingSpot} from '@parknexus/api/prisma/client';
+import React from "react";
+import {useNavigation} from "@react-navigation/native";
+import {Header} from "@src/components/Header";
+import {SafeAreaView} from "@src/components/SafeAreaWrapper";
+import {useMyParkingLotDetail} from "./index.data";
+import {useSpotManagerContext} from "../index.context";
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View, ViewStyle} from "react-native";
+import {useEffect, useRef} from "react";
+import {BottomSheetModal} from "@gorhom/bottom-sheet";
+import {AddParkingSpotSheet} from "../Sheet/Sheet.Add";
+import {UpdateParkingSpotSheet} from "../Sheet/Sheet.Update";
+
+import CarTealSvg from "@src/static/svgs/CarTeal.svg";
+import MotorcycleTealSvg from "@src/static/svgs/MotorcycleTeal.svg";
+import TruckTealSvg from "@src/static/svgs/TruckTeal.svg";
+import PlusTealSvg from "@src/static/svgs/PlusTeal.svg";
 
 export function List() {
     const navigation = useNavigation();
@@ -20,35 +24,163 @@ export function List() {
     const updateSheetRef = useRef<BottomSheetModal>(null);
 
     useEffect(() => {
-        if (!!selectedSpot) {
+        if (selectedSpot) {
             updateSheetRef.current?.present();
         }
     }, [selectedSpot, lotId]);
 
+    const renderVehicleIcon = (type: string) => {
+        switch (type) {
+            case "CAR":
+                return <CarTealSvg width={28} height={28} />;
+            case "MOTORCYCLE":
+                return <MotorcycleTealSvg width={28} height={28} />;
+            case "TRUCK":
+                return <TruckTealSvg width={28} height={28} />;
+            default:
+                return null;
+        }
+    };
+
+    const renderSummary = () => {
+        const summary = {
+            CAR: {total: 0, available: 0},
+            MOTORCYCLE: {total: 0, available: 0},
+            TRUCK: {total: 0, available: 0},
+        };
+
+        lot?.parkingSpots.forEach(spot => {
+            if (summary[spot.vehicleType]) {
+                summary[spot.vehicleType].total += 1;
+                if (spot.isAvailable) {
+                    summary[spot.vehicleType].available += 1;
+                }
+            }
+        });
+
+        return (
+            <View style={styles.summaryContainer}>
+                {Object.entries(summary).map(([type, data]) => (
+                    <View key={type} style={styles.summaryItem}>
+                        {renderVehicleIcon(type)}
+                        <Text style={styles.summaryText}>
+                            {data.available}/{data.total}
+                        </Text>
+                    </View>
+                ))}
+            </View>
+        );
+    };
+
+    const statusDotStyle = (isAvailable: boolean): ViewStyle => ({
+        position: "absolute",
+        top: 8,
+        right: 8,
+        width: 8,
+        height: 8,
+        borderRadius: 5,
+        backgroundColor: isAvailable ? "#28a745" : "#dc3545",
+    });
+
     return (
         <SafeAreaView>
             <Header title="Parking spots" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
-            <ScrollView>
-                <View style={{flexDirection: 'row', flexWrap: 'wrap', backgroundColor: 'teal'}}>
-                    {lot?.parkingSpots.map(spot => (
-                        <TouchableOpacity
-                            onPress={() => setSelectedSpot(spot)}
-                            key={spot.id}
-                            style={{width: 100, height: 100}}>
-                            <Text>
-                                {spot.name} - {spot.isAvailable ? 'Available' : 'Not Available'}
-                            </Text>
-                        </TouchableOpacity>
-                    ))}
-                    <View style={{width: 100, height: 100}}>
-                        <Button variant="gray" text="Add" onPress={() => addSheetRef.current?.present()} />
-                    </View>
-                </View>
+            {renderSummary()}
+            <ScrollView contentContainerStyle={styles.gridContainer}>
+                {lot?.parkingSpots.map(spot => (
+                    <TouchableOpacity
+                        key={spot.id}
+                        style={[styles.spotCard, spot.isAvailable ? styles.available : styles.notAvailable]}
+                        onPress={() => setSelectedSpot(spot)}>
+                        <View style={statusDotStyle(spot.isAvailable)} />
+                        <View style={styles.iconContainer}>{renderVehicleIcon(spot.vehicleType)}</View>
+                        <Text style={styles.spotName}>{spot.name}</Text>
+                    </TouchableOpacity>
+                ))}
+                <TouchableOpacity style={styles.addCard} onPress={() => addSheetRef.current?.present()}>
+                    <PlusTealSvg width={36} height={36} />
+                </TouchableOpacity>
             </ScrollView>
             <AddParkingSpotSheet ref={addSheetRef} onClose={() => addSheetRef.current?.dismiss()} />
             {!!selectedSpot && (
-                <UpdateParkingSpotSheet ref={updateSheetRef} onClose={() => updateSheetRef.current?.dismiss()} />
+                <UpdateParkingSpotSheet
+                    ref={updateSheetRef}
+                    onClose={() => {
+                        setSelectedSpot(undefined);
+                        updateSheetRef.current?.dismiss();
+                    }}
+                />
             )}
         </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    summaryContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingHorizontal: 16,
+        marginVertical: 12,
+        alignItems: "center",
+    },
+    summaryItem: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    summaryText: {
+        fontSize: 14,
+        fontWeight: "600",
+        marginLeft: 8,
+        color: "#333",
+    },
+    gridContainer: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        padding: 12,
+        gap: 8,
+    },
+    spotCard: {
+        width: 80,
+        height: 100,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 8,
+        backgroundColor: "#f7f7f7",
+        borderWidth: 1,
+        borderColor: "#d9d9d9",
+        position: "relative",
+    },
+    available: {
+        backgroundColor: "#e0f7fa",
+        borderColor: "#128085",
+    },
+    notAvailable: {
+        backgroundColor: "#fdecea",
+        borderColor: "#d93025",
+    },
+    iconContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    spotName: {
+        fontSize: 12,
+        fontWeight: "600",
+        color: "#333",
+        position: "absolute",
+        bottom: 8,
+    },
+    addCard: {
+        width: 80,
+        height: 100,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 8,
+        backgroundColor: "#ededed",
+    },
+    addText: {
+        fontSize: 16,
+        fontWeight: "600",
+        color: "#333",
+    },
+});

@@ -1,8 +1,8 @@
-import {TrpcOutput} from '@src/trpc';
-import constate from 'constate';
-import {useState} from 'react';
+import {TrpcOutput} from "@src/trpc";
+import constate from "constate";
+import {useState} from "react";
 
-type Spot = TrpcOutput['parking']['lot']['get']['single']['parkingSpots'][number];
+type Spot = TrpcOutput["parking"]["lot"]["get"]["single"]["parkingSpots"][number];
 type SpotManagerContextProps = {
     lotId: number;
 };

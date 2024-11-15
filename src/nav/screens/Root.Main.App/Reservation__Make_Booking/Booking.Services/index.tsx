@@ -24,11 +24,11 @@ export function Services() {
     const getVehicleIcon = (vehicleType: string) => {
         switch (vehicleType) {
             case "CAR":
-                return <CarTealSvg width={24} height={24} style={styles.icon} />;
+                return <CarTealSvg key={vehicleType} width={24} height={24} style={styles.icon} />;
             case "TRUCK":
-                return <TruckTealSvg width={24} height={24} style={styles.icon} />;
+                return <TruckTealSvg key={vehicleType} width={24} height={24} style={styles.icon} />;
             case "MOTORCYCLE":
-                return <MotorcycleTealSvg width={24} height={24} style={styles.icon} />;
+                return <MotorcycleTealSvg key={vehicleType} width={24} height={24} style={styles.icon} />;
             default:
                 return null;
         }
@@ -40,7 +40,6 @@ export function Services() {
             <ScrollView style={styles.container}>
                 {lot?.parkingLotServices.map((service, index) => {
                     const isApplicable = service.vehicleTypes.includes(selectedVehicleType || ("" as any));
-
                     return (
                         <TouchableOpacity
                             key={index}
@@ -69,7 +68,7 @@ export function Services() {
                 })}
             </ScrollView>
             <ServiceDetailSheet ref={detailSheetRef} />
-            <Button variant="green" text="Next" onPress={() => setStep("SUMMARY")} />
+            <Button variant="green" text="Next" onPress={() => setStep("SUMMARY")} style={styles.nextButton} />
         </SafeAreaView>
     );
 }
@@ -118,5 +117,8 @@ const styles = StyleSheet.create({
     },
     icon: {
         opacity: 1,
+    },
+    nextButton: {
+        margin: 16,
     },
 });

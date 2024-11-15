@@ -18,7 +18,7 @@ import {TabParamList} from "@src/nav/navigators/Root.Main.App.Tabs";
 
 export function Summary() {
     const navigation = useNavigation<NavigationProp<TabParamList>>();
-    const {lotId, startTime, endTime, services, vehicle} = useMakeBookingContext();
+    const {lotId, startTime, endTime, services, vehicle, setStep} = useMakeBookingContext();
     const {lot} = useParkingLotDetail();
     const {createTicket, isPending} = useCreateTicker();
     const {showActionSheetWithOptions} = useActionSheet();
@@ -65,12 +65,12 @@ export function Summary() {
         const pricePerHour = lot.parkingLotPrices.find(p => p.vehicleType === vehicleType)?.price || 0;
         const parkingHours = endTime.diff(startTime, "hours");
 
-        return total + parkingHours * pricePerHour;
+        return Math.round((total + pricePerHour * parkingHours) * 100) / 100;
     };
 
     return (
         <SafeAreaView>
-            <Header title="Payment" />
+            <Header title="Ticket Summary" backButtonVisible onBackButtonPress={() => setStep("SERVICES")} />
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.infoSections}>
                     {/* Parking Lot Info */}

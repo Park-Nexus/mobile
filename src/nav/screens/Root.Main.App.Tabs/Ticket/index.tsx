@@ -136,7 +136,7 @@ export function Ticket() {
                         </View>
                     </View>
                 ))}
-                <View style={{height: bottom + 50}} />
+                <View style={{height: bottom + 80}} />
             </ScrollView>
         </SafeAreaView>
     );

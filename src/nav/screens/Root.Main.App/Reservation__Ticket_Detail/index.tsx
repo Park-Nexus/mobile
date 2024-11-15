@@ -26,6 +26,9 @@ export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
     const lat = ticket?.parkingSpot?.parkingLot?.latitude;
     const lon = ticket?.parkingSpot?.parkingLot?.longitude;
 
+    const isAwaitingPayment = ticket?.paymentRecord?.status === "AWAITING";
+    const isPending = ticket?.status === "PENDING";
+
     return (
         <SafeAreaView>
             <Header title="Ticket" backButtonVisible onBackButtonPress={() => tabNavigation.navigate("Ticket")} />
@@ -156,7 +159,7 @@ export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
                         style={{flex: 1}}
                         onPress={() => openInGoogleMaps(lat, lon)}
                     />
-                    {ticket?.paymentRecord?.status === "AWAITING" && (
+                    {isPending && isAwaitingPayment && (
                         <Button
                             variant="pink"
                             text="Pay ticket"
