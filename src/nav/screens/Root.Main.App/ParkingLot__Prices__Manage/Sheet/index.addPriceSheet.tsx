@@ -10,6 +10,7 @@ import {Picker} from "@react-native-picker/picker";
 import {VEHICLE__TYPE_ALIAS} from "@parknexus/api/prisma/client";
 import {StyleSheet, Text} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
+import {BottomSheetBackdrop} from "@src/components/BottomSheetBackdrop";
 
 type TExportPriceSheetProps = {
     onClose: () => void;
@@ -30,7 +31,7 @@ export const AddPriceSheet = forwardRef<BottomSheetModal, TExportPriceSheetProps
     };
 
     return (
-        <BottomSheetModal ref={ref} snapPoints={["65%"]} enablePanDownToClose>
+        <BottomSheetModal ref={ref} snapPoints={["65%"]} enablePanDownToClose backdropComponent={BottomSheetBackdrop}>
             <BottomSheetView style={styles.container}>
                 <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
                     <Text style={[styles.label, {marginBottom: 0}]}>Vehicle Type</Text>
@@ -72,7 +73,7 @@ export const AddPriceSheet = forwardRef<BottomSheetModal, TExportPriceSheetProps
 });
 
 const styles = StyleSheet.create({
-    container: {flex: 1, backgroundColor: "#f7f7f7", padding: 16},
+    container: {flex: 1, padding: 16},
     label: {fontSize: 16, fontWeight: "600", marginBottom: 8, color: "#3c3c3c"},
     picker: {marginBottom: 16},
     button: {marginTop: 16, marginBottom: 16},

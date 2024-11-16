@@ -6,6 +6,7 @@ import {useCameraDevice, Camera, useCameraPermission} from "react-native-vision-
 import {NavigationProp, useNavigation} from "@react-navigation/native";
 import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
 import {Button} from "@src/components/Button";
+import {BottomSheetBackdrop} from "@src/components/BottomSheetBackdrop";
 
 type TCheckInSheetProps = {
     onClose: () => void;
@@ -18,11 +19,7 @@ export const CheckInSheet = forwardRef<BottomSheetModal, TCheckInSheetProps>(({o
 
     if (!device || !hasPermission) return null;
     return (
-        <BottomSheetModal
-            ref={ref}
-            snapPoints={["70%"]}
-            backgroundStyle={{backgroundColor: "#ebebeb"}}
-            enableDismissOnClose>
+        <BottomSheetModal ref={ref} snapPoints={["70%"]} backdropComponent={BottomSheetBackdrop} enableDismissOnClose>
             <BottomSheetView style={styles.wrapper}>
                 <Text style={styles.title}>Scan customer's ticket</Text>
                 <View style={styles.scannerWrapper}>

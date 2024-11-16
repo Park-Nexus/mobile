@@ -4,7 +4,7 @@ import {Header} from "@src/components/Header";
 import {SafeAreaView} from "@src/components/SafeAreaWrapper";
 import {useMyParkingLotDetail} from "./index.data";
 import {useSpotManagerContext} from "../index.context";
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View, ViewStyle} from "react-native";
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useEffect, useRef} from "react";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {AddParkingSpotSheet} from "../Sheet/Sheet.Add";
@@ -72,16 +72,6 @@ export function List() {
         );
     };
 
-    const statusDotStyle = (isAvailable: boolean): ViewStyle => ({
-        position: "absolute",
-        top: 8,
-        right: 8,
-        width: 8,
-        height: 8,
-        borderRadius: 5,
-        backgroundColor: isAvailable ? "#28a745" : "#dc3545",
-    });
-
     return (
         <SafeAreaView>
             <Header title="Parking spots" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
@@ -92,7 +82,6 @@ export function List() {
                         key={spot.id}
                         style={[styles.spotCard, spot.isAvailable ? styles.available : styles.notAvailable]}
                         onPress={() => setSelectedSpot(spot)}>
-                        <View style={statusDotStyle(spot.isAvailable)} />
                         <View style={styles.iconContainer}>{renderVehicleIcon(spot.vehicleType)}</View>
                         <Text style={styles.spotName}>{spot.name}</Text>
                     </TouchableOpacity>
@@ -120,7 +109,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 16,
-        marginVertical: 12,
+        marginVertical: 6,
         alignItems: "center",
     },
     summaryItem: {
@@ -165,7 +154,7 @@ const styles = StyleSheet.create({
     },
     spotName: {
         fontSize: 12,
-        fontWeight: "600",
+        fontWeight: "500",
         color: "#333",
         position: "absolute",
         bottom: 8,

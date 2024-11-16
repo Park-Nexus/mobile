@@ -24,8 +24,8 @@ export const styles = StyleSheet.create({
         marginBottom: 8,
     },
     editBtn: {
-        width: 60,
-        height: 35,
+        width: 48,
+        height: 32,
     },
     label: {
         fontSize: 14,

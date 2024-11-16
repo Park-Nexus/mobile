@@ -17,6 +17,7 @@ import {PARKING_LOT_SERVICE__TYPE_ALIAS} from "@parknexus/api/prisma/client";
 import {TextInput} from "@src/components/Input__Text";
 import {useUpload} from "@src/utils/upload";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
+import {BottomSheetBackdrop} from "@src/components/BottomSheetBackdrop";
 
 const MAX_ALLOWED_MEDIA_COUNT = 5;
 
@@ -97,10 +98,10 @@ export const UpdateServiceSheet = forwardRef<BottomSheetModal, TExportServiceShe
 
     return (
         <BottomSheetModal
-            backgroundStyle={{backgroundColor: "#f9f9f9"}}
             ref={ref}
             enablePanDownToClose
             snapPoints={["85%"]}
+            backdropComponent={BottomSheetBackdrop}
             onDismiss={() => setSelectedServiceId(undefined)}>
             <BottomSheetView style={styles.container}>
                 <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>

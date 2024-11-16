@@ -16,6 +16,7 @@ import FastImage from "react-native-fast-image";
 import {useUpload} from "@src/utils/upload";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
 import {StyleSheet, Text, View} from "react-native";
+import {BottomSheetBackdrop} from "@src/components/BottomSheetBackdrop";
 
 const MAX_ALLOWED_MEDIA_COUNT = 5;
 
@@ -76,11 +77,7 @@ export const AddServiceSheet = forwardRef<BottomSheetModal, TExportServiceSheetP
     };
 
     return (
-        <BottomSheetModal
-            ref={ref}
-            snapPoints={["85%"]}
-            enablePanDownToClose
-            backgroundStyle={{backgroundColor: "#f9f9f9"}}>
+        <BottomSheetModal ref={ref} snapPoints={["85%"]} enablePanDownToClose backdropComponent={BottomSheetBackdrop}>
             <BottomSheetView style={styles.container}>
                 <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.imageScroll}>

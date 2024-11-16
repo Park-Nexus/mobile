@@ -8,6 +8,7 @@ import {StyleSheet, Text, View} from "react-native";
 import {TextInput} from "@src/components/Input__Text";
 import {Button} from "@src/components/Button";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
+import {BottomSheetBackdrop} from "@src/components/BottomSheetBackdrop";
 
 type TExportParkingSpotSheetProps = {
     onClose: () => void;
@@ -31,7 +32,7 @@ export const UpdateParkingSpotSheet = forwardRef<BottomSheetModal, TExportParkin
     };
 
     return (
-        <BottomSheetModal ref={ref} snapPoints={["40%"]} backgroundStyle={{backgroundColor: "#f8f8f8"}}>
+        <BottomSheetModal ref={ref} snapPoints={["40%"]} backdropComponent={BottomSheetBackdrop}>
             <BottomSheetView style={styles.container}>
                 <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
                     <Text style={styles.title}>Update Parking Spot</Text>

@@ -10,6 +10,8 @@ import {styles} from "./index.styles";
 import {Button} from "@src/components/Button";
 import dayjs from "dayjs";
 
+import DotsHorizontalTeal from "@src/static/svgs/DotsHorizontalTeal.svg";
+
 type ScreenProps = {
     navigation: NavigationProp<AppStackParamList>;
     route: RouteProp<AppStackParamList, "ParkingLot__MyLotDetail">;
@@ -29,7 +31,7 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
                         <Button
                             style={styles.editBtn}
                             variant="gray"
-                            text="Edit"
+                            preIcon={<DotsHorizontalTeal width={24} height={24} />}
                             onPress={() => navigation.navigate("ParkingLot__Update", {lotId})}
                         />
                     </View>
@@ -69,7 +71,7 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
                         <Button
                             style={styles.editBtn}
                             variant="gray"
-                            text="Edit"
+                            preIcon={<DotsHorizontalTeal width={24} height={24} />}
                             onPress={() => navigation.navigate("ParkingLot__Prices__Manage", {lotId})}
                         />
                     </View>
@@ -92,7 +94,7 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
                         <Button
                             style={styles.editBtn}
                             variant="gray"
-                            text="Edit"
+                            preIcon={<DotsHorizontalTeal width={24} height={24} />}
                             onPress={() => navigation.navigate("ParkingLot__Services__Manage", {lotId})}
                         />
                     </View>
@@ -115,7 +117,7 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
                         <Button
                             style={styles.editBtn}
                             variant="gray"
-                            text="Edit"
+                            preIcon={<DotsHorizontalTeal width={24} height={24} />}
                             onPress={() => navigation.navigate("ParkingLot__Spots__Manage", {lotId})}
                         />
                     </View>

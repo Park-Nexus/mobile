@@ -7,6 +7,7 @@ import {Button} from "@src/components/Button";
 import {useMakeBookingContext} from "../index.context";
 import Carousel, {TCarouselProps} from "react-native-reanimated-carousel";
 import FastImage from "react-native-fast-image";
+import {BottomSheetBackdrop} from "@src/components/BottomSheetBackdrop";
 
 export type TServiceDetailSheetRef = {
     show: (serviceId: number) => void;
@@ -62,7 +63,7 @@ export const ServiceDetailSheet = forwardRef<TServiceDetailSheetRef>(({}, ref) =
     };
 
     return (
-        <BottomSheetModal ref={sheetRef} snapPoints={["60%"]} backgroundStyle={{backgroundColor: "#f7f7f7"}}>
+        <BottomSheetModal ref={sheetRef} snapPoints={["60%"]} backdropComponent={BottomSheetBackdrop}>
             <BottomSheetView style={styles.container}>
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
                     {/* Service Title */}

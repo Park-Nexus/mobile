@@ -10,6 +10,7 @@ import {TextInput} from "@src/components/Input__Text";
 import {Picker} from "@react-native-picker/picker";
 import {Button} from "@src/components/Button";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
+import {BottomSheetBackdrop} from "@src/components/BottomSheetBackdrop";
 
 type TExportParkingSpotSheetProps = {
     onClose: () => void;
@@ -32,7 +33,7 @@ export const AddParkingSpotSheet = forwardRef<BottomSheetModal, TExportParkingSp
     };
 
     return (
-        <BottomSheetModal ref={ref} snapPoints={["70%"]} backgroundStyle={{backgroundColor: "#fcfcfc"}}>
+        <BottomSheetModal ref={ref} snapPoints={["70%"]} backdropComponent={BottomSheetBackdrop}>
             <BottomSheetView style={styles.container}>
                 <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
                     <Text style={styles.title}>Add Parking Spot</Text>
