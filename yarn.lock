@@ -3637,9 +3637,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@parknexus/api@https://github.com/Park-Nexus/api.git#master":
+"@parknexus/api@https://vclong2003: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@github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://github.com/Park-Nexus/api.git#commit=8d45c281dd75bf9f10ac7f1b6b12ac5eba983826"
+  resolution: "@parknexus/api@https://vclong2003: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@github.com/Park-Nexus/api.git#commit=0c589337d39b1a88385cf4ccf5a7f3be4fe22a8d"
   dependencies:
     "@google-cloud/storage": ^7.14.0
     "@onesignal/node-onesignal": ^5.0.0-alpha-01
@@ -3661,7 +3661,7 @@ __metadata:
     uuid: ^11.0.2
     yarn: ^1.22.22
     zod: ^3.23.8
-  checksum: f1b4da4dc8ed3c9a4498ab02be68157440eb8c715d8ae019d9e6d5346ef1f934dd5f9e5904ba5c441dcce5dbb9b3911237594ee10e121a32cd3ffab7b104e8c0
+  checksum: 181acd5105881ff9c8002109399915b5081f699b32186904c7cbf9ca76ea0f413a8d75a7bc9e8b481f4abbc5d1becb7aaf4d410b5a076eef35b9f5e540a6e9b0
   languageName: node
   linkType: hard
 
@@ -5298,7 +5298,7 @@ __metadata:
     "@babel/runtime": ^7.20.0
     "@expo/react-native-action-sheet": ^4.1.0
     "@gorhom/bottom-sheet": ^4.6.4
-    "@parknexus/api": "https://github.com/Park-Nexus/api.git#master"
+    "@parknexus/api": "https://vclong2003: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@github.com/Park-Nexus/api.git#master"
     "@react-native-async-storage/async-storage": ^1.24.0
     "@react-native-community/blur": ^4.4.1
     "@react-native-community/checkbox": ^0.5.17

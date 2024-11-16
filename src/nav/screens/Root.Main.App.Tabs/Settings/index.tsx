@@ -55,6 +55,7 @@ export function Settings() {
                 <Text style={styles.sectionTitle}>Settings</Text>
                 <View style={{height: 8}} />
                 <ScrollView style={styles.settingListWrapper}>
+                    {/* Vehicle List -------------------------------------------------- */}
                     <View style={styles.settingItem}>
                         <Text style={styles.settingItemText}>My Vehicles</Text>
                         <Button
@@ -64,6 +65,8 @@ export function Settings() {
                             onPress={() => navigate("Settings__Vehicle_List")}
                         />
                     </View>
+
+                    {/* Card List -------------------------------------------------- */}
                     <View style={styles.settingItem}>
                         <Text style={styles.settingItemText}>Saved Cards</Text>
                         <Button
@@ -71,6 +74,17 @@ export function Settings() {
                             preIcon={<CaretRightBlackSvg width={16} height={16} />}
                             style={styles.button}
                             onPress={() => navigate("Settings__SavedCards_List")}
+                        />
+                    </View>
+
+                    {/* Payout ------------------------------------------------------ */}
+                    <View style={styles.settingItem}>
+                        <Text style={styles.settingItemText}>Payout</Text>
+                        <Button
+                            variant="gray"
+                            preIcon={<CaretRightBlackSvg width={16} height={16} />}
+                            style={styles.button}
+                            onPress={() => {}}
                         />
                     </View>
                     <View style={styles.settingItem}>

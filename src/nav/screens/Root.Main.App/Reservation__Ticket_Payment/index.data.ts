@@ -15,7 +15,8 @@ export function useStripeIntent(ticketId: number) {
     });
     if (response.isError) navigation.navigate("Reservation__Ticket_Detail", {ticketId});
     const stripeClientSecret = response.data?.clientSecret;
-    return Object.assign({stripeClientSecret}, response);
+    const amountInUsd = response.data?.amountInUsd;
+    return Object.assign({stripeClientSecret, amountInUsd}, response);
 }
 
 export function usePaymentMethods() {
