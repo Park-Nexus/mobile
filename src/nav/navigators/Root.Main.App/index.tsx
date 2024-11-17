@@ -22,6 +22,7 @@ import {Settings__SavedCards_List} from "@src/nav/screens/Root.Main.App/Settings
 import {Settings__SavedCards_Add} from "@src/nav/screens/Root.Main.App/Settings__SavedCards_Add";
 import {Settings__Profile_Update} from "@src/nav/screens/Root.Main.App/Settings__Profile_Update";
 import {Reservation__CICO} from "@src/nav/screens/Root.Main.App/Reservation__CICO";
+import {Settings__Payout} from "@src/nav/screens/Root.Main.App/Settings__Payout";
 
 export type AppStackParamList = {
     Profile__Setup: undefined;
@@ -47,6 +48,7 @@ export type AppStackParamList = {
     Settings__Vehicle_Update: {vehicle: TrpcOutput["user"]["vehicle"]["get"]["many"][number]};
     Settings__SavedCards_List: undefined;
     Settings__SavedCards_Add: undefined;
+    Settings__Payout: undefined;
 };
 
 const {Navigator, Screen} = createStackNavigator<AppStackParamList>();
@@ -83,6 +85,7 @@ export function AppNavigator() {
                     <Screen name="Settings__Vehicle_Update" component={Settings__Vehicle_Update} />
                     <Screen name="Settings__SavedCards_List" component={Settings__SavedCards_List} />
                     <Screen name="Settings__SavedCards_Add" component={Settings__SavedCards_Add} />
+                    <Screen name="Settings__Payout" component={Settings__Payout} />
                 </>
             )}
         </Navigator>
