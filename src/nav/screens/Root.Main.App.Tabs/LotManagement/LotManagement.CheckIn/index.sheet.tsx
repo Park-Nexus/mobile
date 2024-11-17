@@ -14,10 +14,12 @@ type TCheckInSheetProps = {
 export const CheckInSheet = forwardRef<BottomSheetModal, TCheckInSheetProps>(({onClose}, ref) => {
     const navigation = useNavigation<NavigationProp<AppStackParamList>>();
     const device = useCameraDevice("back");
+    const deviceFront = useCameraDevice("front");
+    const deviceExt = useCameraDevice("external");
     const {hasPermission} = useCameraPermission();
     const [isCameraActive, setIsCameraActive] = useState(false);
 
-    if (!device || !hasPermission) return null;
+    if ((!device && !deviceFront && !deviceExt) || !hasPermission) return null;
     return (
         <BottomSheetModal ref={ref} snapPoints={["70%"]} backdropComponent={BottomSheetBackdrop} enableDismissOnClose>
             <BottomSheetView style={styles.wrapper}>
@@ -25,7 +27,7 @@ export const CheckInSheet = forwardRef<BottomSheetModal, TCheckInSheetProps>(({o
                 <View style={styles.scannerWrapper}>
                     <View style={styles.scanner}>
                         <Camera
-                            device={device}
+                            device={(device || deviceFront || deviceExt)!}
                             isActive={isCameraActive}
                             style={{width: "100%", height: "100%"}}
                             resizeMode="cover"

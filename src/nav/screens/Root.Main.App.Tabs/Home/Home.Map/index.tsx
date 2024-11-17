@@ -60,6 +60,7 @@ export function Map() {
         zoomToSelectedLocation();
     }, [selectedLocation]);
 
+    // ofjkdops ssidfgh dsofij
     return (
         <View style={styles.wrapper}>
             <SearchBar userLocation={{lat: userLocation?.[1], lon: userLocation?.[0]}} />

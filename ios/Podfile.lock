@@ -71,6 +71,9 @@ PODS:
     - MapboxMobileEvents (= 1.0.10)
     - Turf (= 2.8.0)
   - MapboxMobileEvents (1.0.10)
+  - MMKV (2.0.0):
+    - MMKVCore (~> 2.0.0)
+  - MMKVCore (2.0.0)
   - OneSignalXCFramework (5.2.7):
     - OneSignalXCFramework/OneSignalComplete (= 5.2.7)
   - OneSignalXCFramework/OneSignal (5.2.7):
@@ -1134,6 +1137,28 @@ PODS:
     - Yoga
   - react-native-maps (1.18.0):
     - React-Core
+  - react-native-mmkv (2.12.2):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - MMKV (>= 1.3.3)
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - react-native-onesignal (5.2.6):
     - OneSignalXCFramework (= 5.2.7)
     - React (< 1.0.0, >= 0.13.0)
@@ -1606,6 +1631,7 @@ DEPENDENCIES:
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-keyboard-controller (from `../node_modules/react-native-keyboard-controller`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
@@ -1664,6 +1690,8 @@ SPEC REPOS:
     - MapboxCoreMaps
     - MapboxMaps
     - MapboxMobileEvents
+    - MMKV
+    - MMKVCore
     - OneSignalXCFramework
     - PromisesObjC
     - RecaptchaInterop
@@ -1754,6 +1782,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-keyboard-controller"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-mmkv:
+    :path: "../node_modules/react-native-mmkv"
   react-native-onesignal:
     :path: "../node_modules/react-native-onesignal"
   react-native-safe-area-context:
@@ -1859,6 +1889,8 @@ SPEC CHECKSUMS:
   MapboxCoreMaps: f1bd9405f5b9d3e343f2fe4138775299699a22fb
   MapboxMaps: e76b14f52c54c40b76ddecd04f40448e6f35a864
   MapboxMobileEvents: de50b3a4de180dd129c326e09cd12c8adaaa46d6
+  MMKV: f7d1d5945c8765f97f39c3d121f353d46735d801
+  MMKVCore: c04b296010fcb1d1638f2c69405096aac12f6390
   OneSignalXCFramework: c56f9470a6fb23048baf55e02740a09cfd32863c
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47
@@ -1891,6 +1923,7 @@ SPEC CHECKSUMS:
   react-native-image-picker: 8b791a2bec6da84ca7d8cbcad30da159d6dd6da4
   react-native-keyboard-controller: 83dabaf013195558d05ba06f96a9bc027b9a2d05
   react-native-maps: 2e6e9896195781327ee15b33e3e84bf73c08207a
+  react-native-mmkv: 6d8259f25b80397c99ad50e2d891e22465f65e09
   react-native-onesignal: 4e06640de88ebecc19509bf6eddc919cc1e160de
   react-native-safe-area-context: 851c62c48dce80ccaa5637b6aa5991a1bc36eca9
   React-nativeconfig: 84806b820491db30175afbf027e99e8415dc63f0
