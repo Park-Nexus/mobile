@@ -5,3 +5,9 @@ export function useStripeConnectUrl() {
     const url = response.data?.url;
     return Object.assign({url}, response);
 }
+
+export function usePayoutHistory() {
+    const response = trpc.payment.payout.get.many.useQuery({});
+    const payouts = response.data || [];
+    return Object.assign({payouts}, response);
+}
