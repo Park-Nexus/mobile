@@ -1,1 +1,1 @@
-export * from './navigators/Root';
+export * from "./navigators/Root";

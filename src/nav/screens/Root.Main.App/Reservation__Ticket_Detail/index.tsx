@@ -10,7 +10,7 @@ import {ScrollView} from "react-native-gesture-handler";
 import {Text, View} from "react-native";
 import dayjs from "dayjs";
 import {Button} from "@src/components/Button";
-import {EXPIRATION_TIME_IN_HOURS, OVERSTAYING_PENALTY_CHARGES_IN_USD} from "@parknexus/api/rules";
+import {EXPIRATION_TIME_IN_HOURS, MAXIMUM_OVERSTAYING_DURATION_IN_HOURS} from "@parknexus/api/rules";
 import {openInGoogleMaps} from "@src/utils/location";
 
 type ScreenProps = {
@@ -50,7 +50,7 @@ export function Reservation__Ticket_Detail({route, navigation}: ScreenProps) {
                                 Please check out before{" "}
                                 <Text style={{fontWeight: "600"}}>
                                     {dayjs(ticket?.endTime)
-                                        .add(OVERSTAYING_PENALTY_CHARGES_IN_USD, "hour")
+                                        .add(MAXIMUM_OVERSTAYING_DURATION_IN_HOURS, "hour")
                                         .format("MMM DD  HH:mm")}
                                 </Text>{" "}
                                 to avoid additional charges

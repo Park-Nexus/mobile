@@ -1,5 +1,5 @@
 const HOST = "https://doe-sunny-logically.ngrok-free.app";
-// const HOST = "https://api-1030597876955.asia-east1.run.app";
+// const HOST = "https://api.parknexus.vclcorp.asia";
 
 export namespace ApiTypes {
     export const API_HOST = `${HOST}/trpc`;
