@@ -1,3 +1,17 @@
 {
-    "cSpell.words": ["CICO", "eventsource", "Geocode", "MAPBOX", "MMKV", "parknexus", "svgs", "trpc", "zustand"]
+    "cSpell.words": [
+        "bootsplash",
+        "CICO",
+        "datetimepicker",
+        "eventsource",
+        "Geocode",
+        "geolocation",
+        "MAPBOX",
+        "MMKV",
+        "parknexus",
+        "rnmapbox",
+        "svgs",
+        "trpc",
+        "zustand"
+    ]
 }
