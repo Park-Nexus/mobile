@@ -4366,9 +4366,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnmapbox/maps@npm:^10.1.31":
-  version: 10.1.31
-  resolution: "@rnmapbox/maps@npm:10.1.31"
+"@rnmapbox/maps@npm:^10.1.33":
+  version: 10.1.33
+  resolution: "@rnmapbox/maps@npm:10.1.33"
   dependencies:
     "@turf/along": 6.5.0
     "@turf/distance": 6.5.0
@@ -4390,7 +4390,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: f4ac56f9dbc3128b2bfeedd3980668f2c05e92b965297a0be1556b0059fcf15e7c84d9127b32383d6608d65b6986e5e3ed6ef08499091f0a31a6fbb72c0819fb
+  checksum: 847b34994f121d057840d73d20c713bdd54eafda95b576344022cda32362ecd131429a9f55a219068ee6a4ff03ad1e271ade521bffd7d1c5b266746207b3a850
   languageName: node
   linkType: hard
 
@@ -5315,7 +5315,7 @@ __metadata:
     "@react-navigation/bottom-tabs": ^6.6.1
     "@react-navigation/native": ^6.1.18
     "@react-navigation/native-stack": ^6.11.0
-    "@rnmapbox/maps": ^10.1.31
+    "@rnmapbox/maps": ^10.1.33
     "@stripe/stripe-react-native": ^0.39.0
     "@tanstack/react-query": latest
     "@trpc/client": next

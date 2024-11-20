@@ -24,11 +24,6 @@ target 'ParkNexus' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'ParkNexusTests' do
-    inherit! :complete
-    # Pods for testing
-  end
-
   pre_install do |installer|
     $RNMapboxMaps.pre_install(installer)
   end
