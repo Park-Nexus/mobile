@@ -8,4 +8,4 @@
 
 ## Configuration for development
 
-1. To update the api trpc types run `yarn up @parknexus/api@https://vclong2003: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@github.com/Park-Nexus/api.git#master`
+1. To update the api trpc types run `yarn up @parknexus/api@https://oauth2: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@github.com/Park-Nexus/api.git#master`
