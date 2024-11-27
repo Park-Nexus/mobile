@@ -13,7 +13,7 @@
         "@azure/core-asynciterator-polyfill": "^1.0.2",
         "@expo/react-native-action-sheet": "^4.1.0",
         "@gorhom/bottom-sheet": "^4.6.4",
-        "@parknexus/api": "https://oauth2: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@github.com/Park-Nexus/api.git#master",
+        "@parknexus/api": "https://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@github.com/Park-Nexus/api.git#master",
         "@react-native-async-storage/async-storage": "^1.24.0",
         "@react-native-community/blur": "^4.4.1",
         "@react-native-community/checkbox": "^0.5.17",

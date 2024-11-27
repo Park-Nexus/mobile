@@ -3663,9 +3663,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@parknexus/api@https://oauth2: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@github.com/Park-Nexus/api.git#master":
+"@parknexus/api@https://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@github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://oauth2: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@github.com/Park-Nexus/api.git#commit=ca5ca94c9a3570ff0ce1a0f1e99e35b79900b776"
+  resolution: "@parknexus/api@https://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@github.com/Park-Nexus/api.git#commit=1e8a673698bb46ceb54743af4d0e0e9c4b23437b"
   dependencies:
     "@google-cloud/monitoring": ^4.1.0
     "@google-cloud/storage": ^7.14.0
@@ -3690,7 +3690,7 @@ __metadata:
     uuid: ^11.0.2
     yarn: ^1.22.22
     zod: ^3.23.8
-  checksum: 31824586d2332280ae003c8bf84fdeb2d55a1a259d37533d920e84ce18657fc7845f130e927968ac56cba0aa7d7ec2fe743746211b2733a399656d43d68f720a
+  checksum: da9237351c65599bbe1e8b18db727eb392bf7f1274c2a374c9aa5bbd5ac65d1a3538dc5b1ee701b0a5837d173dd532482bf083c17cc982d4d0e19b0df41f7471
   languageName: node
   linkType: hard
 
@@ -3704,7 +3704,7 @@ __metadata:
     "@babel/runtime": ^7.20.0
     "@expo/react-native-action-sheet": ^4.1.0
     "@gorhom/bottom-sheet": ^4.6.4
-    "@parknexus/api": "https://oauth2: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@github.com/Park-Nexus/api.git#master"
+    "@parknexus/api": "https://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@github.com/Park-Nexus/api.git#master"
     "@react-native-async-storage/async-storage": ^1.24.0
     "@react-native-community/blur": ^4.4.1
     "@react-native-community/checkbox": ^0.5.17
