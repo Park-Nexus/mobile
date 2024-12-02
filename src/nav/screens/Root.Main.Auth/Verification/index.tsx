@@ -7,6 +7,9 @@ import React, {useState} from "react";
 import {StyleSheet, View} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
 import {OtpInput} from "react-native-otp-entry";
+import {LogBox} from "react-native";
+
+LogBox.ignoreLogs(["Non-serializable values were found in the navigation state"]);
 
 type ScreenProps = {
     navigation: NavigationProp<AuthStackParamList, "Verification">;
