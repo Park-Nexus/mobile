@@ -3665,7 +3665,7 @@ __metadata:
 
 "@parknexus/api@https://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@github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://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@github.com/Park-Nexus/api.git#commit=1e8a673698bb46ceb54743af4d0e0e9c4b23437b"
+  resolution: "@parknexus/api@https://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@github.com/Park-Nexus/api.git#commit=75854ae60c145487390943f328032af04cf917e1"
   dependencies:
     "@google-cloud/monitoring": ^4.1.0
     "@google-cloud/storage": ^7.14.0
@@ -3684,13 +3684,14 @@ __metadata:
     morgan: ^1.10.0
     multer: ^1.4.5-lts.1
     node-cron: ^3.0.3
+    otp-generator: ^4.0.1
     path: ^0.12.7
     sharp: ^0.33.5
     stripe: ^17.3.1
     uuid: ^11.0.2
     yarn: ^1.22.22
     zod: ^3.23.8
-  checksum: cb2600fb1dbf8910bfdfb4fc6ccc83357018e619192766054a12e7fb4d437d398aa8a507717f933e2e404076f6c2759072fd467c0fceaf1f08a13576ccdab337
+  checksum: 5f9fd6421fada1459e6f30ecda91f05c151db6f97d2f58c0174195925d7cd822e0a2bcd2cf0cf9fabfc34078598a321ded7e70ea3a6a898d4c2b3e8578ab7f5c
   languageName: node
   linkType: hard
 
@@ -3755,6 +3756,7 @@ __metadata:
     react-native-modal: ^13.0.1
     react-native-modal-datetime-picker: ^18.0.0
     react-native-onesignal: ^5.2.6
+    react-native-otp-entry: ^1.7.3
     react-native-permissions: ^5.1.0
     react-native-qrcode-svg: ^6.3.12
     react-native-reanimated: ^3.15.4
@@ -11565,6 +11567,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"otp-generator@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "otp-generator@npm:4.0.1"
+  checksum: f88972e355b4c58f103e2b59924d354c1ec165fc7dd9f6b61206a218cf4dd65b82e27fec6f720820d357284e5c423fe645f73768a23c889d6f6b6de21c69de28
+  languageName: node
+  linkType: hard
+
 "p-limit@npm:^2.0.0, p-limit@npm:^2.2.0":
   version: 2.3.0
   resolution: "p-limit@npm:2.3.0"
@@ -12426,6 +12435,16 @@ __metadata:
   dependencies:
     invariant: ^2.2.2
   checksum: 2c5422c90c02d4500a2c2e9421bccca8a7ca1508438f884b83eeb3d86b52b1dc0293548de3586b3006c3ff2a2978edb539e2cf3072e31f019151c6e72bc8cb37
+  languageName: node
+  linkType: hard
+
+"react-native-otp-entry@npm:^1.7.3":
+  version: 1.7.3
+  resolution: "react-native-otp-entry@npm:1.7.3"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 561bd593c6a2281b769051c38c240cc3c4d2a99be84cd20e5d9c9395003a423ff862d675285128dbfc1e2d8e9a52b52917944b06a0c4960f0a6d9e0a4a54902a
   languageName: node
   linkType: hard
 

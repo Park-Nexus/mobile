@@ -1,29 +1,22 @@
-import {AuthStorage} from '@src/auth/auth.utils';
-import {useAuthStore} from '@src/states';
-import {trpc, TrpcInput} from '@src/trpc';
-import {parseTrpcErrorMessage} from '@src/utils/trpcHelpers';
-import Toast from 'react-native-toast-message';
+import {AuthStorage} from "@src/auth/auth.utils";
+import {useAuthStore} from "@src/states";
+import {trpc, TrpcInput} from "@src/trpc";
+import {parseTrpcErrorMessage} from "@src/utils/trpcHelpers";
+import Toast from "react-native-toast-message";
 
-export type TLoginPayload = TrpcInput['auth']['login'];
-
-export function useSubmit() {
-    const {setIsAuthenticated} = useAuthStore();
-    const submitMutation = trpc.auth.login.useMutation();
-
-    const trpcUtils = trpc.useUtils();
+export type TLoginPayload = TrpcInput["auth"]["login"]["user"];
+export function useSubmit(onSuccess: () => void) {
+    const submitMutation = trpc.auth.login.user.useMutation();
 
     const submit = (payload: TLoginPayload) => {
         submitMutation.mutate(payload, {
-            async onSuccess(data) {
-                await AuthStorage.setAccessToken(data.accessToken);
-                await AuthStorage.setRefreshToken(data.refreshToken);
-                trpcUtils.user.profile.invalidate();
-                setIsAuthenticated(true);
+            onSuccess() {
+                onSuccess();
             },
             onError(err) {
                 console.error(err.message);
                 Toast.show({
-                    type: 'error',
+                    type: "error",
                     text1: parseTrpcErrorMessage(err.message),
                 });
             },
@@ -31,4 +24,32 @@ export function useSubmit() {
     };
 
     return Object.assign(submitMutation, {submit});
+}
+
+export type TVerifyPayload = TrpcInput["auth"]["login"]["verify"];
+export function useVerify() {
+    const verifyMutation = trpc.auth.login.verify.useMutation();
+
+    const {setIsAuthenticated} = useAuthStore();
+    const trpcUtils = trpc.useUtils();
+
+    const verify = (payload: TVerifyPayload) => {
+        verifyMutation.mutate(payload, {
+            onSuccess(data) {
+                AuthStorage.setAccessToken(data.accessToken);
+                AuthStorage.setRefreshToken(data.refreshToken);
+                trpcUtils.user.profile.invalidate();
+                setIsAuthenticated(true);
+            },
+            onError(err) {
+                console.error(err.message);
+                Toast.show({
+                    type: "error",
+                    text1: parseTrpcErrorMessage(err.message),
+                });
+            },
+        });
+    };
+
+    return Object.assign(verifyMutation, {verify});
 }

@@ -19,13 +19,16 @@ import StripeSvg from "@src/static/svgs/Stripe.svg";
 import BellSvg from "@src/static/svgs/BellBlack.svg";
 import CardBlackSvg from "@src/static/svgs/CardBlack.svg";
 import GarageBlackSvg from "@src/static/svgs/GarageBlack.svg";
+import {useQueryClient} from "@tanstack/react-query";
 
 export function Settings() {
     const {me} = useMe();
+    const queryClient = useQueryClient();
     const {setIsAuthenticated} = useAuthStore();
     const {navigate} = useNavigation<NavigationProp<AppStackParamList>>();
 
     const logout = async () => {
+        queryClient.clear();
         await AuthStorage.clearAuthStorage();
         setIsAuthenticated(false);
     };

@@ -13,23 +13,34 @@ import PasswordSvg from "@src/static/svgs/Lock.svg";
 import GoogleSvg from "@src/static/svgs/Google.svg";
 import EyeSvg from "@src/static/svgs/Eye.svg";
 import {useState} from "react";
-import {TLoginPayload, useSubmit} from "./index.submit";
-import {NavigationProp, useNavigation} from "@react-navigation/native";
+import {TLoginPayload, useSubmit, useVerify} from "./index.submit";
+import {NavigationProp} from "@react-navigation/native";
 import {AuthStackParamList} from "@src/nav/navigators/Root.Main.Auth";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
 
-export function Login() {
+type ScreenParams = {
+    navigation: NavigationProp<AuthStackParamList, "Login">;
+};
+export function Login({navigation}: ScreenParams) {
     const {bottom} = useSafeAreaInsets();
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+
+    const {verify, isPending: isVerifyPending} = useVerify();
+    const onLoginSuccess = () => {
+        if (isVerifyPending) return;
+        navigation.navigate("Verification", {
+            onVerify: code => verify({code}),
+        });
+    };
+
     const {control, handleSubmit} = useForm<TLoginPayload>({
         values: {
             email: "",
             password: "",
         },
     });
-    const {submit, isPending} = useSubmit();
-    const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
+    const {submit, isPending} = useSubmit(onLoginSuccess);
 
     return (
         <SafeAreaView>
