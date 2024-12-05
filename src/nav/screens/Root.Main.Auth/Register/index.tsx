@@ -5,7 +5,7 @@ import {SafeAreaView} from "@src/components/SafeAreaWrapper";
 import {AuthStackParamList} from "@src/nav/navigators/Root.Main.Auth";
 import {Controller, useForm} from "react-hook-form";
 import {Text, View} from "react-native";
-import {TRegisterPayload, useSubmit} from "./index.submit";
+import {TRegisterPayload, useSubmit, useVerify} from "./index.submit";
 import {Button} from "@src/components/Button";
 import {styles} from "./index.styles";
 
@@ -22,7 +22,15 @@ import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
 
 export function Register() {
     const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
-    const {submit, isPending} = useSubmit();
+
+    const {verify, isPending: isVerifyPending} = useVerify();
+    const onRegisterSuccess = () => {
+        if (isVerifyPending) return;
+        navigation.navigate("Verification", {
+            onVerify: code => verify({code}),
+        });
+    };
+
     const {control, handleSubmit} = useForm<TRegisterPayload>({
         values: {
             email: "",
@@ -30,6 +38,7 @@ export function Register() {
             passwordRetype: "",
         },
     });
+    const {submit, isPending} = useSubmit(onRegisterSuccess);
 
     const {bottom} = useSafeAreaInsets();
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
