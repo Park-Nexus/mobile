@@ -14,8 +14,6 @@ export function Vehicle() {
     const {availableVehicleTypes} = useParkingLotAvailability();
     const {vehicles} = useMyVehicles();
 
-    console.log(vehicles);
-
     const onNext = () => {
         if (!vehicle) return Toast.show({type: "info", text1: "Please select a vehicle"});
         setStep("SERVICES");
