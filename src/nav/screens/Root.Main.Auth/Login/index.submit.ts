@@ -3,6 +3,7 @@ import {useAuthStore} from "@src/states";
 import {trpc, TrpcInput} from "@src/trpc";
 import {parseTrpcErrorMessage} from "@src/utils/trpcHelpers";
 import Toast from "react-native-toast-message";
+import {OneSignal} from "react-native-onesignal";
 
 export type TLoginPayload = TrpcInput["auth"]["login"]["user"];
 export function useSubmit(onSuccess: () => void) {
@@ -38,6 +39,7 @@ export function useVerify() {
             onSuccess(data) {
                 AuthStorage.setAccessToken(data.accessToken);
                 AuthStorage.setRefreshToken(data.refreshToken);
+                OneSignal.login(data.accountId);
                 trpcUtils.user.profile.invalidate();
                 setIsAuthenticated(true);
             },

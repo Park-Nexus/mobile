@@ -4,7 +4,7 @@ import {Header} from "@src/components/Header";
 import {SafeAreaView} from "@src/components/SafeAreaWrapper";
 import {AuthStackParamList} from "@src/nav/navigators/Root.Main.Auth";
 import React, {useState} from "react";
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
 import {OtpInput} from "react-native-otp-entry";
 import {LogBox} from "react-native";
@@ -26,9 +26,20 @@ export function Verification({navigation, route}: ScreenProps) {
             <Header onBackButtonPress={navigation.goBack} backButtonVisible />
             <View style={{height: 52}} />
             <KeyboardAwareScrollView style={styles.wrapper}>
-                <OtpInput numberOfDigits={6} onTextChange={onChangeCodes} />
+                <Text style={styles.title}>Verification</Text>
+                <Text style={styles.subtitle}>Enter the code sent to your email</Text>
+                <OtpInput
+                    numberOfDigits={6}
+                    onTextChange={onChangeCodes}
+                    theme={{
+                        pinCodeContainerStyle: {borderRadius: 10},
+                        focusedPinCodeContainerStyle: {borderColor: "#128085"},
+                        pinCodeTextStyle: {color: "#128085"},
+                        focusStickStyle: {backgroundColor: "#128085"},
+                    }}
+                />
+                <Button variant="green" text="Verify" onPress={() => onVerify(codes)} style={styles.button} />
             </KeyboardAwareScrollView>
-            <Button variant="green" text="Verify" onPress={() => onVerify(codes)} style={styles.button} />
         </SafeAreaView>
     );
 }
@@ -38,5 +49,18 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFF",
         paddingHorizontal: 16,
     },
-    button: {},
+    title: {
+        fontSize: 32,
+        fontWeight: "700",
+        color: "#128085",
+    },
+    subtitle: {
+        fontSize: 16,
+        fontWeight: "500",
+        color: "#494949",
+        marginBottom: 16,
+    },
+    button: {
+        marginTop: 16,
+    },
 });

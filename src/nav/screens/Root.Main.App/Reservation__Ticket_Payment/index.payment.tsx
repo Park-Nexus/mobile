@@ -9,7 +9,6 @@ import {useVerifyPayment} from "./index.submit";
 import {InputRadioButton} from "@src/components/Input__RadioButton";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
 import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
-import Toast from "react-native-toast-message";
 
 type ScreenProps = {
     ticketId: number;
@@ -33,10 +32,6 @@ export function Payment({ticketId}: ScreenProps) {
         });
         if (paymentIntent)
             verifyPayment({ticketId, intentId: paymentIntent.id}, () => {
-                Toast.show({
-                    type: "success",
-                    text1: "Payment Success",
-                });
                 navigation.navigate("Reservation__Ticket_Detail", {ticketId});
             });
         if (error) console.log("error", error);

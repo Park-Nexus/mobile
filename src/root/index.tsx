@@ -17,6 +17,7 @@ import {KeyboardProvider} from "react-native-keyboard-controller";
 import "@azure/core-asynciterator-polyfill";
 import {RNEventSource} from "rn-eventsource-reborn";
 import {ReadableStream, TransformStream} from "web-streams-polyfill";
+import {useSetupOneSignal} from "@src/utils/oneSignal";
 
 // Polyfill for ReadableStream, TransformStream and EventSource for trpc subscriptions (SSE)
 (globalThis as any).ReadableStream = (globalThis as any).ReadableStream || ReadableStream;
@@ -24,6 +25,8 @@ import {ReadableStream, TransformStream} from "web-streams-polyfill";
 (globalThis as any).EventSource = (globalThis as any).EventSource || RNEventSource;
 
 export function Root() {
+    useSetupOneSignal();
+
     return (
         <>
             <KeyboardProvider>

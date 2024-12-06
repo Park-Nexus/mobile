@@ -14,6 +14,8 @@ export function Vehicle() {
     const {availableVehicleTypes} = useParkingLotAvailability();
     const {vehicles} = useMyVehicles();
 
+    console.log(vehicles);
+
     const onNext = () => {
         if (!vehicle) return Toast.show({type: "info", text1: "Please select a vehicle"});
         setStep("SERVICES");
@@ -24,7 +26,7 @@ export function Vehicle() {
             <Header title="Select vehicle" backButtonVisible onBackButtonPress={() => setStep("DATE_TIME")} />
             <ScrollView style={styles.wrapper}>
                 {vehicles.map(v => {
-                    const isAvailable = availableVehicleTypes.includes(v.type);
+                    const isAvailable = availableVehicleTypes.includes(v.type) && !v.isReserved;
                     return (
                         <Pressable
                             key={v.id}
@@ -44,7 +46,7 @@ export function Vehicle() {
                                     style={{
                                         color: isAvailable ? "#128085" : "#e70000t",
                                     }}>
-                                    {isAvailable ? "Available" : "Out of spot"}
+                                    {isAvailable ? "Available" : v.isReserved ? "Reserved" : "Out of spot"}
                                 </Text>
                             </Text>
                             <InputRadioButton
