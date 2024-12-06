@@ -27,7 +27,8 @@ export const ServiceDetailSheet = forwardRef<TServiceDetailSheetRef>(({}, ref) =
         },
     }));
 
-    const isMediaExists = service?.mediaUrls?.length && service.mediaUrls.length > 0;
+    const isMediaExists = service?.mediaUrls?.length && service?.mediaUrls?.length > 0;
+    console.log("isMediaExists", isMediaExists);
     const deviceWidth = Dimensions.get("window").width;
     const imageHeight = (deviceWidth / 3) * 2;
 
@@ -76,7 +77,7 @@ export const ServiceDetailSheet = forwardRef<TServiceDetailSheetRef>(({}, ref) =
                     {service?.description && <Text style={styles.description}>{service.description}</Text>}
 
                     {/* Media Carousel */}
-                    {isMediaExists && (
+                    {isMediaExists ? (
                         <>
                             <View style={{height: imageHeight}}>
                                 {isFetchingImages && <ActivityIndicator style={{marginTop: imageHeight / 2}} />}
@@ -84,7 +85,7 @@ export const ServiceDetailSheet = forwardRef<TServiceDetailSheetRef>(({}, ref) =
                             </View>
                             <View style={{height: 8}} />
                         </>
-                    )}
+                    ) : null}
                 </ScrollView>
 
                 {/* Bottom Action Button */}
