@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import dayjs from "dayjs";
 import {NavigationProp, useNavigation} from "@react-navigation/native";
 import {Header} from "@src/components/Header";
@@ -25,7 +25,13 @@ import TimeDarkGraySvg from "@src/static/svgs/TimeDarkGray.svg";
 export function Ticket() {
     const navigation = useNavigation<NavigationProp<AppStackParamList>>();
     const {bottom} = useSafeAreaInsets();
-    const {tickets, refetch, isFetching} = useMyTickets();
+    const [status, setStatus] = useState<RESERVATION__STATUS_ALIAS>();
+    const {tickets, refetch, isFetching} = useMyTickets({status});
+
+    const onSetStatus = (s: RESERVATION__STATUS_ALIAS) => {
+        if (status === s) setStatus(undefined);
+        else setStatus(s);
+    };
 
     const getStatusStyle = (status: RESERVATION__STATUS_ALIAS) => {
         switch (status) {
@@ -65,32 +71,36 @@ export function Ticket() {
             <View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filter}>
                     <Button
-                        style={styles.filterButton}
+                        style={[styles.filterButton, {opacity: status === "PENDING" ? 0.6 : 1}]}
                         textProps={{style: styles.filterButtonText}}
                         variant="green"
                         preIcon={<CalendarSmallSvg width={18} height={18} />}
                         text="Up Coming"
+                        onPress={() => onSetStatus("PENDING")}
                     />
                     <Button
-                        style={styles.filterButton}
+                        style={[styles.filterButton, {opacity: status === "ON_GOING" ? 0.6 : 1}]}
                         textProps={{style: styles.filterButtonText}}
                         variant="green"
                         preIcon={<CalendarTimeSvg width={18} height={18} />}
                         text="On Going"
+                        onPress={() => onSetStatus("ON_GOING")}
                     />
                     <Button
-                        style={styles.filterButton}
+                        style={[styles.filterButton, {opacity: status === "COMPLETED" ? 0.6 : 1}]}
                         textProps={{style: styles.filterButtonText}}
                         variant="green"
                         preIcon={<CalendarSuccessSvg width={18} height={18} />}
                         text="Finished"
+                        onPress={() => onSetStatus("COMPLETED")}
                     />
                     <Button
-                        style={styles.filterButton}
+                        style={[styles.filterButton, {opacity: status === "CANCELLED" ? 0.6 : 1}]}
                         textProps={{style: styles.filterButtonText}}
                         variant="green"
                         preIcon={<CalendarRemoveSvg width={18} height={18} />}
                         text="Canceled"
+                        onPress={() => onSetStatus("CANCELLED")}
                     />
                 </ScrollView>
             </View>

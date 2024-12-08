@@ -1,8 +1,10 @@
-import {trpc} from '@src/trpc';
+import {trpc, TrpcInput} from "@src/trpc";
 
-export function useMyTickets() {
+export type TFilter = TrpcInput["reservation"]["ticket"]["get"]["many"]["filter"];
+export function useMyTickets(filter?: TFilter) {
     const response = trpc.reservation.ticket.get.many.useQuery({
         isMine: true,
+        filter,
     });
 
     const tickets = response?.data || [];
