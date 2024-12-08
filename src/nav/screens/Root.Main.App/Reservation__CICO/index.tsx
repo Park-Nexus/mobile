@@ -148,7 +148,7 @@ export function Reservation__CICO({route, navigation}: ScreenParams) {
     }
     return (
         <SafeAreaView>
-            <Header title="Check In/Check Out" />
+            <Header title="Check In/Check Out" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
             <ScrollView style={styles.wrapper}>{renderTicketInfo()}</ScrollView>
             {isPending && !isAwaitingPayment && (
                 <Button

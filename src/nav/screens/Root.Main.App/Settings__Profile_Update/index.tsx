@@ -15,8 +15,10 @@ import {TextInput} from "@src/components/Input__Text";
 import AvatarPlaceHolder from "@src/static/images/Profile.png";
 import {useUpload} from "@src/utils/upload";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useNavigation} from "@react-navigation/native";
 
 export function Settings__Profile_Update() {
+    const navigation = useNavigation();
     const {bottom} = useSafeAreaInsets();
     const [avatar, setAvatar] = useState<Asset>();
     const {control, handleSubmit, setValue} = useForm<TUpdateProfilePayload>();
@@ -53,7 +55,7 @@ export function Settings__Profile_Update() {
 
     return (
         <SafeAreaView>
-            <Header title="Update Profile" />
+            <Header title="Update Profile" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
             <KeyboardAwareScrollView style={styles.wrapper}>
                 <Controller
                     control={control}
