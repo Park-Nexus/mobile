@@ -13,11 +13,18 @@ import PasswordSvg from "@src/static/svgs/Lock.svg";
 import GoogleSvg from "@src/static/svgs/Google.svg";
 import EyeSvg from "@src/static/svgs/Eye.svg";
 import {useState} from "react";
-import {TLoginPayload, useSubmit, useVerify} from "./index.submit";
+import {TLoginPayload, useGoogleLogin, useSubmit, useVerify} from "./index.submit";
 import {NavigationProp} from "@react-navigation/native";
 import {AuthStackParamList} from "@src/nav/navigators/Root.Main.Auth";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
+
+import {GoogleSignin} from "@react-native-google-signin/google-signin";
+import {AuthTypes} from "@src/auth/index.types";
+
+GoogleSignin.configure({
+    iosClientId: AuthTypes.googleSignIn.iosClientId,
+});
 
 type ScreenParams = {
     navigation: NavigationProp<AuthStackParamList, "Login">;
@@ -25,6 +32,7 @@ type ScreenParams = {
 export function Login({navigation}: ScreenParams) {
     const {bottom} = useSafeAreaInsets();
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+    const {googleLogin} = useGoogleLogin();
 
     const {verify, isPending: isVerifyPending} = useVerify();
     const onLoginSuccess = () => {
@@ -41,6 +49,17 @@ export function Login({navigation}: ScreenParams) {
         },
     });
     const {submit, isPending} = useSubmit(onLoginSuccess);
+
+    const test = () => {
+        GoogleSignin.signIn()
+            .then(res => {
+                const idToken = res.data?.idToken;
+                if (idToken) googleLogin({idToken});
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
 
     return (
         <SafeAreaView>
@@ -100,7 +119,7 @@ export function Login({navigation}: ScreenParams) {
                 </View>
 
                 <View style={styles.oauthButtonWrapper}>
-                    <Button variant="gray" preIcon={<GoogleSvg width={24} height={24} />} />
+                    <Button variant="gray" preIcon={<GoogleSvg width={24} height={24} />} onPress={test} />
                 </View>
             </KeyboardAwareScrollView>
             <Text style={[styles.registerText, {bottom: bottom + 16}]} onPress={() => navigation.navigate("Register")}>
