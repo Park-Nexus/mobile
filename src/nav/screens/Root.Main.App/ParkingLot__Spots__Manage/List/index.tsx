@@ -4,7 +4,7 @@ import {Header} from "@src/components/Header";
 import {SafeAreaView} from "@src/components/SafeAreaWrapper";
 import {useMyParkingLotDetail} from "./index.data";
 import {useSpotManagerContext} from "../index.context";
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Pressable, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useEffect, useRef} from "react";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {AddParkingSpotSheet} from "../Sheet/Sheet.Add";
@@ -14,20 +14,29 @@ import CarTealSvg from "@src/static/svgs/CarTeal.svg";
 import MotorcycleTealSvg from "@src/static/svgs/MotorcycleTeal.svg";
 import TruckTealSvg from "@src/static/svgs/TruckTeal.svg";
 import PlusTealSvg from "@src/static/svgs/PlusTeal.svg";
+import NotePencilTealSvg from "@src/static/svgs/NotePencilTeal.svg";
+import {TicketSheet} from "../Sheet/Sheet.Ticket";
 
 export function List() {
     const navigation = useNavigation();
-    const {lotId, selectedSpot, setSelectedSpot} = useSpotManagerContext();
-    const {lot} = useMyParkingLotDetail(lotId);
+    const {lotId, selectedSpot, setSelectedSpot, setSelectedReservedSpotId, selectedReservedSpotId} =
+        useSpotManagerContext();
+    const {lot, refetch, isFetching} = useMyParkingLotDetail(lotId);
 
     const addSheetRef = useRef<BottomSheetModal>(null);
     const updateSheetRef = useRef<BottomSheetModal>(null);
+    const ticketSheerRef = useRef<BottomSheetModal>(null);
 
     useEffect(() => {
         if (selectedSpot) {
             updateSheetRef.current?.present();
         }
-    }, [selectedSpot, lotId]);
+    }, [selectedSpot]);
+    useEffect(() => {
+        if (selectedReservedSpotId) {
+            ticketSheerRef.current?.present();
+        }
+    }, [selectedReservedSpotId]);
 
     const renderVehicleIcon = (type: string) => {
         switch (type) {
@@ -77,20 +86,37 @@ export function List() {
             <Header title="Parking spots" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
             {renderSummary()}
             <ScrollView contentContainerStyle={styles.gridContainer}>
+                <RefreshControl refreshing={isFetching} onRefresh={refetch} style={{position: "absolute"}} />
                 {lot?.parkingSpots.map(spot => (
-                    <TouchableOpacity
+                    <Pressable
+                        onPress={() => {
+                            if (!spot.isAvailable) setSelectedReservedSpotId(spot.id);
+                        }}
                         key={spot.id}
-                        style={[styles.spotCard, spot.isAvailable ? styles.available : styles.notAvailable]}
-                        onPress={() => setSelectedSpot(spot)}>
+                        style={[styles.spotCard, spot.isAvailable ? styles.available : styles.notAvailable]}>
+                        <Pressable
+                            onPress={() => setSelectedSpot(spot)}
+                            style={{position: "absolute", width: 20, height: 20, right: 4, top: 4}}>
+                            <NotePencilTealSvg width={20} height={20} />
+                        </Pressable>
                         <View style={styles.iconContainer}>{renderVehicleIcon(spot.vehicleType)}</View>
                         <Text style={styles.spotName}>{spot.name}</Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 ))}
                 <TouchableOpacity style={styles.addCard} onPress={() => addSheetRef.current?.present()}>
                     <PlusTealSvg width={36} height={36} />
                 </TouchableOpacity>
             </ScrollView>
             <AddParkingSpotSheet ref={addSheetRef} onClose={() => addSheetRef.current?.dismiss()} />
+            {!!selectedReservedSpotId && (
+                <TicketSheet
+                    ref={ticketSheerRef}
+                    onClose={() => {
+                        setSelectedReservedSpotId(undefined);
+                        ticketSheerRef.current?.dismiss();
+                    }}
+                />
+            )}
             {!!selectedSpot && (
                 <UpdateParkingSpotSheet
                     ref={updateSheetRef}

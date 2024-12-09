@@ -32,7 +32,7 @@ export const UpdateParkingSpotSheet = forwardRef<BottomSheetModal, TExportParkin
     };
 
     return (
-        <BottomSheetModal ref={ref} snapPoints={["40%"]} backdropComponent={BottomSheetBackdrop}>
+        <BottomSheetModal ref={ref} snapPoints={["40%"]} backdropComponent={BottomSheetBackdrop} onDismiss={onClose}>
             <BottomSheetView style={styles.container}>
                 <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
                     <Text style={styles.title}>Update Parking Spot</Text>

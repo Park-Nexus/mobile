@@ -12,10 +12,16 @@ function useValues(props: SpotManagerContextProps) {
 
     const [selectedSpot, setSelectedSpot] = useState<Spot>();
 
+    const [selectedReservedSpotId, setSelectedReservedSpotId] = useState<number>();
+
     return {
         lotId,
+
         selectedSpot,
         setSelectedSpot,
+
+        selectedReservedSpotId,
+        setSelectedReservedSpotId,
     };
 }
 

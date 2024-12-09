@@ -104,6 +104,31 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
                     <Text style={styles.text}>{dayjs(lot?.updatedAt).format("HH:MM  MMMM DD YYYY")}</Text>
                 </View>
 
+                {/* Spots ---------------------------------------------------------------- */}
+                <View style={styles.sectionWrapper}>
+                    <View style={styles.sectionTitleWrapper}>
+                        <Text style={styles.sectionTitle}>Spots</Text>
+                        <Button
+                            style={styles.editBtn}
+                            variant="gray"
+                            preIcon={<DotsHorizontalTeal width={24} height={24} />}
+                            onPress={() => navigation.navigate("ParkingLot__Spots__Manage", {lotId})}
+                        />
+                    </View>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                        {lot?.parkingSpots.map((item, index) => (
+                            <View key={index} style={styles.itemContainer}>
+                                <Text style={styles.label}>Name:</Text>
+                                <Text style={styles.text}>{item.name}</Text>
+                                <Text style={styles.label}>Vehicle Type:</Text>
+                                <Text style={styles.text}>{item.vehicleType}</Text>
+                                <Text style={styles.label}>Available:</Text>
+                                <Text style={styles.text}>{item.isAvailable ? "Available" : "Occupied"}</Text>
+                            </View>
+                        ))}
+                    </ScrollView>
+                </View>
+
                 {/* Prices ---------------------------------------------------------------- */}
                 <View style={styles.sectionWrapper}>
                     <View style={styles.sectionTitleWrapper}>
@@ -145,31 +170,6 @@ export function ParkingLot__MyLotDetail({navigation, route}: ScreenProps) {
                                 <Text style={styles.text}>{item.name}</Text>
                                 <Text style={styles.label}>Price:</Text>
                                 <Text style={styles.text}>${item.price}</Text>
-                            </View>
-                        ))}
-                    </ScrollView>
-                </View>
-
-                {/* Spots ---------------------------------------------------------------- */}
-                <View style={styles.sectionWrapper}>
-                    <View style={styles.sectionTitleWrapper}>
-                        <Text style={styles.sectionTitle}>Spots</Text>
-                        <Button
-                            style={styles.editBtn}
-                            variant="gray"
-                            preIcon={<DotsHorizontalTeal width={24} height={24} />}
-                            onPress={() => navigation.navigate("ParkingLot__Spots__Manage", {lotId})}
-                        />
-                    </View>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                        {lot?.parkingSpots.map((item, index) => (
-                            <View key={index} style={styles.itemContainer}>
-                                <Text style={styles.label}>Name:</Text>
-                                <Text style={styles.text}>{item.name}</Text>
-                                <Text style={styles.label}>Vehicle Type:</Text>
-                                <Text style={styles.text}>{item.vehicleType}</Text>
-                                <Text style={styles.label}>Available:</Text>
-                                <Text style={styles.text}>{item.isAvailable ? "Available" : "Occupied"}</Text>
                             </View>
                         ))}
                     </ScrollView>
