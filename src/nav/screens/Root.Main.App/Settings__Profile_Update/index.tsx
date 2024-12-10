@@ -16,12 +16,33 @@ import AvatarPlaceHolder from "@src/static/images/Profile.png";
 import {useUpload} from "@src/utils/upload";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useNavigation} from "@react-navigation/native";
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
+
+const schema = z.object({
+    firstName: z.string().min(1, {message: "First name is required"}),
+    lastName: z.string().min(1, {message: "Last name is required"}),
+    phone: z
+        .string()
+        .min(1, {message: "Phone is required"})
+        .regex(/^\d{10,11}$/, {
+            message: "Phone is invalid  (10-11 digits)",
+        }),
+    avatarUrl: z.string().optional(),
+});
 
 export function Settings__Profile_Update() {
     const navigation = useNavigation();
     const {bottom} = useSafeAreaInsets();
     const [avatar, setAvatar] = useState<Asset>();
-    const {control, handleSubmit, setValue} = useForm<TUpdateProfilePayload>();
+    const {
+        control,
+        handleSubmit,
+        setValue,
+        formState: {errors},
+    } = useForm<TUpdateProfilePayload>({
+        resolver: zodResolver(schema),
+    });
     const {me} = useMe();
     const {submit, isPending} = useSubmit();
     const {isUploading, uploadAvatar} = useUpload();
@@ -97,30 +118,47 @@ export function Settings__Profile_Update() {
                         </View>
                     )}
                 />
+
+                {/* First name --------------------------------------------------------- */}
                 <Text style={styles.fieldLabel}>First Name</Text>
                 <Controller
                     control={control}
                     name="firstName"
                     render={({field: {onChange, value}}) => (
-                        <TextInput onChangeText={onChange} value={value} placeholder="John" />
+                        <TextInput
+                            error={errors.firstName?.message}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder="John"
+                        />
                     )}
                 />
                 <View style={{height: 10}} />
+
+                {/* Last name --------------------------------------------------------- */}
                 <Text style={styles.fieldLabel}>Last Name</Text>
                 <Controller
                     control={control}
                     name="lastName"
                     render={({field: {onChange, value}}) => (
-                        <TextInput onChangeText={onChange} value={value} placeholder="Doe" />
+                        <TextInput
+                            error={errors.lastName?.message}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder="Doe"
+                        />
                     )}
                 />
                 <View style={{height: 10}} />
+
+                {/* Phone -------------------------------------------------------------- */}
                 <Text style={styles.fieldLabel}>Phone</Text>
                 <Controller
                     control={control}
                     name="phone"
                     render={({field: {onChange, value}}) => (
                         <TextInput
+                            error={errors.phone?.message}
                             onChangeText={onChange}
                             value={value}
                             placeholder="5556667777"
@@ -129,6 +167,7 @@ export function Settings__Profile_Update() {
                     )}
                 />
             </KeyboardAwareScrollView>
+
             <Button
                 onPress={handleSubmit(onSubmit)}
                 disabled={isPending || isUploading}

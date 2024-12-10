@@ -15,13 +15,33 @@ import FastImage from "react-native-fast-image";
 import AvatarPlaceHolder from "@src/static/images/Profile.png";
 import NotePencil from "@src/static/svgs/NotePencil.svg";
 import {useState} from "react";
+import {z} from "zod";
+import {USER__GENDER_ALIAS} from "@parknexus/api/prisma/client";
+import {zodResolver} from "@hookform/resolvers/zod";
+
+const schema = z.object({
+    firstName: z.string().min(1, {message: "First name is required"}),
+    lastName: z.string().min(1, {message: "Last name is required"}),
+    phone: z
+        .string()
+        .min(1, {message: "Phone is required"})
+        .regex(/^\d{10,11}$/, {
+            message: "Phone is invalid  (10-11 digits)",
+        }),
+    gender: z.nativeEnum(USER__GENDER_ALIAS),
+    avatarUrl: z.string().optional(),
+});
 
 export function Profile__Setup() {
     const {bottom} = useSafeAreaInsets();
     const [selectedAvatar, setSelectedAvatar] = useState<Asset>();
     const {submit, isPending} = useSubmit();
     const {isUploading, uploadAvatar} = useUpload();
-    const {control, handleSubmit} = useForm<TCreateProfilePayload>({
+    const {
+        control,
+        handleSubmit,
+        formState: {errors},
+    } = useForm<TCreateProfilePayload>({
         values: {
             firstName: "",
             lastName: "",
@@ -29,6 +49,7 @@ export function Profile__Setup() {
             gender: "MALE",
             avatarUrl: "",
         },
+        resolver: zodResolver(schema),
     });
 
     const openImagePicker = () => {
@@ -88,23 +109,39 @@ export function Profile__Setup() {
                         </View>
                     )}
                 />
+
+                {/* First name ----------------------------- */}
                 <Text style={styles.fieldLabel}>First Name</Text>
                 <Controller
                     control={control}
                     name="firstName"
                     render={({field: {onChange, value}}) => (
-                        <TextInput onChangeText={onChange} value={value} placeholder="John" />
+                        <TextInput
+                            error={errors.firstName?.message}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder="John"
+                        />
                     )}
                 />
+
+                {/* Last name ----------------------------- */}
                 <View style={{height: 10}} />
                 <Text style={styles.fieldLabel}>Last Name</Text>
                 <Controller
                     control={control}
                     name="lastName"
                     render={({field: {onChange, value}}) => (
-                        <TextInput onChangeText={onChange} value={value} placeholder="Doe" />
+                        <TextInput
+                            error={errors.lastName?.message}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholder="Doe"
+                        />
                     )}
                 />
+
+                {/* Phone --------------------------------- */}
                 <View style={{height: 10}} />
                 <Text style={styles.fieldLabel}>Phone</Text>
                 <Controller
@@ -112,6 +149,7 @@ export function Profile__Setup() {
                     name="phone"
                     render={({field: {onChange, value}}) => (
                         <TextInput
+                            error={errors.phone?.message}
                             onChangeText={onChange}
                             value={value}
                             placeholder="5556667777"
@@ -120,6 +158,7 @@ export function Profile__Setup() {
                     )}
                 />
             </ScrollView>
+
             <Button
                 onPress={handleSubmit(onSubmit)}
                 disabled={isPending || isUploading}

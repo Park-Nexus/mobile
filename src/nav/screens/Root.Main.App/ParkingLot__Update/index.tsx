@@ -17,8 +17,37 @@ import {useActionSheet} from "@expo/react-native-action-sheet";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {useUpload} from "@src/utils/upload";
 import {styles} from "./index.styles";
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 const MAX_ALLOWED_MEDIA_COUNT = 5;
+const LAT_REGEX = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/;
+const LNG_REGEX = /^[-+]?(180(\.0+)?|((1[0-7]\d)|(\d{1,2}))(\.\d+)?)$/;
+
+const schema = z
+    .object({
+        id: z.number(),
+        name: z.string().min(1, {message: "Name is required"}),
+        phone: z
+            .string()
+            .min(1, {message: "Phone is required"})
+            .regex(/^\d{10,11}$/, {
+                message: "Phone is invalid  (10-11 digits)",
+            }),
+        latitude: z.union([z.string().min(1), z.number()], {message: "Latitude is required"}),
+        longitude: z.union([z.string().min(1), z.number()], {message: "Longitude is required"}),
+        description: z.string().min(1, {message: "Description is required"}),
+        removalMediaUrls: z.array(z.string()).optional(),
+        additionalMediaUrls: z.array(z.string()).optional(),
+    })
+    .refine(data => LAT_REGEX.test(data.latitude.toString()), {
+        message: "Latitude is invalid",
+        path: ["latitude"],
+    })
+    .refine(data => LNG_REGEX.test(data.longitude.toString()), {
+        message: "Longitude is invalid",
+        path: ["longitude"],
+    });
 
 type ScreenProps = {
     navigation: NavigationProp<AppStackParamList, "ParkingLot__Update">;
@@ -37,10 +66,16 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
 
     const {submit, isPending} = useSubmit();
     const {isUploading, uploadParkingLotMedia} = useUpload();
-    const {control, handleSubmit, setValue} = useForm<TUpdateParkingLotPayload>({
+    const {
+        control,
+        handleSubmit,
+        setValue,
+        formState: {errors},
+    } = useForm<TUpdateParkingLotPayload>({
         values: {
             id: lotId,
         },
+        resolver: zodResolver(schema),
     });
 
     const onSubmit = async (data: TUpdateParkingLotPayload) => {
@@ -60,10 +95,10 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
         });
     };
 
-    const showDatePicker = (field: keyof TUpdateParkingLotPayload) => {
-        setTimeField(field);
-        setDatePickerVisibility(true);
-    };
+    // const showDatePicker = (field: keyof TUpdateParkingLotPayload) => {
+    //     setTimeField(field);
+    //     setDatePickerVisibility(true);
+    // };
     const hideDatePicker = () => setDatePickerVisibility(false);
     const handleConfirm = (date: Date) => {
         const formattedTime = date.toTimeString().substring(0, 5);
@@ -144,28 +179,41 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                     <Button variant="gray" text="Add Image" onPress={selectOrTakeImage} />
                 </ScrollView>
 
+                {/* Name ---------------------------------------------------------------- */}
                 <View style={styles.formSection}>
                     <Text style={styles.label}>Parking Lot Name</Text>
                     <Controller
                         control={control}
                         name="name"
                         render={({field: {onChange, value}}) => (
-                            <TextInput placeholder="e.g. Cau Giay Parking" value={value} onChangeText={onChange} />
+                            <TextInput
+                                error={errors.name?.message}
+                                placeholder="e.g. Cau Giay Parking"
+                                value={value}
+                                onChangeText={onChange}
+                            />
                         )}
                     />
                 </View>
 
+                {/* Phone ---------------------------------------------------------------- */}
                 <View style={styles.formSection}>
                     <Text style={styles.label}>Contact Phone</Text>
                     <Controller
                         control={control}
                         name="phone"
                         render={({field: {onChange, value}}) => (
-                            <TextInput placeholder="e.g. 0123456789" value={value} onChangeText={onChange} />
+                            <TextInput
+                                error={errors.phone?.message}
+                                placeholder="e.g. 0123456789"
+                                value={value}
+                                onChangeText={onChange}
+                            />
                         )}
                     />
                 </View>
 
+                {/* Description ---------------------------------------------------------------- */}
                 <View style={styles.formSection}>
                     <Text style={styles.label}>Description</Text>
                     <Controller
@@ -173,6 +221,7 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                         name="description"
                         render={({field: {onChange, value}}) => (
                             <TextInput
+                                error={errors.description?.message}
                                 placeholder="e.g. Cau Giay Parking"
                                 value={value}
                                 onChangeText={onChange}
@@ -182,7 +231,7 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                     />
                 </View>
 
-                <View style={styles.formSection}>
+                {/* <View style={styles.formSection}>
                     <Text style={styles.label}>Time Start Checking In</Text>
                     <Controller
                         control={control}
@@ -210,19 +259,26 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                             />
                         )}
                     />
-                </View>
+                </View> */}
 
+                {/* Lat --------------------------------------------------------- */}
                 <View style={styles.formSection}>
                     <Text style={styles.label}>Latitude</Text>
                     <Controller
                         control={control}
                         name="latitude"
                         render={({field: {onChange, value}}) => (
-                            <TextInput placeholder="e.g. 12.345" value={value?.toString()} onChangeText={onChange} />
+                            <TextInput
+                                error={errors.latitude?.message}
+                                placeholder="e.g. 12.345"
+                                value={value?.toString()}
+                                onChangeText={onChange}
+                            />
                         )}
                     />
                 </View>
 
+                {/* Lng --------------------------------------------------------- */}
                 <View style={styles.formSection}>
                     <Text style={styles.label}>Longitude</Text>
                     <Controller
@@ -230,6 +286,7 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                         name="longitude"
                         render={({field: {onChange, value}}) => (
                             <TextInput
+                                error={errors.longitude?.message}
                                 placeholder="e.g. 105.345345"
                                 value={value?.toString()}
                                 onChangeText={onChange}
