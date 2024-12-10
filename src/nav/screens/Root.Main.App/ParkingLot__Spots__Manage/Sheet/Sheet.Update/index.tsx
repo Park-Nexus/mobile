@@ -2,7 +2,7 @@ import React from "react";
 import {BottomSheetModal, BottomSheetView} from "@gorhom/bottom-sheet";
 import {forwardRef} from "react";
 import {useSpotManagerContext} from "../../index.context";
-import {TUpdateParkingLotSpotPayload, useSubmit} from "./index.submit";
+import {TUpdateParkingLotSpotPayload, useDelete, useSubmit} from "./index.submit";
 import {Controller, useForm} from "react-hook-form";
 import {StyleSheet, Text, View} from "react-native";
 import {TextInput} from "@src/components/Input__Text";
@@ -16,6 +16,9 @@ type TExportParkingSpotSheetProps = {
 export const UpdateParkingSpotSheet = forwardRef<BottomSheetModal, TExportParkingSpotSheetProps>(({onClose}, ref) => {
     const {selectedSpot, setSelectedSpot} = useSpotManagerContext();
     const {submit, isPending} = useSubmit();
+    const {del, isPending: isDeleting} = useDelete();
+
+    const isLoading = isPending || isDeleting;
 
     const {control, handleSubmit} = useForm<TUpdateParkingLotSpotPayload>({
         values: {
@@ -26,6 +29,12 @@ export const UpdateParkingSpotSheet = forwardRef<BottomSheetModal, TExportParkin
 
     const onSubmit = (data: TUpdateParkingLotSpotPayload) => {
         submit(data, () => {
+            onClose();
+            setSelectedSpot(undefined);
+        });
+    };
+    const onDelete = () => {
+        del({spotId: selectedSpot!.id}, () => {
             onClose();
             setSelectedSpot(undefined);
         });
@@ -52,7 +61,15 @@ export const UpdateParkingSpotSheet = forwardRef<BottomSheetModal, TExportParkin
                         text="Update"
                         variant="green"
                         onPress={handleSubmit(onSubmit)}
-                        disabled={isPending}
+                        disabled={isLoading}
+                        style={styles.button}
+                    />
+
+                    <Button
+                        text="Delete"
+                        variant="pink"
+                        onPress={onDelete}
+                        disabled={isLoading}
                         style={styles.button}
                     />
                 </KeyboardAwareScrollView>

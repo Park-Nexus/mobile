@@ -55,32 +55,3 @@ export function useVerify() {
 
     return Object.assign(verifyMutation, {verify});
 }
-
-export type TGoogleLoginPayload = TrpcInput["auth"]["login"]["google"];
-export function useGoogleLogin() {
-    const googleLoginMutation = trpc.auth.login.google.useMutation();
-
-    const {setIsAuthenticated} = useAuthStore();
-    const ctx = trpc.useUtils();
-
-    const googleLogin = (payload: TGoogleLoginPayload) => {
-        googleLoginMutation.mutate(payload, {
-            onSuccess(data) {
-                AuthStorage.setAccessToken(data.accessToken);
-                AuthStorage.setRefreshToken(data.refreshToken);
-                OneSignal.login(data.accountId);
-                ctx.user.profile.invalidate();
-                setIsAuthenticated(true);
-            },
-            onError(err) {
-                console.error(err.message);
-                Toast.show({
-                    type: "error",
-                    text1: parseTrpcErrorMessage(err.message),
-                });
-            },
-        });
-    };
-
-    return Object.assign(googleLoginMutation, {googleLogin});
-}

@@ -15,6 +15,17 @@ import {TextInput} from "@src/components/Input__Text";
 import {Button} from "@src/components/Button";
 import {styles} from "./index.styles";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
+import {z} from "zod";
+import {VEHICLE__TYPE_ALIAS} from "@parknexus/api/prisma/client";
+import {zodResolver} from "@hookform/resolvers/zod";
+
+const schema = z.object({
+    plate: z.string().min(4, "Please enter a valid plate number"),
+    brand: z.string().min(3, "Please enter a valid brand"),
+    color: z.string().min(3, "Please enter a valid color"),
+    model: z.string().min(3, "Please enter a valid model"),
+    type: z.nativeEnum(VEHICLE__TYPE_ALIAS),
+});
 
 type ScreenProps = {
     navigation: NavigationProp<AppStackParamList, "Settings__Vehicle_Update">;
@@ -27,7 +38,11 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
 
     const {uploadVehicleImage, isUploading} = useUpload();
     const {submit, isPending} = useSubmit();
-    const {control, handleSubmit} = useForm<TUpdateVehiclePayload>({
+    const {
+        control,
+        handleSubmit,
+        formState: {errors},
+    } = useForm<TUpdateVehiclePayload>({
         values: {
             id: vehicle.id,
             plate: vehicle.plate,
@@ -35,6 +50,7 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
             color: vehicle.color,
             model: vehicle.model,
         },
+        resolver: zodResolver(schema),
     });
 
     const openImagePicker = () => {
@@ -79,43 +95,67 @@ export function Settings__Vehicle_Update({route, navigation}: ScreenProps) {
                     <Button variant="gray" text="Select Image" onPress={openImagePicker} disabled={isUploading} />
                 )}
 
+                {/* Plate --------------------------------------------- */}
                 <View style={{height: 8}} />
                 <Text style={styles.formFieldLabel}>Plate number</Text>
                 <Controller
                     control={control}
                     name="plate"
                     render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="e.g. FL-029-RF" value={value} onChangeText={onChange} />
+                        <TextInput
+                            error={errors.plate?.message}
+                            placeholder="e.g. FL-029-RF"
+                            value={value}
+                            onChangeText={onChange}
+                        />
                     )}
                 />
 
+                {/* Brand -------------------------------------------- */}
                 <View style={{height: 8}} />
                 <Text style={styles.formFieldLabel}>Brand</Text>
                 <Controller
                     control={control}
                     name="brand"
                     render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="e.g. Ford" value={value} onChangeText={onChange} />
+                        <TextInput
+                            error={errors.brand?.message}
+                            placeholder="e.g. Ford"
+                            value={value}
+                            onChangeText={onChange}
+                        />
                     )}
                 />
 
+                {/* Model -------------------------------------------- */}
                 <View style={{height: 8}} />
                 <Text style={styles.formFieldLabel}>Model</Text>
                 <Controller
                     control={control}
                     name="model"
                     render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="e.g. F-150" value={value} onChangeText={onChange} />
+                        <TextInput
+                            error={errors.model?.message}
+                            placeholder="e.g. F-150"
+                            value={value}
+                            onChangeText={onChange}
+                        />
                     )}
                 />
 
+                {/* Color -------------------------------------------- */}
                 <View style={{height: 8}} />
                 <Text style={styles.formFieldLabel}>Color</Text>
                 <Controller
                     control={control}
                     name="color"
                     render={({field: {onChange, value}}) => (
-                        <TextInput placeholder="e.g. Red" value={value} onChangeText={onChange} />
+                        <TextInput
+                            error={errors.color?.message}
+                            placeholder="e.g. Red"
+                            value={value}
+                            onChangeText={onChange}
+                        />
                     )}
                 />
 

@@ -3019,6 +3019,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hookform/resolvers@npm:^3.9.1":
+  version: 3.9.1
+  resolution: "@hookform/resolvers@npm:3.9.1"
+  peerDependencies:
+    react-hook-form: ^7.0.0
+  checksum: 95464d0a07f5f5e6776aa28b5012961954b9d5908dd34f176364ed5e883121437a8131e587bee0c7576d41814af35887543b15902f253feeff4b7a500710a76a
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.14":
   version: 0.11.14
   resolution: "@humanwhocodes/config-array@npm:0.11.14"
@@ -3665,7 +3674,7 @@ __metadata:
 
 "@parknexus/api@https://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@github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://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@github.com/Park-Nexus/api.git#commit=a6c4ed5dde09d4ccb9ead96d4b2d6b168423fb97"
+  resolution: "@parknexus/api@https://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@github.com/Park-Nexus/api.git#commit=1e8e191945fafef598d4f8f4e50cd693add79f02"
   dependencies:
     "@google-cloud/monitoring": ^4.1.0
     "@google-cloud/storage": ^7.14.0
@@ -3692,7 +3701,7 @@ __metadata:
     uuid: ^11.0.2
     yarn: ^1.22.22
     zod: ^3.23.8
-  checksum: f3c4d0e1afc2a12388882734216399016c78515d2a64fd1991e923ebb2d02e6b8e93b0e9db4a811af824bc114e1a9e99ec49d67ce5d07eaf5a70d3c95e89700d
+  checksum: a9cd389d6c70a91c0f44b3373eb74a10b81b1886d0b84c12626a58edc351abddc4a6bcd21c6628bc02115057b8fec70160f00e243f6addc521eb3469e2a2c5ed
   languageName: node
   linkType: hard
 
@@ -3706,6 +3715,7 @@ __metadata:
     "@babel/runtime": ^7.20.0
     "@expo/react-native-action-sheet": ^4.1.0
     "@gorhom/bottom-sheet": ^4.6.4
+    "@hookform/resolvers": ^3.9.1
     "@parknexus/api": "https://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@github.com/Park-Nexus/api.git#master"
     "@react-native-async-storage/async-storage": ^1.24.0
     "@react-native-community/blur": ^4.4.1
@@ -3774,6 +3784,7 @@ __metadata:
     typescript: 5.0.4
     uuid: ^11.0.2
     web-streams-polyfill: ^4.0.0
+    zod: ^3.24.0
     zustand: ^4.5.4
   languageName: unknown
   linkType: soft
@@ -15081,6 +15092,13 @@ __metadata:
   version: 3.23.8
   resolution: "zod@npm:3.23.8"
   checksum: 15949ff82118f59c893dacd9d3c766d02b6fa2e71cf474d5aa888570c469dbf5446ac5ad562bb035bf7ac9650da94f290655c194f4a6de3e766f43febd432c5c
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.24.0":
+  version: 3.24.0
+  resolution: "zod@npm:3.24.0"
+  checksum: 32bdab0bbedfb719295a505dd8c76926af40b50f9d3ceacdcabd9c5905a95b4bb7313d95c924d8eab93afc8682f80eec5b24e4cfe2bbb14f5566be8d3176c421
   languageName: node
   linkType: hard
 

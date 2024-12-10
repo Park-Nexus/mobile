@@ -4,7 +4,7 @@ import {forwardRef, useEffect, useState} from "react";
 import {ScrollView} from "react-native-gesture-handler";
 import {useServiceManagerContext} from "../../index.context";
 import {Controller, useForm} from "react-hook-form";
-import {TUpdateParkingLotServicePayload, useSubmit} from "./index.submit";
+import {TUpdateParkingLotServicePayload, useDelete, useSubmit} from "./index.submit";
 import {useParkingLotService} from "./index.data";
 import {Asset, launchCamera, launchImageLibrary} from "react-native-image-picker";
 import {useActionSheet} from "@expo/react-native-action-sheet";
@@ -30,6 +30,9 @@ export const UpdateServiceSheet = forwardRef<BottomSheetModal, TExportServiceShe
     const {showActionSheetWithOptions} = useActionSheet();
     const {uploadParkingLotServiceMedia, isUploading} = useUpload();
     const {submit, isPending} = useSubmit();
+    const {del, isPending: isDeleting} = useDelete();
+
+    const isLoading = isPending || isDeleting || isUploading;
 
     const [images, setImages] = useState<string[]>([]);
     const [removalImages, setRemovalImages] = useState<string[]>([]);
@@ -70,7 +73,6 @@ export const UpdateServiceSheet = forwardRef<BottomSheetModal, TExportServiceShe
                 files: additionalImages.map(image => ({uri: image.uri!, name: image.fileName!, type: image.type!})),
             });
         }
-
         submit(
             {
                 ...data,
@@ -83,6 +85,13 @@ export const UpdateServiceSheet = forwardRef<BottomSheetModal, TExportServiceShe
                 setSelectedServiceId(undefined);
             },
         );
+    };
+
+    const onDelete = () => {
+        del({serviceId: selectedServiceId!}, () => {
+            onClose();
+            setSelectedServiceId(undefined);
+        });
     };
 
     useEffect(() => {
@@ -197,10 +206,18 @@ export const UpdateServiceSheet = forwardRef<BottomSheetModal, TExportServiceShe
                     <Button
                         variant="green"
                         text={isPending || isUploading ? "Saving..." : "Save"}
-                        disabled={isPending || isUploading}
+                        disabled={isLoading}
                         onPress={handleSubmit(onSubmit)}
                         style={styles.submitButton}
                     />
+                    <Button
+                        variant="pink"
+                        text="Delete"
+                        disabled={isLoading}
+                        onPress={onDelete}
+                        style={styles.submitButton}
+                    />
+                    <View style={{height: 16}} />
                 </KeyboardAwareScrollView>
             </BottomSheetView>
         </BottomSheetModal>
@@ -213,5 +230,5 @@ const styles = StyleSheet.create({
     image: {width: 100, height: 100, borderRadius: 8, marginRight: 8},
     label: {fontSize: 16, fontWeight: "600", marginBottom: 6, color: "#3f3f3f"},
     picker: {marginBottom: 16},
-    submitButton: {marginBottom: 16, marginTop: 8},
+    submitButton: {marginBottom: 8, marginTop: 8},
 });

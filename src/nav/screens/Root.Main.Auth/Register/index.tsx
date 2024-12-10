@@ -11,7 +11,6 @@ import {styles} from "./index.styles";
 
 import EmailSvg from "@src/static/svgs/Envelope.svg";
 import PasswordSvg from "@src/static/svgs/Lock.svg";
-import GoogleSvg from "@src/static/svgs/Google.svg";
 import EyeSvg from "@src/static/svgs/Eye.svg";
 
 import {TextInput} from "@src/components/Input__Text";
@@ -103,16 +102,6 @@ export function Register() {
                 />
                 <View style={{height: 12}} />
                 <Button variant="green" text="Continue" disabled={isPending} onPress={handleSubmit(submit)} />
-
-                <View style={styles.dividerWrapper}>
-                    <View style={styles.dividerLine} />
-                    <Text style={styles.dividerText}>or continue with</Text>
-                    <View style={styles.dividerLine} />
-                </View>
-
-                <View style={styles.oauthButtonWrapper}>
-                    <Button variant="gray" preIcon={<GoogleSvg width={24} height={24} />} />
-                </View>
             </KeyboardAwareScrollView>
             <Text style={[styles.loginText, {bottom: bottom + 16}]} onPress={() => navigation.navigate("Login")}>
                 Already have an account? <Text style={styles.loginTextColored}>Log in</Text>
