@@ -38,6 +38,8 @@ const schema = z
         longitude: z.union([z.string().min(1), z.number()], {message: "Longitude is required"}),
         description: z.string().min(1, {message: "Description is required"}),
         mediaUrls: z.array(z.string()).optional(),
+        openAt: z.string(),
+        closeAt: z.string(),
     })
     .refine(data => LAT_REGEX.test(data.latitude.toString()), {
         message: "Latitude is invalid",

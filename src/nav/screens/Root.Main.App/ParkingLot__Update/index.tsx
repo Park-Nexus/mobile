@@ -39,6 +39,8 @@ const schema = z
         description: z.string().min(1, {message: "Description is required"}),
         removalMediaUrls: z.array(z.string()).optional(),
         additionalMediaUrls: z.array(z.string()).optional(),
+        openAt: z.string(),
+        closeAt: z.string(),
     })
     .refine(data => LAT_REGEX.test(data.latitude.toString()), {
         message: "Latitude is invalid",
