@@ -3674,7 +3674,7 @@ __metadata:
 
 "@parknexus/api@https://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@github.com/Park-Nexus/api.git#master":
   version: 0.1.0
-  resolution: "@parknexus/api@https://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@github.com/Park-Nexus/api.git#commit=1e8e191945fafef598d4f8f4e50cd693add79f02"
+  resolution: "@parknexus/api@https://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@github.com/Park-Nexus/api.git#commit=3548866cbd50546654c3e503d6d21ea8b673787d"
   dependencies:
     "@google-cloud/monitoring": ^4.1.0
     "@google-cloud/storage": ^7.14.0
@@ -3701,7 +3701,7 @@ __metadata:
     uuid: ^11.0.2
     yarn: ^1.22.22
     zod: ^3.23.8
-  checksum: a9cd389d6c70a91c0f44b3373eb74a10b81b1886d0b84c12626a58edc351abddc4a6bcd21c6628bc02115057b8fec70160f00e243f6addc521eb3469e2a2c5ed
+  checksum: 750deb5c89157b76d9b81459002f5164895cd3c441971d720b4e0ecf046d0b73689a9cb99b3f9bc029158c4c9c1d7057122821261303b8469a76e996fcddb4ae
   languageName: node
   linkType: hard
 
