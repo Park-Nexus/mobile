@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-native-modal";
+import Geolocation from "@react-native-community/geolocation";
 import {useHomeContext} from "../index.$context";
 import {Text, View} from "react-native";
 import {styles} from "./index.styles";
@@ -19,7 +20,7 @@ import {AppStackParamList} from "@src/nav/navigators/Root.Main.App";
 export function LotDetailModal() {
     const {navigate} = useNavigation<NavigationProp<AppStackParamList>>();
 
-    const {selectedLotId, setSelectedLotId, userLocation} = useHomeContext();
+    const {selectedLotId, setSelectedLotId} = useHomeContext();
     const {bottom} = useSafeAreaInsets();
     const {data: lot} = useParkingLot();
 
@@ -43,18 +44,20 @@ export function LotDetailModal() {
     }, [lot]);
 
     useEffect(() => {
-        if (!userLocation?.lat || !userLocation?.lon || !lot) return setDistance(0);
-        getDirection({
-            source: {
-                lat: userLocation?.lat,
-                lon: userLocation?.lon,
-            },
-            destination: {
-                lat: lot?.latitude,
-                lon: lot?.longitude,
-            },
-        }).then(data => setDistance(data?.distance || 0));
-    }, [userLocation, lot]);
+        if (!lot) return;
+        Geolocation.getCurrentPosition(pos => {
+            getDirection({
+                source: {
+                    lat: pos.coords.latitude,
+                    lon: pos.coords.longitude,
+                },
+                destination: {
+                    lat: lot?.latitude,
+                    lon: lot?.longitude,
+                },
+            }).then(data => setDistance(data?.distance || 0));
+        });
+    }, [lot]);
 
     return (
         <Modal
