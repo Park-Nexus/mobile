@@ -1,25 +1,23 @@
-import {styles} from './index.styles';
-import {BlurView} from '@react-native-community/blur';
+import React from "react";
+import {styles} from "./index.styles";
+import {BlurView} from "@react-native-community/blur";
+import Geolocation from "@react-native-community/geolocation";
 
-import MagnifyingGlass from '@src/static/svgs/MagnifyingGlass.svg';
-import {useSearchLocation} from '@src/utils/location';
-import {Text, TextInput, View} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useHomeContext} from '../index.$context';
-import {useEffect} from 'react';
+import MagnifyingGlass from "@src/static/svgs/MagnifyingGlass.svg";
+import {useSearchLocation} from "@src/utils/location";
+import {Text, TextInput} from "react-native";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useHomeContext} from "../index.$context";
+import {useEffect} from "react";
 
-type TSearchBarProps = {
-    userLocation: {lat?: number; lon?: number};
-};
-export function SearchBar({userLocation: {lat, lon}}: TSearchBarProps) {
+export function SearchBar() {
     const {setSelectedLocation, selectedLocation} = useHomeContext();
-    const {query, setQuery, suggestions} = useSearchLocation({
-        userLocation: {lat, lon},
-    });
+    const {query, setQuery, suggestions, setUserLocation} = useSearchLocation();
     const {top} = useSafeAreaInsets();
 
     useEffect(() => {
         if (!query) return setSelectedLocation(undefined);
+        Geolocation.getCurrentPosition(pos => setUserLocation({lat: pos.coords.latitude, lon: pos.coords.longitude}));
     }, [query]);
 
     return (
