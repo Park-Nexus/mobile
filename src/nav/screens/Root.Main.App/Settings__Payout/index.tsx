@@ -1,25 +1,36 @@
 import {Header} from "@src/components/Header";
 import {SafeAreaView} from "@src/components/SafeAreaWrapper";
-import React from "react";
+import React, {useEffect} from "react";
 import {usePayoutHistory, useStripeConnectUrl} from "./index.data";
 import {ScrollView} from "react-native-gesture-handler";
 import {Button} from "@src/components/Button";
-import {Linking, StyleSheet, Text, View} from "react-native";
+import {AppState, AppStateStatus, Linking, StyleSheet, Text, View} from "react-native";
 import dayjs from "dayjs";
 import {useNavigation} from "@react-navigation/native";
 
 export function Settings__Payout() {
     const navigation = useNavigation();
-    const {url} = useStripeConnectUrl();
+    const {url, isFetching, refetch} = useStripeConnectUrl();
     const {payouts} = usePayoutHistory();
+
+    useEffect(() => {
+        const subscription = AppState.addEventListener("change", (nextAppState: AppStateStatus) => {
+            if (nextAppState === "active") {
+                console.log("App has come to the foreground. Refetching data...");
+                refetch();
+            }
+        });
+        return () => subscription.remove();
+    }, [refetch]);
 
     return (
         <SafeAreaView>
             <Header title="Payout" backButtonVisible onBackButtonPress={() => navigation.goBack()} />
             <View style={styles.container}>
                 <Button
+                    disabled={isFetching}
                     variant="gray"
-                    text="Open Stripe Connect"
+                    text={isFetching ? "Getting Stripe Connect Link..." : "Open Stripe Connect"}
                     onPress={() => {
                         if (url) Linking.openURL(url);
                     }}
