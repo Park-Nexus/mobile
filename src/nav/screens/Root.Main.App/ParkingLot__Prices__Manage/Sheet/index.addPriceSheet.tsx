@@ -11,6 +11,20 @@ import {VEHICLE__TYPE_ALIAS} from "@parknexus/api/prisma/client";
 import {StyleSheet, Text} from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-controller";
 import {BottomSheetBackdrop} from "@src/components/BottomSheetBackdrop";
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
+
+const schema = z.object({
+    parkingLotId: z.number(),
+    price: z.union([
+        z.number().min(0.1, {message: "Price must be greater than 0"}),
+        z
+            .string()
+            .transform(val => parseFloat(val))
+            .refine(val => !isNaN(val) && val > 0, {message: "Price must be a valid number greater than 0"}),
+    ]),
+    vehicleType: z.nativeEnum(VEHICLE__TYPE_ALIAS),
+});
 
 type TExportPriceSheetProps = {
     onClose: () => void;
@@ -18,12 +32,17 @@ type TExportPriceSheetProps = {
 export const AddPriceSheet = forwardRef<BottomSheetModal, TExportPriceSheetProps>(({onClose}, ref) => {
     const {lotId} = usePriceManagerContext();
     const {submitPrice, isPending} = useSubmitPrice();
-    const {control, handleSubmit} = useForm<TUpdateParkingLotPricePayload>({
+    const {
+        control,
+        handleSubmit,
+        formState: {errors},
+    } = useForm<TUpdateParkingLotPricePayload>({
         values: {
             parkingLotId: lotId,
             price: 0,
             vehicleType: "CAR",
         },
+        resolver: zodResolver(schema),
     });
 
     const onSubmit = (data: TUpdateParkingLotPricePayload) => {
@@ -34,6 +53,7 @@ export const AddPriceSheet = forwardRef<BottomSheetModal, TExportPriceSheetProps
         <BottomSheetModal ref={ref} snapPoints={["65%"]} enablePanDownToClose backdropComponent={BottomSheetBackdrop}>
             <BottomSheetView style={styles.container}>
                 <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+                    {/* Vehicle Type ---------------------------------------- */}
                     <Text style={[styles.label, {marginBottom: 0}]}>Vehicle Type</Text>
                     <Controller
                         control={control}
@@ -46,12 +66,15 @@ export const AddPriceSheet = forwardRef<BottomSheetModal, TExportPriceSheetProps
                             </Picker>
                         )}
                     />
+
+                    {/* Price ---------------------------------------- */}
                     <Text style={styles.label}>Price per hour (USD)</Text>
                     <Controller
                         control={control}
                         name="price"
                         render={({field: {onChange, value}}) => (
                             <TextInput
+                                error={errors.price?.message}
                                 placeholder="Price"
                                 value={value.toString()}
                                 onChangeText={onChange}
@@ -59,6 +82,7 @@ export const AddPriceSheet = forwardRef<BottomSheetModal, TExportPriceSheetProps
                             />
                         )}
                     />
+
                     <Button
                         variant="green"
                         text={isPending ? "Saving..." : "Save"}
