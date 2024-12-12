@@ -100,6 +100,7 @@ export function Settings() {
                             variant="gray"
                             preIcon={<CaretRightBlackSvg width={16} height={16} />}
                             style={styles.button}
+                            onPress={() => navigate("Settings__Notification")}
                         />
                     </View>
 

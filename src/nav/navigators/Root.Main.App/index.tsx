@@ -23,6 +23,7 @@ import {Settings__SavedCards_Add} from "@src/nav/screens/Root.Main.App/Settings_
 import {Settings__Profile_Update} from "@src/nav/screens/Root.Main.App/Settings__Profile_Update";
 import {Reservation__CICO} from "@src/nav/screens/Root.Main.App/Reservation__CICO";
 import {Settings__Payout} from "@src/nav/screens/Root.Main.App/Settings__Payout";
+import {Settings__Notification} from "@src/nav/screens/Root.Main.App/Settings__Notification";
 
 export type AppStackParamList = {
     Profile__Setup: undefined;
@@ -49,6 +50,7 @@ export type AppStackParamList = {
     Settings__SavedCards_List: undefined;
     Settings__SavedCards_Add: undefined;
     Settings__Payout: undefined;
+    Settings__Notification: undefined;
 };
 
 const {Navigator, Screen} = createStackNavigator<AppStackParamList>();
@@ -86,6 +88,7 @@ export function AppNavigator() {
                     <Screen name="Settings__SavedCards_List" component={Settings__SavedCards_List} />
                     <Screen name="Settings__SavedCards_Add" component={Settings__SavedCards_Add} />
                     <Screen name="Settings__Payout" component={Settings__Payout} />
+                    <Screen name="Settings__Notification" component={Settings__Notification} />
                 </>
             )}
         </Navigator>

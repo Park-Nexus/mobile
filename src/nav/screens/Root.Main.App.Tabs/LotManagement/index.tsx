@@ -65,7 +65,7 @@ export function LotManagement() {
                     <Button
                         variant="green"
                         preIcon={<QrScanSvg width={24} height={24} />}
-                        text="Check-In"
+                        text="Scan ticket"
                         style={{position: "absolute", bottom: bottom + 100, right: 20}}
                         onPress={() => checkInSheetRef.current?.present()}
                     />
