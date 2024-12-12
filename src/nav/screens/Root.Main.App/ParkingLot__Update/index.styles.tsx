@@ -26,6 +26,23 @@ export const styles = StyleSheet.create({
         color: "#333",
         marginBottom: 8,
     },
+    map: {
+        height: 400,
+        borderRadius: 8,
+        overflow: "hidden",
+    },
+    markerContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    markerDot: {
+        width: 20,
+        height: 20,
+        backgroundColor: "#128085",
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: "#FFFFFF",
+    },
     submitButton: {
         marginBottom: 32,
     },

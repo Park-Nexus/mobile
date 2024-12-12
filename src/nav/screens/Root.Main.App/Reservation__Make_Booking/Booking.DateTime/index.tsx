@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {Header} from "@src/components/Header";
 import {SafeAreaView} from "@src/components/SafeAreaWrapper";
@@ -11,6 +11,7 @@ import {useState} from "react";
 import {Button} from "@src/components/Button";
 import dayjs from "dayjs";
 import {styles} from "./index.styles";
+import {MINIMUM_DURATION_IN_HOURS} from "@parknexus/api/rules";
 
 export function DateTime() {
     const navigation = useNavigation();
@@ -25,6 +26,12 @@ export function DateTime() {
         hideArrows: true,
         enableSwipeMonths: true,
     };
+
+    useEffect(() => {
+        if (startTime.isAfter(endTime)) {
+            setEndTime(startTime.add(MINIMUM_DURATION_IN_HOURS, "hour"));
+        }
+    }, [startTime, endTime, setEndTime]);
 
     return (
         <SafeAreaView>

@@ -59,7 +59,7 @@ export function LotManagement() {
                     ))}
                 </ScrollView>
             </View>
-            {hasPermission && (
+            {lots?.length > 0 && hasPermission && (
                 <>
                     <CheckInSheet ref={checkInSheetRef} onClose={() => checkInSheetRef.current?.dismiss()} />
                     <Button

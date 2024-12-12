@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import _ from "lodash";
 import {NavigationProp, RouteProp} from "@react-navigation/native";
 import {Header} from "@src/components/Header";
@@ -19,6 +19,8 @@ import {useUpload} from "@src/utils/upload";
 import {styles} from "./index.styles";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {Camera, MapView, PointAnnotation} from "@rnmapbox/maps";
+import Geolocation from "@react-native-community/geolocation";
 
 const MAX_ALLOWED_MEDIA_COUNT = 5;
 const LAT_REGEX = /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/;
@@ -57,7 +59,7 @@ type ScreenProps = {
 };
 export function ParkingLot__Update({navigation, route}: ScreenProps) {
     const {lotId} = route.params;
-    const {data: lot} = useMyParkingLot(lotId);
+    const {data: lot, isFetched} = useMyParkingLot(lotId);
     const {showActionSheetWithOptions} = useActionSheet();
 
     const [images, setImages] = useState<string[]>([]);
@@ -73,6 +75,7 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
         handleSubmit,
         setValue,
         formState: {errors},
+        getValues,
     } = useForm<TUpdateParkingLotPayload>({
         values: {
             id: lotId,
@@ -97,6 +100,35 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
         });
     };
 
+    // Map ---------------------------------------------------------------------------
+    const cameraRef = useRef<Camera>(null);
+    const [selectedLocation, setSelectedLocation] = useState<[number, number]>([
+        getValues("longitude") || 0,
+        getValues("latitude") || 0,
+    ]);
+    const handleMapPress = (event: any) => {
+        const {geometry} = event;
+        const [longitude, latitude] = geometry.coordinates;
+        setValue("latitude", latitude);
+        setValue("longitude", longitude);
+        setSelectedLocation([longitude, latitude]);
+    };
+    const setCurrentLocation = async () => {
+        Geolocation.getCurrentPosition(position => {
+            setValue("latitude", position.coords.latitude);
+            setValue("longitude", position.coords.longitude);
+            setSelectedLocation([position.coords.longitude, position.coords.latitude]);
+            cameraRef.current?.flyTo([position.coords.longitude, position.coords.latitude], 1000);
+        });
+    };
+    const updateMapMarker = () => {
+        setSelectedLocation([Number(getValues("longitude")), Number(getValues("latitude"))]);
+        cameraRef.current?.flyTo([Number(getValues("longitude")), Number(getValues("latitude"))], 1000);
+    };
+    useEffect(() => {
+        if (isFetched) updateMapMarker();
+    }, [isFetched]);
+
     // const showDatePicker = (field: keyof TUpdateParkingLotPayload) => {
     //     setTimeField(field);
     //     setDatePickerVisibility(true);
@@ -111,7 +143,6 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
         }
         hideDatePicker();
     };
-
     const selectOrTakeImage = () => {
         showActionSheetWithOptions(
             {
@@ -133,7 +164,6 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
             },
         );
     };
-
     useEffect(() => {
         if (!lot) return;
 
@@ -263,6 +293,22 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                     />
                 </View> */}
 
+                {/* Map ----------------------------------------------------------------------- */}
+                <View style={styles.formSection}>
+                    <Text style={styles.label}>Location</Text>
+                    <MapView style={styles.map} onPress={handleMapPress}>
+                        <Camera ref={cameraRef} defaultSettings={{centerCoordinate: selectedLocation}} zoomLevel={12} />
+                        <PointAnnotation id="parking-lot-location" coordinate={selectedLocation}>
+                            <View style={styles.markerContainer}>
+                                <View style={styles.markerDot} />
+                            </View>
+                        </PointAnnotation>
+                    </MapView>
+                    <Text style={{textAlign: "right", marginTop: 8, color: "#128085"}} onPress={setCurrentLocation}>
+                        Current Location
+                    </Text>
+                </View>
+
                 {/* Lat --------------------------------------------------------- */}
                 <View style={styles.formSection}>
                     <Text style={styles.label}>Latitude</Text>
@@ -295,6 +341,9 @@ export function ParkingLot__Update({navigation, route}: ScreenProps) {
                             />
                         )}
                     />
+                    <Text style={{textAlign: "right", marginTop: 8, color: "#128085"}} onPress={updateMapMarker}>
+                        Show on map
+                    </Text>
                 </View>
 
                 <Button

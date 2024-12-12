@@ -92,12 +92,7 @@ export function ParkingLot__Add({navigation}: ScreenProps) {
                 files: selectedImages.map(image => ({uri: image.uri!, name: image.fileName!, type: image.type!})),
             });
         }
-        console.log("data", {
-            ...data,
-            mediaUrls: paths,
-            latitude: _.toNumber(_.toString(data.latitude).replaceAll(",", ".")),
-            longitude: _.toNumber(_.toString(data.longitude).replaceAll(",", ".")),
-        });
+
         submit({
             ...data,
             mediaUrls: paths,
