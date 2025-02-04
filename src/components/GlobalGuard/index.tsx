@@ -1,4 +1,6 @@
-import {AccountGuard} from './AccountGuard';
+import React from "react";
+
+import {AccountGuard} from "./AccountGuard";
 
 interface IGlobalGuardProps {
     children: React.ReactNode;

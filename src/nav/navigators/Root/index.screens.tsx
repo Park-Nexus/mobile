@@ -1,5 +1,7 @@
-import {MainSwitch} from '../Root.Main';
-import {createStackNavigator} from '@src/libs/stackNavigator';
+import React from "react";
+
+import {MainSwitch} from "../Root.Main";
+import {createStackNavigator} from "@src/libs/stackNavigator";
 
 const {Navigator, Screen} = createStackNavigator();
 
